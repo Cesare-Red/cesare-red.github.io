@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Battle - Porta Finale</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive;
+            image-rendering: pixelated;
+        }
+        
+        body {
+            background-color: #1a1a2e;
+            color: #fff;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 70, 86, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 70%, rgba(0, 255, 220, 0.2) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 4px solid #ff4656;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #16213e;
+            box-shadow: 0 0 20px rgba(255, 70, 86, 0.5);
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff4656;
+        }
+        
+        h1 {
+            color: #ff4656;
+            text-shadow: 3px 3px 0 #000;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        /* Schermata di accesso */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            flex-direction: column;
+        }
+
+        .login-container {
+            background-color: #16213e;
+            border: 4px solid #ff4656;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 70, 86, 0.7);
+            width: 300px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            background-color: #000;
+            border: 2px solid #ff4656;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+        }
+
+        .access-denied {
+            color: #ff4656;
+            margin-top: 10px;
+            display: none;
+        }
+        .boss-container {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .boss {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            border: 4px solid #000;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .boss.hurt {
+            animation: hurtAnimation 0.5s;
+        }
+        
+        .boss.defeated {
+            opacity: 0;
+            transform: scale(0);
+            height: 0;
+            margin: 0;
+        }
+        
+        @keyframes hurtAnimation {
+            0% { background: linear-gradient(45deg, #ff0000, #ff8c00); }
+            50% { background: linear-gradient(45deg, #fff, #ff0000); }
+            100% { background: linear-gradient(45deg, #8b0000, #ff0000); }
+        }
+        
+        .boss::before, .boss::after {
+            content: '';
+            position: absolute;
+            background-color: #000;
+        }
+        
+        .boss::before {
+            width: 60px;
+            height: 40px;
+            top: 40px;
+            left: 30px;
+            border-radius: 50%;
+            box-shadow: 80px 0 0 #000;
+        }
+        
+        .boss::after {
+            width: 100px;
+            height: 20px;
+            bottom: 60px;
+            left: 50px;
+            border-radius: 10px;
+        }
+        
+        .hp-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #333;
+            border: 3px solid #000;
+            margin: 10px auto;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .hp-bar.hidden {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
+        
+        .hp-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(to right, #ff0000, #ff8c00);
+            transition: width 0.5s ease;
+        }
+        
+        .hp-text {
+            margin: 5px 0;
+            font-size: 14px;
+            transition: all 0.5s ease;
+        }
+        
+        .hp-text.hidden {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
+        
+        .stage {
+            display: none;
+            margin: 20px 0;
+            padding: 15px;
+            border: 3px solid #0f0;
+            border-radius: 5px;
+            background-color: rgba(0, 255, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+        
+        .stage.hidden {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        
+        .stage-title {
+            color: #0f0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        .riddle {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #ff4656;
+            position: relative;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .checkbox-label {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #0f0;
+        }
+        
+        .custom-checkbox {
+            width: 25px;
+            height: 25px;
+            background-color: #000;
+            border: 2px solid #ff4656;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .custom-checkbox.checked {
+            background-color: #ff4656;
+        }
+        
+        .custom-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            color: #fff;
+            font-size: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #ff4656;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background-color: #ff1c32;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 #000;
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .audio-container, .image-container {
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        audio {
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .pixel-img {
+            width: 200px;
+            height: 200px;
+            border: 4px solid #000;
+            margin: 10px auto;
+            display: block;
+            background: linear-gradient(45deg, #ff8c00, #ff0000);
+        }
+
+        .img {
+            width: 200px;
+            height: 200px;
+            border: 4px solid #000;
+            margin: 10px auto;
+            display: block;
+            
+        }
+        
+        .anagram {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 2px solid #ff0;
+        }
+        
+        /* Porta finale */
+        .door-container {
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+            position: relative;
+        }
+        
+        .door-wrapper {
+            position: relative;
+            width: 220px;
+            height: 320px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        
+        .door {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #8b4513, #5d2906);
+            border: 8px solid #5d2906;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            transform-origin: left;
+            transition: transform 2s ease-in-out;
+        }
+        
+        .door.open {
+            transform: rotateY(-100deg);
+        }
+        
+        .door-knob {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffd700, #daa520);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px #ffd700;
+        }
+        
+        .light-behind {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ffff00, #ff8c00, transparent 70%);
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            z-index: -1;
+        }
+        
+        .light-behind.visible {
+            opacity: 1;
+            animation: pulsatingLight 3s infinite alternate;
+        }
+        
+        @keyframes pulsatingLight {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        .door-riddle {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #ffd700;
+        }
+        
+        /* Spoiler style */
+        .spoiler-text {
+            background-color: #000;
+            color: #000;
+            padding: 2px 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        
+        .spoiler-text.revealed {
+            background-color: transparent;
+            color: #ffd700;
+        }
+        
+        .spoiler-text:hover {
+            background-color: #000;
+        }
+        
+        .spoiler-hint {
+            font-size: 10px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 18px;
+            }
+            
+            .boss {
+                width: 150px;
+                height: 150px;
+            }
+            
+            button {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            
+            .door-wrapper {
+                width: 180px;
+                height: 250px;
+            }
+        }
+        
+        /* Effetto schermata a 8-bit */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.03) 50%, 
+                rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+        }
+        
+        .pixel-corners {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+        }
+        
+        .corner-tl {
+            top: -5px;
+            left: -5px;
+            border-top: 5px solid #ff4656;
+            border-left: 5px solid #ff4656;
+        }
+        
+        .corner-tr {
+            top: -5px;
+            right: -5px;
+            border-top: 5px solid #ff4656;
+            border-right: 5px solid #ff4656;
+        }
+        
+        .corner-bl {
+            bottom: -5px;
+            left: -5px;
+            border-bottom: 5px solid #ff4656;
+            border-left: 5px solid #ff4656;
+        }
+        
+        .corner-br {
+            bottom: -5px;
+            right: -5px;
+            border-bottom: 5px solid #ff4656;
+            border-right: 5px solid #ff4656;
+        }
+        
+        .stage-indicator {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #ff4656;
+            transition: all 0.5s ease;
+        }
+        
+        .stage-indicator.hidden {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            transition: all 0.5s ease;
+        }
+        
+        .navigation.hidden {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
+        
+        .victory-message {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: rgba(0, 255, 0, 0.2);
+            border: 3px solid #0f0;
+            color: #0f0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px #0f0; }
+            50% { box-shadow: 0 0 30px #0f0; }
+            100% { box-shadow: 0 0 10px #0f0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-container">
+            <h2>ACCESSO PROTETTO</h2>
+            <p>Inserisci la password per iniziare</p>
+            <input type="password" class="password-input" id="password-input" placeholder="Password">
+            <button onclick="checkPassword()">ACCEDI</button>
+            <p class="access-denied" id="access-denied">Password errata! Riprova.</p>
+        </div>
+    </div>
+    <div class="scanlines"></div>
+    <div class="container">
+        <div class="pixel-corners corner-tl"></div>
+        <div class="pixel-corners corner-tr"></div>
+        <div class="pixel-corners corner-bl"></div>
+        <div class="pixel-corners corner-br"></div>
+        
+        <header>
+            <h1>BOSS BATTLE - PORTALE FINALE</h1>
+            <p>Sconfiggi il boss per sbloccare la porta misteriosa!</p>
+        </header>
+        
+        <div class="boss-container">
+            <div class="boss" id="boss"></div>
+            <div class="hp-bar" id="hp-bar">
+                <div class="hp-fill" id="boss-hp"></div>
+            </div>
+            <div class="hp-text" id="hp-text">HP: <span id="hp-value">100</span>/100</div>
+        </div>
+        
+        <div class="stage-indicator" id="stage-indicator">STADIO <span id="stage-number">1</span> DI 3</div>
+        
+        <div class="stage active" id="stage1">
+            <h2 class="stage-title">STADIO 1: INDOVINELLI</h2>
+            
+            <div class="riddle">
+                <p>Tra ombre e paure cammina un eroe, con armi e ingegno affronta insidie e fuoco. La verità si nasconde in ogni strada e piazza, chi è questo guerriero che la menzogna abbraccia?</p>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+            
+            <div class="riddle">
+                <p>Abbiamo esplorato mondi spezzati insieme, combattendo radici corrotte e nemici spaventosi. Armi da fuoco e tattiche ci hanno guidato, qual è il gioco che abbiamo affrontato in tre?</p>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+            
+            <div class="riddle">
+                <p>Nelle strade oscure mostra il suo valore reale.
+                    Lotta per giustizia, senza mai tremare,
+                    chi è questo guerriero che tutti vuole rispettare?C'è un drago nel cemento, un ex che ha sbagliato,
+                    con tatuaggi sul dorso, nel crimine è immerso.
+                    Tra cabaret, karaoke e combattimenti in strada,
+                    cerca una via d'onore, in una storia intricata.
+                    Qual è questo regno di neon e di affari loschi,
+                    dove si lotta con frigoriferi e colpi da oschi</p>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+            
+            <button onclick="checkStage(1)">CONFERMA E PASSA ALLO STADIO SUCCESSIVO</button>
+        </div>
+        
+        <div class="stage" id="stage2">
+            <h2 class="stage-title">STADIO 2: AUDIO E IMMAGINI</h2>
+            
+            <div class="audio-container">
+                <p>Ascolta questo audio e indovina di cosa si tratta:</p>
+                <audio controls>
+                    <source src="./1.mp3" type="audio/mpeg">
+                    Il tuo browser non supporta l'elemento audio.
+                </audio>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+
+            <div class="audio-container">
+                <p>Ascolta questo audio e indovina di cosa si tratta:</p>
+                <audio controls>
+                    <source src="./2.mp3" type="audio/mpeg">
+                    Il tuo browser non supporta l'elemento audio.
+                </audio>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+            
+            <div class="image-container">
+                <p>Guarda questa immagine e indovina di cosa si tratta:</p>
+          
+                <img src="./3.jpg" style="width: 100%; height: auto; display: block;">
+             
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna como corretta</div>
+                </div>
+            </div>
+            
+            <button onclick="checkStage(2)">CONFERMA E PASSA ALLO STADIO SUCCESSIVO</button>
+        </div>
+        
+        <div class="stage" id="stage3">
+            <h2 class="stage-title">STADIO 3: ANAGRAMMI</h2>
+            
+            <div class="anagram">
+                <p>1. Risolvi l'anagramma: <strong>⚔️🏛️👹</strong></p>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+    
+            <div class="anagram">
+                <p>2. Risolvi l'anagramma: <strong>🍒👻🟡</strong></p>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+    
+            <div class="anagram">
+                <p>3. Risolvi l'anagramma: <strong>🐉💎🔥</strong></p>
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+            
+            <button id="final-stage-btn" onclick="checkStage(3)">CONFERMA E SBLOCCA LA PORTA</button>
+        </div>
+        
+        <div class="door-container" id="door-container">
+            <h2 class="stage-title">PORTA MISTERIOSA SBLOCCATA!</h2>
+            
+            <div class="door-wrapper">
+                <div class="door" id="door">
+                    <div class="door-knob"></div>
+                </div>
+                <div class="light-behind" id="light-behind"></div>
+            </div>
+            
+            <div class="door-riddle">
+                <p>INDOVINELLO FINALE:</p>
+                <p>Non è un luogo per villeggianti, ma un villaggio di contadanti.<br>
+                    C'è chi parla di "Signori" e di "Plagas", e un agente speciale che non si appaga. <br>
+                    C'è un castello, un lago e un laboratorio, e un tipo alto col cappello, è obbligatorio. <br>
+                    Il suo dovere è salvare la Presidentessa, ma la missione è una vera follia espressa. <br>
+                    <span class="spoiler-text" onclick="revealSpoiler(this)"> Un mercante misterioso ti farà da alleato,<br>
+                    con la sua voce: “Welcome, over here, stranger!”</span><br>
+                    Cosa abbiamo comprato per te? Risolvi l'enigma per scoprire cos'è! <br>
+                    
+                
+                <p class="spoiler-hint">(Clicca sul testo oscurato per rivelare il suggerimento)</p>
+                
+                <div class="checkbox-container">
+                    <div class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+                    <div class="checkbox-label">Segna come corretta</div>
+                </div>
+            </div>
+            <button onclick="finalCheck()">CONFERMA RISPOSTA FINALE</button>
+        </div>
+        
+        <div class="victory-message" id="victory-message">
+            <h2>CONGRATULAZIONI!</h2>
+            <p>Hai superato tutte le prove e sconfitto il boss!</p>
+            <p>Il mistero è stato risolto!</p>
+        </div>
+        
+        <div class="navigation" id="navigation">
+           
+        </div>
+    </div>
+
+    <script>
+        let currentStage = 1;
+        let bossHP = 100;
+        const maxHP = 100;
+        const damagePerQuestion = 10;
+        let bossDefeated = false;
+        
+        function updateHP() {
+            const hpFill = document.getElementById('boss-hp');
+            const hpValue = document.getElementById('hp-value');
+            
+            hpFill.style.width = `${bossHP}%`;
+            hpValue.textContent = bossHP;
+        }
+        
+        function defeatBoss() {
+            bossDefeated = true;
+            bossHP = 0;
+            updateHP();
+            
+            const boss = document.getElementById('boss');
+            const hpBar = document.getElementById('hp-bar');
+            const hpText = document.getElementById('hp-text');
+            const stageIndicator = document.getElementById('stage-indicator');
+            const navigation = document.getElementById('navigation');
+            const stages = document.querySelectorAll('.stage');
+            
+            // Animazione della scomparsa del boss e degli elementi correlati
+            boss.classList.add('defeated');
+            hpBar.classList.add('hidden');
+            hpText.classList.add('hidden');
+            stageIndicator.classList.add('hidden');
+            navigation.classList.add('hidden');
+            
+            stages.forEach(stage => {
+                stage.classList.add('hidden');
+            });
+            
+            // Mostra la porta finale dopo un breve ritardo
+            setTimeout(() => {
+                document.getElementById('door-container').style.display = 'block';
+            }, 1000);
+        }
+        
+        function toggleCheckbox(element) {
+            element.classList.toggle('checked');
+        }
+        
+        function revealSpoiler(element) {
+            element.classList.add('revealed');
+        }
+        
+        function checkStage(stage) {
+            // Trova tutte le checkbox nello stage corrente
+            const allCheckboxes = document.querySelectorAll(`#stage${stage} .custom-checkbox`);
+            const checkedCheckboxes = document.querySelectorAll(`#stage${stage} .custom-checkbox.checked`);
+    
+            // Controlla se tutte le checkbox sono selezionate
+            const allChecked = (allCheckboxes.length > 0) && (allCheckboxes.length === checkedCheckboxes.length);
+    
+            if (allChecked) {
+                const damage = checkedCheckboxes.length * damagePerQuestion;
+                bossHP -= damage;
+                if (bossHP < 0) bossHP = 0;
+                updateHP();
+        
+                // Animazione del boss che viene colpito
+                const boss = document.getElementById('boss');
+                boss.classList.add('hurt');
+                setTimeout(() => boss.classList.remove('hurt'), 500);
+        
+                if (stage === 3) {
+                    // Alla fine del terzo stadio, sconfiggi il boss
+                    defeatBoss();
+                } else if (stage < 3) {
+                    nextStage();
+                }
+            } else {
+                alert('Devi selezionare TUTTE le risposte corrette per procedere!');
+            }
+        }
+        
+        function finalCheck() {
+            const finalCheckbox = document.querySelector('#door-container .custom-checkbox.checked');
+            
+            if (finalCheckbox) {
+                // Animazione della porta che si apre
+                const door = document.getElementById('door');
+                const light = document.getElementById('light-behind');
+                
+                door.classList.add('open');
+                light.classList.add('visible');
+                
+                // Messaggio di vittoria dopo un delay
+                setTimeout(() => {
+                    document.getElementById('victory-message').style.display = 'block';
+                }, 2000);
+            } else {
+                alert('Devi confermare che la risposta finale è corretta!');
+            }
+        }
+        
+        function changeStage(stage) {
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            document.getElementById(`stage${stage}`).classList.add('active');
+            document.getElementById('stage-number').textContent = stage;
+            
+            // Aggiorna lo stato dei pulsanti di navigazione
+            document.getElementById('prev-btn').disabled = (stage === 1);
+            
+            if (stage === 3) {
+                document.getElementById('next-btn').style.display = 'none';
+            } else {
+                document.getElementById('next-btn').style.display = 'block';
+            }
+        }
+        
+        function nextStage() {
+            if (currentStage < 3) {
+                currentStage++;
+                changeStage(currentStage);
+            }
+        }
+        
+        function prevStage() {
+            if (currentStage > 1) {
+                currentStage--;
+                changeStage(currentStage);
+            }
+        }
+        
+        // Inizializzazione
+        updateHP();
+
+        // Controllo password
+        function checkPassword() {
+            const passwordInput = document.getElementById('password-input');
+            const accessDenied = document.getElementById('access-denied');
+            const loginOverlay = document.getElementById('login-overlay');
+            
+            // Sostituisci "TUA_PASSWORD" con la password che vuoi utilizzare
+            if (passwordInput.value === "BLACK") {
+                loginOverlay.style.display = 'none';
+            } else {
+                accessDenied.style.display = 'block';
+                passwordInput.value = '';
+                setTimeout(() => {
+                    accessDenied.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        // Permetti di premere Enter per confermare la password
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
