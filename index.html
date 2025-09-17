@@ -1,29 +1,55 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cesare - Junior Data Scientist</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', 'Arial', sans-serif;
         }
         
         body {
-            overflow: hidden;
-            background: linear-gradient(to bottom, #0a0a2a, #1a1a40);
+            overflow-x: hidden;
+            background: #000000;
             color: white;
-            height: 100vh;
+            min-height: 100vh;
             perspective: 1000px;
+        }
+        
+        .universe-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -2;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
         }
         
         .container {
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -42,7 +68,7 @@
         
         .title-3d {
             font-size: 5rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #fff;
             text-shadow: 
                 0 0 5px #00f7ff, 
@@ -50,18 +76,18 @@
                 0 0 20px #00f7ff, 
                 0 0 40px #00f7ff;
             animation: pulsate 2s infinite alternate;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
         }
         
         .subtitle-3d {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 300;
             color: #fff;
             text-shadow: 
                 0 0 5px #ff00ff, 
                 0 0 10px #ff00ff, 
                 0 0 20px #ff00ff;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             animation: pulsate-sub 3s infinite alternate;
         }
         
@@ -81,58 +107,168 @@
         
         .card {
             position: absolute;
-            width: 300px;
-            height: 380px;
-            background: rgba(10, 10, 40, 0.8);
+            width: 320px;
+            height: 400px;
+            background: rgba(15, 15, 35, 0.9);
             border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+            padding: 25px;
+            box-shadow: 0 0 25px rgba(0, 247, 255, 0.6);
             transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
             pointer-events: auto;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
             backface-visibility: hidden;
+            overflow: hidden;
+            border: 1px solid rgba(0, 247, 255, 0.3);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff00ff, #00f7ff, #ff00ff);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.5;
         }
         
         .card:hover {
-            transform: translateZ(50px) scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 247, 255, 0.8);
+            transform: translateZ(60px) scale(1.05);
+            box-shadow: 0 0 35px rgba(0, 247, 255, 0.9);
         }
         
-        .card-image {
-            width: 100%;
-            height: 180px;
-            border-radius: 10px;
-            object-fit: cover;
+        .card.education {
+            box-shadow: 0 0 25px rgba(0, 200, 255, 0.6);
+        }
+        
+        .card.education::before {
+            background: linear-gradient(45deg, #0088ff, #00f7ff, #0088ff);
+        }
+        
+        .card.work {
+            box-shadow: 0 0 25px rgba(0, 255, 150, 0.6);
+        }
+        
+        .card.work::before {
+            background: linear-gradient(45deg, #00ffaa, #00f7ff, #00ffaa);
+        }
+        
+        .card.publication {
+            box-shadow: 0 0 25px rgba(255, 0, 200, 0.6);
+        }
+        
+        .card.publication::before {
+            background: linear-gradient(45deg, #ff00cc, #ff00ff, #ff00cc);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
             margin-bottom: 15px;
-            border: 2px solid #00f7ff;
+            color: #00f7ff;
+        }
+        
+        .card.education .card-icon {
+            color: #00c8ff;
+        }
+        
+        .card.work .card-icon {
+            color: #00ffaa;
+        }
+        
+        .card.publication .card-icon {
+            color: #ff00cc;
         }
         
         .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
             color: #00f7ff;
             text-align: center;
+            font-weight: 600;
+        }
+        
+        .card.education .card-title {
+            color: #00c8ff;
+        }
+        
+        .card.work .card-title {
+            color: #00ffaa;
+        }
+        
+        .card.publication .card-title {
+            color: #ff00cc;
         }
         
         .card-desc {
             font-size: 1rem;
             text-align: center;
-            color: #ccc;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .card-date {
+            margin-top: auto;
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
         }
         
         .scroll-indicator {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             color: #00f7ff;
-            font-size: 1rem;
+            font-size: 1.2rem;
             animation: bounce 2s infinite;
             z-index: 100;
+        }
+        
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #00f7ff;
+            box-shadow: 0 0 10px #00f7ff;
+            transform: scale(1.3);
+        }
+        
+        .dot.education:hover {
+            background: #00c8ff;
+            box-shadow: 0 0 10px #00c8ff;
+        }
+        
+        .dot.work:hover {
+            background: #00ffaa;
+            box-shadow: 0 0 10px #00ffaa;
+        }
+        
+        .dot.publication:hover {
+            background: #ff00cc;
+            box-shadow: 0 0 10px #ff00cc;
         }
         
         @keyframes pulsate {
@@ -172,40 +308,50 @@
                 transform: translateX(-50%) translateY(0);
             }
             40% {
-                transform: translateX(-50%) translateY(-10px);
+                transform: translateX(-50%) translateY(-15px);
             }
             60% {
-                transform: translateX(-50%) translateY(-5px);
+                transform: translateX(-50%) translateY(-7px);
             }
         }
         
         @media (max-width: 768px) {
             .title-3d {
-                font-size: 3rem;
+                font-size: 3.5rem;
             }
             
             .subtitle-3d {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             
             .card {
-                width: 250px;
-                height: 340px;
+                width: 280px;
+                height: 360px;
+                padding: 20px;
+            }
+            
+            .nav-dots {
+                right: 15px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="universe-bg"></div>
+    <div class="stars" id="stars"></div>
+    
     <div class="container">
         <div class="title-container">
-            <h1 class="title-3d">Cesare</h1>
-            <h2 class="subtitle-3d">Junior Data Scientist</h2>
+            <h1 class="title-3d">CESARE</h1>
+            <h2 class="subtitle-3d">JUNIOR DATA SCIENTIST</h2>
         </div>
         
         <div class="dna-container" id="dna-container"></div>
         <div class="cards-container" id="cards-container"></div>
         
-        <div class="scroll-indicator">Scorri per esplorare ↓</div>
+        <div class="scroll-indicator">Scroll to explore ↓</div>
+        
+        <div class="nav-dots" id="nav-dots"></div>
     </div>
 
     <script>
@@ -214,33 +360,58 @@
         let cards = [];
         let scrollPosition = 0;
         let targetScrollPosition = 0;
+        let isScrolling = false;
         
         // Dati delle schede
         const cardData = [
             {
-                title: "Analisi Dati",
-                desc: "Esplorazione e pulizia dei dataset per estrarre informazioni significative.",
-                img: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22150%22%20viewBox%3D%220%200%20200%20150%22%3E%3Crect%20width%3D%22200%22%20height%3D%22150%22%20fill%3D%22%23555%22%2F%3E%3Cpath%20d%3D%22M40%2060L80%2040L120%2080L160%2050%22%20stroke%3D%22%2300f7ff%22%20stroke-width%3D%223%22%20fill%3D%22none%22%2F%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2260%22%20r%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2240%22%20r%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%2280%22%20r%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%2250%22%20r%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E"
+                type: "education",
+                title: "BSc in Statistics for Big Data",
+                desc: "During my university journey, I acquired foundations in economics, mathematics, advanced statistics and data science using Python, R Studio, Docker, MongoDB, MySQL.",
+                icon: "fas fa-graduation-cap",
+                date: "2018-2021"
             },
             {
-                title: "Machine Learning",
-                desc: "Sviluppo di modelli predittivi e algoritmi di apprendimento automatico.",
-                img: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22150%22%20viewBox%3D%220%200%20200%20150%22%3E%3Crect%20width%3D%22200%22%20height%3D%22150%22%20fill%3D%22%23555%22%2F%3E%3Cpath%20d%3D%22M50%2050Q100%2020%20150%2050Q100%2080%2050%2050%22%20stroke%3D%22%23ff00ff%22%20stroke-width%3D%223%22%20fill%3D%22none%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2250%22%20r%3D%225%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E"
+                type: "work",
+                title: "Junior Data Scientist - Danieli",
+                desc: "During my internship at Danieli Officine & Co Spa, my responsibilities as Data Scientist Core included developing a predictive algorithm to optimize customer segmentation and anticipate market trends for a macro category of goods managed in after-sales.",
+                icon: "fas fa-briefcase",
+                date: "2021"
             },
             {
-                title: "Visualizzazione",
-                desc: "Creazione di dashboard e grafici interattivi per comunicare i risultati.",
-                img: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22150%22%20viewBox%3D%220%200%20200%20150%22%3E%3Crect%20width%3D%22200%22%20height%3D%22150%22%20fill%3D%22%23555%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%2230%22%20height%3D%2260%22%20fill%3D%22%2300f7ff%22%2F%3E%3Crect%20x%3D%2285%22%20y%3D%2230%22%20width%3D%2230%22%20height%3D%2270%22%20fill%3D%22%2300f7ff%22%2F%3E%3Crect%20x%3D%22130%22%20y%3D%2250%22%20width%3D%2230%22%20height%3D%2250%22%20fill%3D%22%2300f7ff%22%2F%3E%3C%2Fsvg%3E"
+                type: "education",
+                title: "Junior Data Engineer - Generation Italy",
+                desc: "500+ hours course acquiring technical skills in Python, SQL, NoSQL databases, Power BI and Git, alongside developing essential soft skills such as problem-solving, teamwork and effective communication.",
+                icon: "fas fa-code",
+                date: "2022"
             },
             {
-                title: "Big Data",
-                desc: "Gestione ed elaborazione di grandi volumi di dati con tecnologie scalable.",
-                img: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22150%22%20viewBox%3D%220%200%20200%20150%22%3E%3Crect%20width%3D%22200%22%20height%3D%22150%22%20fill%3D%22%23555%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2275%22%20r%3D%2240%22%20fill%3D%22none%22%20stroke%3D%22%23ff00ff%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M100%2035V115M65%2075H135%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E"
+                type: "publication",
+                title: "Bone Graft Healing Study",
+                desc: "Statistical analysis of treatment effectiveness data for the paper 'Study on Bone Graft Healing in the Treatment of Anterior Shoulder Instability' published in Anthropic Journal.",
+                icon: "fas fa-file-alt",
+                date: "2022"
             },
             {
-                title: "Statistica",
-                desc: "Applicazione di metodi statistici per validare ipotesi e modelli.",
-                img: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22150%22%20viewBox%3D%220%200%20200%20150%22%3E%3Crect%20width%3D%22200%22%20height%3D%22150%22%20fill%3D%22%23555%22%2F%3E%3Cpath%20d%3D%22M50%20100L70%2070L90%2090L110%2060L130%2080L150%2050%22%20stroke%3D%22%2300f7ff%22%20stroke-width%3D%223%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E"
+                type: "education",
+                title: "MSc in Cybersecurity & Risk Management",
+                desc: "Focused on cyber threat management, data analysis and legal aspects of cybersecurity. The program combines theory and practice to train professionals ready to face digital security challenges in critical contexts. (Ongoing)",
+                icon: "fas fa-shield-alt",
+                date: "2023-Ongoing"
+            },
+            {
+                type: "publication",
+                title: "LLM-Powered Multi-Agent Systems",
+                desc: "Co-author of 'LLM-Powered Multi-Agent Systems as Adaptive Tools for Intelligence Analysis: an Ontology-Driven Approach' (to be published soon).",
+                icon: "fas fa-book",
+                date: "2023 (Coming Soon)"
+            },
+            {
+                type: "publication",
+                title: "Glenoid-Based Strategy for RTSA",
+                desc: "Co-author of 'Glenoid-Based Strategy to Reduce Scapular Notching in RTSA: A Short to Mid-term Clinical and Radiographic Evaluation' (to be published soon).",
+                icon: "fas fa-book-medical",
+                date: "2023 (Coming Soon)"
             }
         ];
         
@@ -259,11 +430,17 @@
             renderer.setClearColor(0x000000, 0);
             document.getElementById('dna-container').appendChild(renderer.domElement);
             
+            // Crea lo sfondo con le stelle
+            createStars();
+            
             // Creazione della spirale DNA
             createDNA();
             
             // Creazione delle schede
             createCards();
+            
+            // Crea i punti di navigazione
+            createNavDots();
             
             // Gestione dello scroll
             window.addEventListener('scroll', handleScroll);
@@ -273,12 +450,35 @@
             animate();
         }
         
+        // Crea lo sfondo con le stelle
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 1500;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                star.style.opacity = Math.random();
+                star.style.animation = `twinkle ${5 + Math.random() * 10}s infinite alternate`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
         // Crea la spirale DNA
         function createDNA() {
             const group = new THREE.Group();
             scene.add(group);
             
-            const geometry = new THREE.CylinderGeometry(0.05, 0.05, 1, 8);
+            const geometry = new THREE.CylinderGeometry(0.05, 0.05, 1, 12);
             const material = new THREE.MeshPhongMaterial({ 
                 color: 0x00f7ff,
                 emissive: 0x004f55,
@@ -291,21 +491,21 @@
             const connections = new THREE.Group();
             
             // Crea i "pioli" della scala a DNA
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 120; i++) {
                 const angle = i * 0.2;
                 const height = i * 0.1;
                 
                 // Crea i due filamenti
                 const left = new THREE.Mesh(geometry, material);
                 left.position.x = Math.cos(angle) * 1.5;
-                left.position.y = height - 5;
+                left.position.y = height - 6;
                 left.position.z = Math.sin(angle) * 1.5;
                 left.rotation.z = angle;
                 group.add(left);
                 
                 const right = new THREE.Mesh(geometry, material);
                 right.position.x = Math.cos(angle + Math.PI) * 1.5;
-                right.position.y = height - 5;
+                right.position.y = height - 6;
                 right.position.z = Math.sin(angle + Math.PI) * 1.5;
                 right.rotation.z = angle + Math.PI;
                 group.add(right);
@@ -324,7 +524,7 @@
                         })
                     );
                     
-                    connection.position.y = height - 5;
+                    connection.position.y = height - 6;
                     connection.rotation.y = angle;
                     connections.add(connection);
                 }
@@ -344,6 +544,10 @@
             const light2 = new THREE.PointLight(0xff00ff, 1, 100);
             light2.position.set(-5, -5, -5);
             scene.add(light2);
+            
+            const light3 = new THREE.PointLight(0xffffff, 0.5, 200);
+            light3.position.set(0, 10, 0);
+            scene.add(light3);
         }
         
         // Crea le schede 3D
@@ -352,20 +556,21 @@
             
             cardData.forEach((data, index) => {
                 const card = document.createElement('div');
-                card.className = 'card';
+                card.className = `card ${data.type}`;
                 card.innerHTML = `
-                    <img src="${data.img}" alt="${data.title}" class="card-image">
+                    <i class="${data.icon} card-icon"></i>
                     <h3 class="card-title">${data.title}</h3>
                     <p class="card-desc">${data.desc}</p>
+                    <span class="card-date">${data.date}</span>
                 `;
                 
                 // Posiziona le carte a spirale
                 const angle = index * (Math.PI * 2 / cardData.length);
-                const radius = 300;
+                const radius = 350;
                 
                 card.style.transform = `translate(-50%, -50%) 
                     translateX(${Math.cos(angle) * radius}px) 
-                    translateY(${index * 150 - 200}px) 
+                    translateY(${index * 180 - 300}px) 
                     translateZ(${Math.sin(angle) * radius}px) 
                     rotateY(${angle}rad)`;
                 
@@ -375,15 +580,48 @@
                 });
                 
                 container.appendChild(card);
-                cards.push(card);
+                cards.push({
+                    element: card,
+                    type: data.type
+                });
+            });
+        }
+        
+        // Crea i punti di navigazione
+        function createNavDots() {
+            const navContainer = document.getElementById('nav-dots');
+            
+            cardData.forEach((data, index) => {
+                const dot = document.createElement('div');
+                dot.className = `dot ${data.type}`;
+                dot.addEventListener('click', () => {
+                    targetScrollPosition = index * window.innerHeight * 0.8;
+                    smoothScrollTo(targetScrollPosition, 1500);
+                });
+                
+                navContainer.appendChild(dot);
+            });
+        }
+        
+        // Aggiorna i punti di navigazione
+        function updateNavDots() {
+            const dots = document.querySelectorAll('.dot');
+            const currentIndex = Math.round(scrollPosition / (window.innerHeight * 0.8));
+            
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
             });
         }
         
         // Gestisci lo scroll
         function handleScroll() {
-            scrollPosition = window.scrollY || window.pageYOffset;
-            targetScrollPosition = scrollPosition;
-            updateDNAPosition();
+            if (!isScrolling) {
+                targetScrollPosition = window.scrollY || window.pageYOffset;
+            }
         }
         
         // Aggiorna la posizione del DNA in base allo scroll
@@ -396,24 +634,27 @@
             // Aggiorna la posizione delle carte
             cards.forEach((card, index) => {
                 const angle = (index * (Math.PI * 2 / cardData.length)) + (scrollPosition * 0.001);
-                const radius = 300;
-                const yPos = index * 150 - 200 - scrollPosition * 0.5;
+                const radius = 350;
+                const yPos = index * 180 - 300 - scrollPosition * 0.5;
                 
-                card.style.transform = `translate(-50%, -50%) 
+                card.element.style.transform = `translate(-50%, -50%) 
                     translateX(${Math.cos(angle) * radius}px) 
                     translateY(${yPos}px) 
                     translateZ(${Math.sin(angle) * radius}px) 
                     rotateY(${angle}rad)`;
                 
                 // Aggiungi effetto di opacità in base alla posizione
-                const cardCenter = yPos + 190;
+                const cardCenter = yPos + 200;
                 const viewportCenter = window.innerHeight / 2;
                 const distance = Math.abs(cardCenter - viewportCenter);
-                const opacity = Math.max(0, 1 - distance / viewportCenter);
+                const opacity = Math.max(0.3, 1 - distance / viewportCenter);
                 
-                card.style.opacity = opacity;
-                card.style.zIndex = Math.floor(100 - distance);
+                card.element.style.opacity = opacity;
+                card.element.style.zIndex = Math.floor(100 - distance);
             });
+            
+            // Aggiorna i punti di navigazione
+            updateNavDots();
         }
         
         // Animazione
@@ -425,7 +666,7 @@
             
             // Animazione rotazione DNA
             if (dna) {
-                dna.rotation.y += 0.005;
+                dna.rotation.y += 0.003;
             }
             
             updateDNAPosition();
@@ -441,6 +682,7 @@
         
         // Scroll fluido verso una posizione
         function smoothScrollTo(targetPosition, duration) {
+            isScrolling = true;
             const startPosition = window.scrollY || window.pageYOffset;
             const distance = targetPosition - startPosition;
             let startTime = null;
@@ -450,7 +692,12 @@
                 const timeElapsed = currentTime - startTime;
                 const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
                 window.scrollTo(0, run);
-                if (timeElapsed < duration) requestAnimationFrame(animation);
+                
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                } else {
+                    isScrolling = false;
+                }
             }
             
             function easeInOutQuad(t, b, c, d) {
