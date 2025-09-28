@@ -3,39 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gioco per Carmela</title>
+    <title>Gioco per Carmela - 26 Anni!</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            background: linear-gradient(135deg, #d6c2ff 0%, #a88beb 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        /* Stelle di sfondo */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
         
         .container {
             width: 100%;
             max-width: 800px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.92);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             position: relative;
+            border: 3px solid #8a6bc9;
         }
         
         .header {
-            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(90deg, #8a6bc9, #b19cd9);
             padding: 20px;
             text-align: center;
             position: relative;
+            border-bottom: 3px solid #6a4ca1;
         }
         
         .header h1 {
@@ -46,9 +72,33 @@
         }
         
         .header h2 {
-            color: #ffeaa7;
+            color: #fffacd;
             font-size: 1.8rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .birthday-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         .content {
@@ -74,15 +124,16 @@
         .password-input {
             padding: 12px 20px;
             font-size: 1.2rem;
-            border: 2px solid #ff6b6b;
+            border: 2px solid #8a6bc9;
             border-radius: 50px;
             width: 70%;
             margin-bottom: 15px;
             text-align: center;
+            background-color: #f0e6ff;
         }
         
         .btn {
-            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(90deg, #8a6bc9, #b19cd9);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -125,6 +176,24 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-btn::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .menu-btn:hover::before {
+            transform: translateX(100%);
         }
         
         .menu-btn:hover {
@@ -166,38 +235,43 @@
         }
         
         .option-btn {
-            background-color: #dfe6e9;
+            background-color: #e6d7ff;
             border: none;
             padding: 15px;
             border-radius: 10px;
             font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.2s ease;
+            border: 2px solid #d6c2ff;
         }
         
         .option-btn:hover {
-            background-color: #b2bec3;
+            background-color: #d6c2ff;
+            transform: translateY(-2px);
         }
         
         .joke-text {
             font-size: 1.4rem;
             margin: 30px 0;
             padding: 20px;
-            background-color: #ffeaa7;
+            background-color: #f0e6ff;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px dashed #8a6bc9;
         }
         
         .minigame-container {
             width: 100%;
             height: 300px;
-            background-color: #dfe6e9;
+            background-color: #f0e6ff;
             border-radius: 15px;
             position: relative;
             overflow: hidden;
             margin: 20px 0;
+            border: 2px solid #8a6bc9;
         }
         
+        /* Stili per i diversi minigiochi */
         .target {
             width: 60px;
             height: 60px;
@@ -206,6 +280,76 @@
             position: absolute;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .memory-card {
+            width: 80px;
+            height: 80px;
+            background-color: #8a6bc9;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .memory-card.flipped {
+            background-color: #ffeaa7;
+            color: #2d3436;
+            transform: rotateY(180deg);
+        }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 360px;
+        }
+        
+        .reaction-box {
+            width: 100px;
+            height: 100px;
+            background-color: #ff6b6b;
+            border-radius: 10px;
+            position: absolute;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .whack-mole {
+            width: 80px;
+            height: 80px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .mole {
+            width: 70px;
+            height: 70px;
+            background-color: #654321;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -60px;
+            transition: bottom 0.3s;
+        }
+        
+        .whack-mole.active .mole {
+            bottom: 5px;
         }
         
         .score {
@@ -256,6 +400,12 @@
             margin-top: 20px;
         }
         
+        .minigame-title {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #6a4ca1;
+        }
+        
         @media (max-width: 600px) {
             .menu-grid {
                 grid-template-columns: 1fr;
@@ -273,14 +423,22 @@
                 padding: 12px 25px;
                 font-size: 1.1rem;
             }
+            
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Stelle di sfondo -->
+    <div class="stars" id="stars"></div>
+    
     <div class="container">
         <div class="header">
             <h1>GIOIA CARMELA</h1>
             <h2>Me funny!</h2>
+            <div class="birthday-badge">26</div>
         </div>
         
         <div class="content">
@@ -349,10 +507,12 @@
             
             <!-- Minigame -->
             <div class="minigame-screen hidden" id="minigameScreen">
-                <h2>Minigame: Clicca il Bersaglio!</h2>
+                <h2>Minigame</h2>
+                <div class="minigame-title" id="minigameTitle"></div>
                 <div class="score" id="minigameScore">Punteggio: 0</div>
                 <div class="timer" id="minigameTimer">Tempo: 30s</div>
                 <div class="minigame-container" id="minigameContainer"></div>
+                <div id="minigameInstructions"></div>
                 <button class="btn" id="minigameStart">INIZIA</button>
                 <button class="btn back-btn" id="minigameBack">TORNA AL MENU</button>
             </div>
@@ -367,6 +527,7 @@
         const characterScreen = document.getElementById('characterScreen');
         const jokeScreen = document.getElementById('jokeScreen');
         const minigameScreen = document.getElementById('minigameScreen');
+        const starsContainer = document.getElementById('stars');
         
         const passwordForm = document.getElementById('passwordForm');
         const passwordInput = document.getElementById('passwordInput');
@@ -401,17 +562,34 @@
         const newJokeBtn = document.getElementById('newJokeBtn');
         
         // Minigame elementi
+        const minigameTitle = document.getElementById('minigameTitle');
         const minigameScore = document.getElementById('minigameScore');
         const minigameTimer = document.getElementById('minigameTimer');
         const minigameContainer = document.getElementById('minigameContainer');
+        const minigameInstructions = document.getElementById('minigameInstructions');
         const minigameStart = document.getElementById('minigameStart');
         
         // Variabili di gioco
         let currentCharacter = {};
+        let currentMinigame = null;
         let minigameScoreValue = 0;
         let minigameTimeLeft = 30;
         let minigameInterval;
         let targetInterval;
+        
+        // Creazione delle stelle di sfondo
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                starsContainer.appendChild(star);
+            }
+        }
         
         // Dati per i quiz
         const tvShowsQuiz = [
@@ -528,7 +706,7 @@
         });
         
         minigameBtn.addEventListener('click', function() {
-            resetMinigame();
+            selectRandomMinigame();
             showScreen(minigameScreen);
         });
         
@@ -653,28 +831,46 @@
         newJokeBtn.addEventListener('click', showRandomJoke);
         
         // Minigame
+        function selectRandomMinigame() {
+            const minigames = [
+                { name: "Clicca il Bersaglio", func: startTargetGame },
+                { name: "Gioco di Memoria", func: startMemoryGame },
+                { name: "Test di Reazione", func: startReactionGame },
+                { name: "Colpisci la Talpa", func: startWhackAMoleGame }
+            ];
+            
+            const randomIndex = Math.floor(Math.random() * minigames.length);
+            currentMinigame = minigames[randomIndex];
+            minigameTitle.textContent = currentMinigame.name;
+        }
+        
         function resetMinigame() {
             minigameScoreValue = 0;
             minigameTimeLeft = 30;
             minigameScore.textContent = "Punteggio: 0";
             minigameTimer.textContent = "Tempo: 30s";
             minigameContainer.innerHTML = '';
+            minigameInstructions.innerHTML = '';
             clearInterval(minigameInterval);
             clearInterval(targetInterval);
             minigameStart.disabled = false;
         }
         
         minigameStart.addEventListener('click', function() {
-            startMinigame();
+            if (currentMinigame) {
+                currentMinigame.func();
+            }
         });
         
-        function startMinigame() {
+        // Minigioco 1: Clicca il Bersaglio
+        function startTargetGame() {
             minigameStart.disabled = true;
             minigameScoreValue = 0;
             minigameTimeLeft = 30;
             minigameScore.textContent = "Punteggio: 0";
             minigameTimer.textContent = "Tempo: 30s";
             minigameContainer.innerHTML = '';
+            minigameInstructions.textContent = "Clicca sui bersagli rossi per guadagnare punti!";
             
             // Crea il primo bersaglio
             createTarget();
@@ -728,11 +924,238 @@
             }, 1500);
         }
         
+        // Minigioco 2: Gioco di Memoria
+        function startMemoryGame() {
+            minigameStart.disabled = true;
+            minigameTimeLeft = 60;
+            minigameScoreValue = 0;
+            minigameScore.textContent = "Punteggio: 0";
+            minigameTimer.textContent = "Tempo: 60s";
+            minigameContainer.innerHTML = '';
+            minigameInstructions.textContent = "Trova tutte le coppie di carte!";
+            
+            const symbols = ['🍕', '🍦', '🎮', '🎬', '👻', '🐱', '🚀', '🌈'];
+            const cards = [...symbols, ...symbols];
+            
+            // Mescola le carte
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            
+            // Crea la griglia di carte
+            const grid = document.createElement('div');
+            grid.classList.add('memory-grid');
+            
+            let flippedCards = [];
+            let matchedPairs = 0;
+            
+            cards.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card');
+                card.dataset.symbol = symbol;
+                card.dataset.index = index;
+                
+                card.addEventListener('click', function() {
+                    if (flippedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
+                        card.classList.add('flipped');
+                        card.textContent = symbol;
+                        flippedCards.push(card);
+                        
+                        if (flippedCards.length === 2) {
+                            const [card1, card2] = flippedCards;
+                            
+                            if (card1.dataset.symbol === card2.dataset.symbol) {
+                                // Coppia trovata
+                                card1.classList.add('matched');
+                                card2.classList.add('matched');
+                                minigameScoreValue += 10;
+                                minigameScore.textContent = `Punteggio: ${minigameScoreValue}`;
+                                matchedPairs++;
+                                
+                                if (matchedPairs === symbols.length) {
+                                    endMinigame();
+                                }
+                                
+                                flippedCards = [];
+                            } else {
+                                // Non è una coppia, gira le carte dopo un secondo
+                                setTimeout(() => {
+                                    card1.classList.remove('flipped');
+                                    card2.classList.remove('flipped');
+                                    card1.textContent = '';
+                                    card2.textContent = '';
+                                    flippedCards = [];
+                                }, 1000);
+                            }
+                        }
+                    }
+                });
+                
+                grid.appendChild(card);
+            });
+            
+            minigameContainer.appendChild(grid);
+            
+            // Avvia il timer
+            minigameInterval = setInterval(function() {
+                minigameTimeLeft--;
+                minigameTimer.textContent = `Tempo: ${minigameTimeLeft}s`;
+                
+                if (minigameTimeLeft <= 0 || matchedPairs === symbols.length) {
+                    endMinigame();
+                }
+            }, 1000);
+        }
+        
+        // Minigioco 3: Test di Reazione
+        function startReactionGame() {
+            minigameStart.disabled = true;
+            minigameTimeLeft = 30;
+            minigameScoreValue = 0;
+            minigameScore.textContent = "Punteggio: 0";
+            minigameTimer.textContent = "Tempo: 30s";
+            minigameContainer.innerHTML = '';
+            minigameInstructions.textContent = "Clicca sui quadrati rossi appena appaiono!";
+            
+            let boxInterval;
+            
+            // Funzione per creare un quadrato
+            function createBox() {
+                const box = document.createElement('div');
+                box.classList.add('reaction-box');
+                box.textContent = 'CLICCA!';
+                
+                // Posizione casuale
+                const containerWidth = minigameContainer.clientWidth;
+                const containerHeight = minigameContainer.clientHeight;
+                const boxSize = 100;
+                
+                const maxX = containerWidth - boxSize;
+                const maxY = containerHeight - boxSize;
+                
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                box.style.left = `${randomX}px`;
+                box.style.top = `${randomY}px`;
+                
+                // Aggiungi evento click
+                box.addEventListener('click', function() {
+                    minigameScoreValue += 5;
+                    minigameScore.textContent = `Punteggio: ${minigameScoreValue}`;
+                    minigameContainer.removeChild(box);
+                });
+                
+                minigameContainer.appendChild(box);
+                
+                // Rimuovi il quadrato dopo 1.5 secondi se non viene cliccato
+                setTimeout(function() {
+                    if (minigameContainer.contains(box)) {
+                        minigameContainer.removeChild(box);
+                    }
+                }, 1500);
+            }
+            
+            // Crea il primo quadrato
+            createBox();
+            
+            // Crea nuovi quadrati ogni 1-2.5 secondi
+            boxInterval = setInterval(createBox, 1000 + Math.random() * 1500);
+            
+            // Avvia il timer
+            minigameInterval = setInterval(function() {
+                minigameTimeLeft--;
+                minigameTimer.textContent = `Tempo: ${minigameTimeLeft}s`;
+                
+                if (minigameTimeLeft <= 0) {
+                    clearInterval(boxInterval);
+                    endMinigame();
+                }
+            }, 1000);
+        }
+        
+        // Minigioco 4: Colpisci la Talpa
+        function startWhackAMoleGame() {
+            minigameStart.disabled = true;
+            minigameTimeLeft = 30;
+            minigameScoreValue = 0;
+            minigameScore.textContent = "Punteggio: 0";
+            minigameTimer.textContent = "Tempo: 30s";
+            minigameContainer.innerHTML = '';
+            minigameInstructions.textContent = "Colpisci le talpe quando escono dalle tane!";
+            
+            // Crea le tane per le talpe
+            const holes = [];
+            for (let i = 0; i < 9; i++) {
+                const hole = document.createElement('div');
+                hole.classList.add('whack-mole');
+                
+                const mole = document.createElement('div');
+                mole.classList.add('mole');
+                hole.appendChild(mole);
+                
+                hole.addEventListener('click', function() {
+                    if (hole.classList.contains('active')) {
+                        hole.classList.remove('active');
+                        minigameScoreValue += 5;
+                        minigameScore.textContent = `Punteggio: ${minigameScoreValue}`;
+                    }
+                });
+                
+                minigameContainer.appendChild(hole);
+                holes.push(hole);
+            }
+            
+            // Posiziona le tane in una griglia 3x3
+            holes.forEach((hole, index) => {
+                const row = Math.floor(index / 3);
+                const col = index % 3;
+                
+                hole.style.left = `${col * 100 + 50}px`;
+                hole.style.top = `${row * 100 + 50}px`;
+            });
+            
+            let moleInterval;
+            
+            // Funzione per far apparire una talpa casuale
+            function showRandomMole() {
+                // Nascondi tutte le talpe
+                holes.forEach(hole => hole.classList.remove('active'));
+                
+                // Mostra una talpa casuale
+                const randomIndex = Math.floor(Math.random() * holes.length);
+                holes[randomIndex].classList.add('active');
+                
+                // Nascondi la talpa dopo un po'
+                setTimeout(() => {
+                    holes[randomIndex].classList.remove('active');
+                }, 800);
+            }
+            
+            // Mostra la prima talpa
+            showRandomMole();
+            
+            // Mostra talpe ogni 1-1.5 secondi
+            moleInterval = setInterval(showRandomMole, 1000 + Math.random() * 500);
+            
+            // Avvia il timer
+            minigameInterval = setInterval(function() {
+                minigameTimeLeft--;
+                minigameTimer.textContent = `Tempo: ${minigameTimeLeft}s`;
+                
+                if (minigameTimeLeft <= 0) {
+                    clearInterval(moleInterval);
+                    endMinigame();
+                }
+            }, 1000);
+        }
+        
         function endMinigame() {
             clearInterval(minigameInterval);
             clearInterval(targetInterval);
             
-            // Rimuovi tutti i bersagli rimanenti
+            // Rimuovi tutti gli elementi del minigioco
             minigameContainer.innerHTML = '';
             
             // Mostra il risultato
@@ -740,10 +1163,10 @@
             resultMessage.classList.add('result');
             resultMessage.textContent = `Tempo scaduto! Punteggio finale: ${minigameScoreValue}`;
             
-            if (minigameScoreValue >= 15) {
+            if (minigameScoreValue >= 50) {
                 resultMessage.classList.add('correct');
                 resultMessage.textContent += " - ECCELLENTE!";
-            } else if (minigameScoreValue >= 10) {
+            } else if (minigameScoreValue >= 30) {
                 resultMessage.textContent += " - BUONO!";
             } else {
                 resultMessage.classList.add('wrong');
@@ -753,6 +1176,9 @@
             minigameContainer.appendChild(resultMessage);
             minigameStart.disabled = false;
         }
+        
+        // Inizializzazione
+        createStars();
     </script>
 </body>
 </html>
