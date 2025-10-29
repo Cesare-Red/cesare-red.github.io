@@ -1,0 +1,14 @@
+├── index.html
+├── css/
+│   ├── style.css
+│   └── characters.css
+├── js/
+│   ├── game.js
+│   ├── characters.js
+│   ├── levels.js
+│   └── combat.js
+├── data/
+│   └── gameData.json
+└── assets/
+    ├── images/
+    └── sounds/

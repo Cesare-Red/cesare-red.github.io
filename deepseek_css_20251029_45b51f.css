@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    min-height: 100vh;
+}
+
+.screen {
+    display: none;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.screen.active {
+    display: block;
+}
+
+#game-container {
+    min-height: 100vh;
+}
+
+/* Character Selection */
+.character-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.character-card:hover {
+    transform: translateY(-5px);
+    border-color: #4cc9f0;
+}
+
+.character-card.selected {
+    border-color: #f72585;
+    background: rgba(247, 37, 133, 0.2);
+}
+
+.character-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.stat {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Game Screen */
+#game-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+#story-text {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    min-height: 150px;
+    line-height: 1.6;
+}
+
+/* Combat Interface */
+#combat-interface {
+    background: rgba(255, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.enemy {
+    background: rgba(220, 53, 69, 0.3);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 4px solid #dc3545;
+}
+
+.health-bar {
+    height: 20px;
+    background: #333;
+    border-radius: 10px;
+    margin: 5px 0;
+    overflow: hidden;
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    transition: width 0.3s ease;
+}
+
+#player-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.action-btn {
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Choices */
+.choice-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #4cc9f0;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.choice-btn:hover {
+    background: rgba(76, 201, 240, 0.3);
+    transform: translateX(10px);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.status-effect {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 0 2px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.burning { background: #dc3545; color: white; }
+.shocked { background: #ffc107; color: black; }
+.bleeding { background: #dc3545; color: white; }
+.confused { background: #6f42c1; color: white; }
+.slowed { background: #17a2b8; color: white; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .character-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    #player-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    #game-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

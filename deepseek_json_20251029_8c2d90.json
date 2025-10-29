@@ -1,0 +1,50 @@
+{
+  "gameTitle": "Avventura di Laurea - electric_bus0",
+  "version": "1.0",
+  "author": "Amici di Vincenzo",
+  "description": "Un gioco RPG personalizzato per celebrare la laurea di Vincenzo",
+  "characters": [
+    "Valentina - Maga del Tutto-Tranne",
+    "Vincenzo - Artificiere Digitale", 
+    "Cesare - Araldo dell'Assenza Strategica",
+    "Federica - Il Tardo Bardo",
+    "Carmela - Paladina del Buffet",
+    "William - Ladro Immigrato"
+  ],
+  "levels": [
+    {
+      "number": 1,
+      "name": "Avventura Minecraft",
+      "theme": "minecraft",
+      "boss": "Wither",
+      "quizTheme": ["rocket league", "dark souls", "crash bandicoot", "hollow knight"]
+    },
+    {
+      "number": 2, 
+      "name": "ALBUQUERQUE - CRYSTAL QUEST",
+      "theme": "breaking_bad",
+      "boss": "Skyler White",
+      "specialFeatures": ["sinergie", "alleati speciali", "eventi comici"]
+    },
+    {
+      "number": 3,
+      "name": "La Bacchetta della Verità", 
+      "theme": "harry_potter",
+      "boss": "Lord Voldemort",
+      "finalQuiz": true
+    }
+  ],
+  "specialEvents": {
+    "levelUp": "I personaggi sbloccano nuove abilità ai livelli 3 e 5",
+    "synergies": [
+      "Valentina + Vincenzo: Crash Chimico",
+      "Cesare + Federica: Ritardo Corale", 
+      "Carmela + William: Buffet del Contrabbando"
+    ],
+    "easterEggs": [
+      "Riferimenti a giochi videoludici",
+      "Citazioni di film e serie TV",
+      "Battute personalizzate per ogni personaggio"
+    ]
+  }
+}
