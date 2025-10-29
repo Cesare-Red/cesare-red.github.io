@@ -3,69 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electric Bus0 - Avventura di Laurea</title>
+    <title>Electric Bus0 - Dark Souls Graduation Adventure</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/anime-style.css">
+    <link rel="stylesheet" href="css/dark-souls-style.css">
 </head>
-<body class="anime-background">
+<body class="dark-souls-theme">
     <div class="container">
-        <header class="anime-header">
-            <div class="celebration-effects">
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
+        <header class="ds-header">
+            <div class="bonfire-animation">
+                <div class="flame"></div>
+                <div class="flame"></div>
+                <div class="flame"></div>
             </div>
-            <h1>🎓 Electric Bus0's Graduation Adventure 🎮</h1>
-            <p>Un regalo epico per il festeggiato Vincenzo!</p>
-            <div class="graduation-cap">🎓</div>
+            <h1 class="ds-title">🎓 Electric Bus0's Graduation Adventure 🎮</h1>
+            <p class="ds-subtitle">Praise the Sun! Un'avventura epica per celebrare Vincenzo</p>
+            <div class="estus-flask">🧴</div>
         </header>
         
         <main class="intro-section">
-            <div class="story-intro">
-                <h2>La Storia</h2>
-                <p>Il giorno della laurea di Vincenzo è arrivato, ma un misterioso maleficio ha disperso i suoi ricordi di gaming attraverso diverse dimensioni! Aiuta i 6 eroi a recuperare i ricordi e celebrare degnamente questo traguardo.</p>
+            <div class="story-intro ds-text-box">
+                <h2>La Profezia</h2>
+                <p>Nel giorno della laurea, un antico maleficio ha disperso i ricordi di gaming di Vincenzo attraverso dimensioni corrotte. Sei l'eroe prescelto per recuperarli e riportare l'equilibrio.</p>
+                <p class="warning">⚠️ Preparati a morire... più volte! ⚠️</p>
             </div>
             
             <div class="character-showcase">
-                <h2>Scegli il tuo Eroe</h2>
+                <h2 class="ds-section-title">Scegli il tuo Campione</h2>
                 <div class="character-grid">
-                    <div class="character-card" data-character="valentina">
-                        <div class="character-avatar valentina"></div>
+                    <!-- Tutti e 6 i personaggi -->
+                    <div class="character-card ds-card" data-character="valentina">
+                        <div class="character-avatar valentina-pixel"></div>
                         <h3>Valentina</h3>
                         <p>Maga del Tutto-Tranne</p>
                         <div class="character-hint">"Gioco a tutto, tranne a quello"</div>
                     </div>
                     
-                    <div class="character-card" data-character="vincenzo">
-                        <div class="character-avatar vincenzo"></div>
+                    <div class="character-card ds-card" data-character="vincenzo">
+                        <div class="character-avatar vincenzo-pixel"></div>
                         <h3>Vincenzo</h3>
                         <p>Artificiere Digitale</p>
                         <div class="character-hint">"Se non funziona, lo ricompilo"</div>
                     </div>
                     
-                    <div class="character-card" data-character="federica">
-                        <div class="character-avatar federica"></div>
-                        <h3>Federica</h3>
+                    <div class="character-card ds-card" data-character="cesare">
+                        <div class="character-avatar cesare-pixel"></div>
+                        <h3>Cesare</h3>
                         <p>Araldo dell'Assenza Strategica</p>
                         <div class="character-hint">"Io non faccio tardi, non mi presento"</div>
                     </div>
                     
-                    <div class="character-card" data-character="bardo">
-                        <div class="character-avatar bardo"></div>
+                    <div class="character-card ds-card" data-character="bardo">
+                        <div class="character-avatar bardo-pixel"></div>
                         <h3>Il Tardo Bardo</h3>
                         <p>Maestro del Ritardo Armonico</p>
                         <div class="character-hint">"Non stono, invento nuove note"</div>
                     </div>
                     
-                    <div class="character-card" data-character="paladina">
-                        <div class="character-avatar paladina"></div>
+                    <div class="character-card ds-card" data-character="paladina">
+                        <div class="character-avatar paladina-pixel"></div>
                         <h3>Paladina del Buffet</h3>
                         <p>Eroina del Carboidrato</p>
                         <div class="character-hint">"In nome del carboidrato, io ti assolvo!"</div>
                     </div>
                     
-                    <div class="character-card" data-character="william">
-                        <div class="character-avatar william"></div>
+                    <div class="character-card ds-card" data-character="william">
+                        <div class="character-avatar william-pixel"></div>
                         <h3>William</h3>
                         <p>Ladro Immigrato</p>
                         <div class="character-hint">"Io non rubo, redistribuisco... geograficamente"</div>
@@ -74,15 +76,17 @@
             </div>
             
             <div class="start-game">
-                <button id="start-btn" class="anime-button giant-button">Inizia l'Avventura!</button>
-                <div class="game-stats-preview">
+                <button id="start-btn" class="ds-button giant-button">
+                    🔥 Accendi il Falò - Inizia l'Avventura!
+                </button>
+                <div class="game-stats-preview ds-text-box">
                     <div class="stat-preview">
                         <span class="stat-icon">⚔️</span>
-                        <span>3 Livelli Epici</span>
+                        <span>3 Anelli dell'Anima</span>
                     </div>
                     <div class="stat-preview">
                         <span class="stat-icon">🎯</span>
-                        <span>6 Personaggi Unici</span>
+                        <span>6 Campioni Non Morti</span>
                     </div>
                     <div class="stat-preview">
                         <span class="stat-icon">🏆</span>
@@ -92,8 +96,8 @@
             </div>
         </main>
         
-        <footer class="anime-footer">
-            <p>Creato con ❤️ per la laurea di Vincenzo (electric_bus0) | Buon divertimento! 🎉</p>
+        <footer class="ds-footer">
+            <p>Creato con ❤️ e tanti morti per la laurea di Vincenzo (electric_bus0) | Non arrenderti, scheletro! 💀</p>
         </footer>
     </div>
     

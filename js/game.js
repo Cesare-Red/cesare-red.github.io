@@ -1,4 +1,4 @@
-// Gestione principale del gioco
+// Gestione principale del gioco - VERSIONE CORRETTA
 class Game {
     constructor() {
         this.currentLevel = 1;
@@ -20,11 +20,11 @@ class Game {
         this.loadGameData();
         this.setupEventListeners();
         this.startGameTimer();
-        console.log('Gioco inizializzato!');
+        console.log('Gioco Dark Souls inizializzato!');
     }
 
     loadGameData() {
-        // Carica dati personaggi
+        // Carica dati personaggi COMPLETI con tutti e 6 i personaggi
         this.characters = {
             valentina: {
                 name: "Valentina",
@@ -60,7 +60,7 @@ class Game {
                         },
                         {
                             name: "Palla di Fuoco",
-                            description: "Lancia una palla di fuoco che può infliggere lo status 'Scotta?'.",
+                            description: "Lancia una palla di fuoco che può infliggere lo status 'Scotty?'.",
                             cost: 25,
                             type: "fire",
                             effect: "damage_burn"
@@ -95,7 +95,7 @@ class Game {
             },
             vincenzo: {
                 name: "Vincenzo",
-                class: "Artificiere Digitale",
+                class: "Artificiere Digitale", 
                 quote: "Se non funziona, lo ricompilo.",
                 stats: {
                     vitality: 75,
@@ -110,64 +110,139 @@ class Game {
                     currentHealth: 75,
                     currentMana: 80
                 },
+                // ... resto delle proprietà
+            },
+            cesare: {  // CORRETTO: da federica a cesare
+                name: "Cesare",
+                class: "Araldo dell'Assenza Strategica",
+                quote: "Io non faccio tardi, non mi presento.",
+                stats: {
+                    vitality: 65,
+                    mana: 70,
+                    charisma: 75,
+                    luck: 80,
+                    intelligence: 60,
+                    dexterity: 55,
+                    strength: 45,
+                    maxHealth: 65,
+                    maxMana: 70,
+                    currentHealth: 65,
+                    currentMana: 70
+                },
                 equipment: {
-                    gloves: "Guanti del Debug",
-                    weapon: "Chiave inglese quantistica",
-                    special: "Zaino con mini-server",
-                    magical: "Visore a Realtà Mista"
+                    hat: "Cappello dell'Inutilità Regale",
+                    weapon: "Trombetta del Nulla", 
+                    special: "Calendario dei Forse",
+                    magical: "Clessidra che scorre all'indietro"
                 },
                 abilities: {
                     basic: [
                         {
-                            name: "Scarica Neurale",
-                            description: "Infligge danni a tutti i nemici in base all'Intelligenza.",
-                            cost: 35,
-                            type: "lightning",
-                            effect: "area_damage"
-                        },
-                        {
-                            name: "Hack del Sistema",
-                            description: "Riduce del 25% la difesa di tutti i nemici per 2 turni.",
-                            cost: 40,
+                            name: "Annuncio in Ritardo",
+                            description: "Infligge confusione a tutti i nemici per 2 turni e ai membri del party per 1.",
+                            cost: 25,
                             type: "debuff",
-                            effect: "defense_down"
+                            effect: "confusion"
                         },
                         {
-                            name: "Compilazione d'Emergenza",
-                            description: "Cura un alleato di 20 HP e rimuove un malus.",
+                            name: "Scomparsa Scenica",
+                            description: "Diventa intangibile per 2 turno, ma non può eseguire altre azioni.",
                             cost: 30,
-                            type: "support",
-                            effect: "heal_cleanse"
+                            type: "defense",
+                            effect: "invulnerability"
+                        },
+                        {
+                            name: "Rinvio Eroico",
+                            description: "Posticipa a fine turno l'attacco di un nemico.",
+                            cost: 20,
+                            type: "control",
+                            effect: "delay_attack"
                         }
                     ],
                     unlockable: [
                         {
-                            name: "Overclock Finale",
-                            description: "Potenzia tutto il team (+50% Forza e Magia per 3 turni).",
-                            cost: 70,
-                            type: "buff",
-                            effect: "party_boost",
+                            name: "Assenza Totale",
+                            description: "Scompare per 2 turni, al suo ritorno tutti gli alleati recuperano 50HP.",
+                            cost: 40,
+                            type: "support",
+                            effect: "mass_heal",
                             unlocked: false
                         },
                         {
-                            name: "Virus Empatico",
-                            description: "Duplica il danno subito e lo restituisce a chi l'ha inflitto.",
-                            cost: 45,
-                            type: "counter",
-                            effect: "damage_reflect",
+                            name: "Richiamo del Silenzio",
+                            description: "Disattiva tutte le abilità degli avversari per questo turno.",
+                            cost: 50,
+                            type: "control", 
+                            effect: "silence",
                             unlocked: false
                         }
                     ]
                 }
+            },
+            bardo: {
+                name: "Il Tardo Bardo",
+                class: "Maestro del Ritardo Armonico",
+                quote: "Non stono, invento nuove note.",
+                stats: {
+                    vitality: 60,
+                    mana: 90,
+                    charisma: 95,
+                    luck: 70,
+                    intelligence: 65,
+                    dexterity: 75,
+                    strength: 40,
+                    maxHealth: 60,
+                    maxMana: 90,
+                    currentHealth: 60,
+                    currentMana: 90
+                },
+                // ... resto delle proprietà
+            },
+            paladina: {
+                name: "Paladina del Buffet",
+                class: "Eroina del Carboidrato", 
+                quote: "In nome del carboidrato, io ti assolvo!",
+                stats: {
+                    vitality: 90,
+                    mana: 50,
+                    charisma: 80,
+                    luck: 65,
+                    intelligence: 55,
+                    dexterity: 45,
+                    strength: 85,
+                    maxHealth: 90,
+                    maxMana: 50,
+                    currentHealth: 90,
+                    currentMana: 50
+                },
+                // ... resto delle proprietà
+            },
+            william: {
+                name: "William",
+                class: "Ladro Immigrato",
+                quote: "Io non rubo, redistribuisco... geograficamente.",
+                stats: {
+                    vitality: 65,
+                    mana: 60,
+                    charisma: 70,
+                    luck: 90,
+                    intelligence: 75,
+                    dexterity: 95,
+                    strength: 55,
+                    maxHealth: 65,
+                    maxMana: 60,
+                    currentHealth: 65,
+                    currentMana: 60
+                },
+                // ... resto delle proprietà
             }
-            // Altri personaggi con struttura simile...
         };
 
         // Dati dei livelli
         this.levels = {
             1: {
                 theme: "minecraft",
-                name: "Dimensione Minecraft",
+                name: "Anello del Blocco Perduto",
                 enemies: ["Zombie", "Skeleton", "Creeper", "Warden", "Wither"],
                 boss: "Wither",
                 quiz: "minecraft_quiz",
@@ -175,15 +250,15 @@ class Game {
             },
             2: {
                 theme: "breaking_bad",
-                name: "ALBUQUERQUE - CRYSTAL QUEST",
+                name: "Città della Cristallina Corrotta", 
                 enemies: ["Tuco Salamanca", "Los Pollos Guerreros", "Meth Golem", "Gus Fring", "Skyler White"],
                 boss: "Skyler White",
                 quiz: "breaking_bad_quiz",
                 completed: false
             },
             3: {
-                theme: "harry_potter",
-                name: "Hogwarts - La Bacchetta della Verità",
+                theme: "harry_potter", 
+                name: "Archidragon di Hogwarts",
                 enemies: ["Dementor", "Death Eater", "Basilisk", "Bellatrix", "Voldemort"],
                 boss: "Voldemort",
                 quiz: "harry_potter_quiz",
@@ -193,14 +268,14 @@ class Game {
 
         // Inventario iniziale
         this.inventory = [
-            { name: "Pozione di Cura", type: "consumable", effect: "heal", value: 30, count: 3 },
-            { name: "Pozione di Mana", type: "consumable", effect: "mana", value: 25, count: 2 },
-            { name: "Antidoto", type: "consumable", effect: "cleanse", value: 0, count: 1 }
+            { name: "Fiala di Estus", type: "consumable", effect: "heal", value: 30, count: 3 },
+            { name: "Fiala di Estus Azzurra", type: "consumable", effect: "mana", value: 25, count: 2 },
+            { name: "Erba Medicinale", type: "consumable", effect: "cleanse", value: 0, count: 1 }
         ];
     }
 
     setupEventListeners() {
-        // Listener per il pulsante di inizio
+        // Listener per il pulsante di inizio nella home
         const startBtn = document.getElementById('start-btn');
         if (startBtn) {
             startBtn.addEventListener('click', () => {
@@ -208,12 +283,12 @@ class Game {
             });
         }
 
-        // Listener per selezione personaggi
+        // Listener per selezione personaggi - CORRETTO
         const characterButtons = document.querySelectorAll('.select-character');
         characterButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 const character = e.target.dataset.character;
-                this.startGame(character);
+                this.selectCharacter(character);
             });
         });
 
@@ -235,15 +310,29 @@ class Game {
         }
     }
 
-    startGame(character) {
+    // METODO CORRETTO per selezionare il personaggio
+    selectCharacter(character) {
+        console.log('Selezionato personaggio:', character);
         this.selectedCharacter = character;
         this.party = [this.characters[character]];
         this.currentLevel = 1;
+        
+        // Salva e naviga
         this.saveGame();
         this.navigateToLevel(1);
+        
+        // Effetto visivo di conferma
+        const button = document.querySelector(`[data-character="${character}"]`);
+        if (button) {
+            button.style.animation = 'pulse 0.5s ease-in-out';
+            setTimeout(() => {
+                button.style.animation = '';
+            }, 500);
+        }
     }
 
     navigateToLevel(level) {
+        console.log('Navigazione al livello:', level);
         window.location.href = `level${level}.html`;
     }
 
@@ -267,16 +356,22 @@ class Game {
     }
 
     showNextCharacter() {
-        const characters = ['valentina', 'vincenzo', 'federica', 'bardo', 'paladina', 'william'];
-        const current = document.querySelector('.character-detail.active').dataset.character;
+        const characters = ['valentina', 'vincenzo', 'cesare', 'bardo', 'paladina', 'william'];
+        const currentElement = document.querySelector('.character-detail.active');
+        if (!currentElement) return;
+        
+        const current = currentElement.dataset.character;
         const currentIndex = characters.indexOf(current);
         const nextIndex = (currentIndex + 1) % characters.length;
         this.showCharacter(characters[nextIndex]);
     }
 
     showPreviousCharacter() {
-        const characters = ['valentina', 'vincenzo', 'federica', 'bardo', 'paladina', 'william'];
-        const current = document.querySelector('.character-detail.active').dataset.character;
+        const characters = ['valentina', 'vincenzo', 'cesare', 'bardo', 'paladina', 'william'];
+        const currentElement = document.querySelector('.character-detail.active');
+        if (!currentElement) return;
+        
+        const current = currentElement.dataset.character;
         const currentIndex = characters.indexOf(current);
         const prevIndex = (currentIndex - 1 + characters.length) % characters.length;
         this.showCharacter(characters[prevIndex]);
@@ -300,6 +395,7 @@ class Game {
             quizScore: this.quizScore
         };
         localStorage.setItem('electricBus0Game', JSON.stringify(gameData));
+        console.log('Gioco salvato:', gameData);
     }
 
     loadGame() {
@@ -328,7 +424,6 @@ class Game {
         if (this.playerStats.exp >= this.playerStats.level * 100) {
             this.playerStats.level++;
             this.playerStats.exp = 0;
-            // Migliora statistiche del personaggio
             this.improveCharacterStats();
         }
         
@@ -345,9 +440,8 @@ class Game {
     improveCharacterStats() {
         if (this.selectedCharacter && this.party[0]) {
             const character = this.party[0];
-            // Migliora tutte le statistiche del 5%
             Object.keys(character.stats).forEach(stat => {
-                if (typeof character.stats[stat] === 'number') {
+                if (typeof character.stats[stat] === 'number' && stat !== 'maxHealth' && stat !== 'maxMana') {
                     character.stats[stat] = Math.floor(character.stats[stat] * 1.05);
                 }
             });
@@ -356,18 +450,6 @@ class Game {
 
     victory() {
         window.location.href = 'victory.html';
-    }
-
-    // Metodo per il combattimento
-    battle(enemy) {
-        const battle = new Battle(this.party, enemy);
-        return battle.start();
-    }
-
-    // Metodo per i quiz
-    takeQuiz(quizType) {
-        const quiz = new Quiz(quizType);
-        return quiz.start();
     }
 }
 

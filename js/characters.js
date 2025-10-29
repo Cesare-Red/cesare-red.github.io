@@ -1,4 +1,4 @@
-// Gestione specifica della pagina dei personaggi
+// Gestione specifica della pagina dei personaggi - VERSIONE CORRETTA
 class CharacterManager {
     constructor() {
         this.currentCharacter = 'valentina';
@@ -9,6 +9,7 @@ class CharacterManager {
         this.setupCharacterNavigation();
         this.setupCharacterSelection();
         this.loadCharacterData();
+        this.createSoulParticles();
     }
 
     setupCharacterNavigation() {
@@ -34,6 +35,8 @@ class CharacterManager {
                 this.showPreviousCharacter();
             } else if (e.key === 'ArrowRight') {
                 this.showNextCharacter();
+            } else if (e.key === 'Enter') {
+                this.selectCurrentCharacter();
             }
         });
     }
@@ -48,9 +51,11 @@ class CharacterManager {
         });
     }
 
+    selectCurrentCharacter() {
+        this.selectCharacter(this.currentCharacter);
+    }
+
     loadCharacterData() {
-        // I dati dei personaggi sono già caricati in game.js
-        // Qui possiamo aggiungere logica specifica per il display
         this.updateCharacterDisplay();
     }
 
@@ -74,31 +79,30 @@ class CharacterManager {
         dots.forEach(dot => {
             dot.classList.toggle('active', dot.dataset.character === character);
         });
+
+        // Effetto particellare
+        this.createTransitionParticles();
     }
 
     showPreviousCharacter() {
-        const characters = ['valentina', 'vincenzo', 'federica', 'bardo', 'paladina', 'william'];
+        const characters = ['valentina', 'vincenzo', 'cesare', 'bardo', 'paladina', 'william'];
         const currentIndex = characters.indexOf(this.currentCharacter);
         const prevIndex = (currentIndex - 1 + characters.length) % characters.length;
         this.showCharacter(characters[prevIndex]);
     }
 
     showNextCharacter() {
-        const characters = ['valentina', 'vincenzo', 'federica', 'bardo', 'paladina', 'william'];
+        const characters = ['valentina', 'vincenzo', 'cesare', 'bardo', 'paladina', 'william'];
         const currentIndex = characters.indexOf(this.currentCharacter);
         const nextIndex = (currentIndex + 1) % characters.length;
         this.showCharacter(characters[nextIndex]);
     }
 
     updateCharacterDisplay() {
-        // Aggiorna le statistiche visualizzate per il personaggio corrente
         const character = game.characters[this.currentCharacter];
         if (!character) return;
 
-        // Aggiorna le barre delle statistiche
         this.updateStatBars(character.stats);
-        
-        // Aggiorna le abilità
         this.updateAbilities(character.abilities);
     }
 
@@ -139,29 +143,60 @@ class CharacterManager {
 
     createAbilityElement(ability, isUnlockable = false) {
         const abilityDiv = document.createElement('div');
-        abilityDiv.className = `ability ${isUnlockable ? 'unlockable' : ''}`;
+        abilityDiv.className = `ability ds-text-box ${isUnlockable ? 'unlockable locked' : ''}`;
         
         abilityDiv.innerHTML = `
             <h4>${ability.name}</h4>
             <p>${ability.description}</p>
-            ${ability.cost ? `<span class="ability-cost">Costo: ${ability.cost} MP</span>` : ''}
-            ${isUnlockable ? `<span class="ability-info">Da sbloccare</span>` : ''}
+            ${ability.cost ? `<span class="ability-cost">Costo Anima: ${ability.cost}</span>` : ''}
+            ${isUnlockable ? `<span class="ability-info">${ability.unlocked ? 'Sbloccato' : 'Miracolo Proibito'}</span>` : ''}
         `;
 
         return abilityDiv;
     }
 
     selectCharacter(character) {
-        // Salva la selezione e passa al primo livello
-        game.startGame(character);
+        console.log('Tentativo di selezione:', character);
         
-        // Effetto visivo di conferma
-        const button = document.querySelector(`[data-character="${character}"]`);
-        if (button) {
-            button.style.animation = 'pulse 0.5s ease-in-out';
+        // Usa il sistema di gioco principale per selezionare
+        game.selectCharacter(character);
+    }
+
+    createSoulParticles() {
+        const container = document.querySelector('.character-detail-container');
+        if (!container) return;
+
+        for (let i = 0; i < 10; i++) {
             setTimeout(() => {
-                button.style.animation = '';
-            }, 500);
+                this.createSoulParticle(container);
+            }, i * 300);
+        }
+    }
+
+    createSoulParticle(container) {
+        const particle = document.createElement('div');
+        particle.className = 'soul-particle';
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 2}s`;
+        
+        container.appendChild(particle);
+
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 3000);
+    }
+
+    createTransitionParticles() {
+        const activeDetail = document.querySelector('.character-detail.active');
+        if (!activeDetail) return;
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.createSoulParticle(activeDetail);
+            }, i * 100);
         }
     }
 }
