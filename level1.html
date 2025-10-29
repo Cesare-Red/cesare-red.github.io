@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livello 1: Minecraft - Electric Bus0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/anime-style.css">
+</head>
+<body class="minecraft-theme">
+    <div class="container">
+        <header class="level-header">
+            <h1>🪓 Livello 1: Dimensione Minecraft</h1>
+            <p>Esplora le caverne e sconfiggi il Wither per recuperare il primo ricordo!</p>
+            <div class="level-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text">Progresso: 0%</span>
+            </div>
+        </header>
+        
+        <main class="level-content">
+            <div class="game-area">
+                <div class="battle-scene hidden">
+                    <div class="battle-ui">
+                        <div class="enemy-side">
+                            <div class="enemy-display">
+                                <div class="enemy-sprite" id="enemy-sprite"></div>
+                                <div class="enemy-info">
+                                    <h3 id="enemy-name">Nemico</h3>
+                                    <div class="enemy-health">
+                                        <div class="health-bar">
+                                            <div class="health-fill" id="enemy-health-bar"></div>
+                                        </div>
+                                        <span id="enemy-health-text">HP: 100/100</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="player-side">
+                            <div class="player-character">
+                                <div class="player-sprite" id="player-sprite"></div>
+                                <div class="player-info">
+                                    <h3 id="player-name">Giocatore</h3>
+                                    <div class="player-stats">
+                                        <div class="stat">
+                                            <span>HP: </span>
+                                            <span id="player-health">100</span>/<span id="player-max-health">100</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span>MP: </span>
+                                            <span id="player-mana">100</span>/<span id="player-max-mana">100</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="battle-log" id="battle-log">
+                        <div class="log-entry">La battaglia ha inizio!</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-button attack-button anime-button">⚔️ Attacca</button>
+                        <button class="action-button skill-button anime-button">🎯 Abilità</button>
+                        <button class="action-button item-button anime-button">🧪 Oggetti</button>
+                        <button class="action-button flee-button anime-button">🏃 Fuggi</button>
+                    </div>
+                    
+                    <div class="skills-menu hidden">
+                        <h3>Seleziona un'abilità</h3>
+                        <div class="skills-list" id="skills-list">
+                            <!-- Le abilità verranno caricate dinamicamente -->
+                        </div>
+                        <button class="back-button anime-button">← Indietro</button>
+                    </div>
+                </div>
+                
+                <div class="exploration-scene">
+                    <div class="location-description">
+                        <h2>Caverna dei Blocchi Perduti</h2>
+                        <p>Ti trovi in una caverna illuminata da torce. Sentiti dei versi inquietanti in lontananza. Cosa vuoi fare?</p>
+                    </div>
+                    
+                    <div class="exploration-actions">
+                        <button class="explore-button anime-button" data-action="explore">
+                            🔍 Esplora l'area
+                        </button>
+                        <button class="explore-button anime-button" data-action="merchant">
+                            🛒 Cerca un mercante
+                        </button>
+                        <button class="explore-button anime-button" data-action="boss">
+                            💀 Affronta il boss
+                        </button>
+                    </div>
+                    
+                    <div class="inventory-display">
+                        <h3>🎒 Inventario</h3>
+                        <div class="inventory-items" id="inventory-items">
+                            <div class="inventory-item">
+                                <span class="item-icon">❤️</span>
+                                <span class="item-name">Pozione di Cura</span>
+                                <span class="item-count">x3</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span class="item-icon">🔮</span>
+                                <span class="item-name">Pozione di Mana</span>
+                                <span class="item-count">x2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-section hidden">
+                    <div class="quiz-container">
+                        <h2>🧠 Quiz di Fine Livello</h2>
+                        <p>Rispondi correttamente per ottenere bonus speciali!</p>
+                        
+                        <div class="quiz-question">
+                            <h3 id="quiz-question">Domanda caricamento...</h3>
+                            <div class="quiz-options" id="quiz-options">
+                                <!-- Le opzioni verranno caricate dinamicamente -->
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-result hidden" id="quiz-result">
+                            <h3 id="result-title">Risultato</h3>
+                            <p id="result-message"></p>
+                            <button class="continue-button anime-button" id="quiz-continue">Continua</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="level-footer">
+            <button class="level-restart anime-button">🔄 Ricomincia Livello</button>
+            <a href="characters.html" class="level-back anime-button">← Cambia Personaggio</a>
+        </footer>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/level1.js"></script>
+</body>
+</html>

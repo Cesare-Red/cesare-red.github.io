@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livello 3: Harry Potter - Electric Bus0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/anime-style.css">
+</head>
+<body class="harry-potter-theme">
+    <div class="container">
+        <header class="level-header">
+            <h1>⚡ Livello 3: Hogwarts - La Bacchetta della Verità</h1>
+            <p>Affronta Voldemort nell'epico scontro finale!</p>
+            <div class="level-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text">Progresso: 0%</span>
+            </div>
+        </header>
+        
+        <main class="level-content">
+            <div class="game-area">
+                <div class="hogwarts-map">
+                    <div class="map-location active" data-location="great-hall">Salone Grande</div>
+                    <div class="map-location" data-location="library">Biblioteca</div>
+                    <div class="map-location" data-location="potions-class">Aula Pozioni</div>
+                    <div class="map-location" data-location="forbidden-forest">Foresta Proibita</div>
+                    <div class="map-location boss-location" data-location="final-battle">Scontro Finale</div>
+                </div>
+                
+                <div class="battle-scene hidden">
+                    <!-- Struttura battle con aggiunte per Voldemort -->
+                    <div class="boss-warning hidden" id="boss-warning">
+                        <div class="warning-message">
+                            ⚠️ ATTENZIONE: VOLDEMORT ⚠️
+                            <p>Il Signore Oscuro può attaccare tante volte quanti sono i membri del party in un solo turno!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exploration-scene">
+                    <div class="location-description">
+                        <h2 id="location-title">Salone Grande di Hogwarts</h2>
+                        <p id="location-description">Il maestoso salone con il soffitto incantato. I tavoli delle case sono apparecchiati, ma l'atmosfera è inquietante.</p>
+                    </div>
+                    
+                    <div class="exploration-actions">
+                        <button class="explore-button anime-button" data-action="search-spells">
+                            📖 Cerca incantesimi
+                        </button>
+                        <button class="explore-button anime-button" data-action="find-allies">
+                            👥 Cerca alleati
+                        </button>
+                        <button class="explore-button anime-button" data-action="face-voldemort">
+                            💀 Affronta Voldemort
+                        </button>
+                    </div>
+                    
+                    <div class="spell-book">
+                        <h3>📜 Incantesimi Appresi</h3>
+                        <div class="spell-list">
+                            <div class="spell-item" data-spell="expelliarmus">
+                                <span class="spell-name">Expelliarmus</span>
+                                <span class="spell-effect">- Disarma il nemico</span>
+                            </div>
+                            <div class="spell-item" data-spell="protego">
+                                <span class="spell-name">Protego</span>
+                                <span class="spell-effect">- Scudo protettivo</span>
+                            </div>
+                            <div class="spell-item locked" data-spell="expecto-patronum">
+                                <span class="spell-name">Expecto Patronum</span>
+                                <span class="spell-effect">- Scaccia i Dementor</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="final-quiz-section hidden">
+                    <div class="quiz-container">
+                        <h2>🎉 Quiz Finale di Laurea!</h2>
+                        <p>L'ultima sfida prima della celebrazione!</p>
+                        
+                        <div class="quiz-question">
+                            <h3 id="final-quiz-question">Domanda caricamento...</h3>
+                            <div class="quiz-options" id="final-quiz-options">
+                                <!-- Opzioni dinamiche -->
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-result hidden" id="final-quiz-result">
+                            <h3 id="final-result-title">Risultato Finale</h3>
+                            <p id="final-result-message"></p>
+                            <button class="victory-button anime-button" id="final-continue">Vai alla Vittoria!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="level-footer">
+            <button class="level-restart anime-button">🔄 Ricomincia Livello</button>
+            <a href="level2.html" class="level-back anime-button">← Livello Precedente</a>
+        </footer>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/level3.js"></script>
+</body>
+</html>

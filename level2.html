@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livello 2: Breaking Bad - Electric Bus0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/anime-style.css">
+</head>
+<body class="breaking-bad-theme">
+    <div class="container">
+        <header class="level-header">
+            <h1>🧪 Livello 2: ALBUQUERQUE - CRYSTAL QUEST</h1>
+            <p>Recupera la Metacristallina del Caos nel deserto del New Mexico!</p>
+            <div class="level-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text">Progresso: 0%</span>
+            </div>
+        </header>
+        
+        <main class="level-content">
+            <div class="game-area">
+                <div class="phase-indicator">
+                    <div class="phase active" data-phase="1">FASE 1: Il Deserto</div>
+                    <div class="phase" data-phase="2">FASE 2: Il Laboratorio</div>
+                    <div class="phase" data-phase="3">FASE 3: Lo Scontro Finale</div>
+                </div>
+                
+                <div class="battle-scene hidden">
+                    <!-- Stessa struttura del level1.html -->
+                </div>
+                
+                <div class="exploration-scene">
+                    <div class="location-description">
+                        <h2>Deserto del New Mexico</h2>
+                        <p>Il caldo è opprimente. Davanti a te un camper arrugginito emana fumo blu. Cesare sviene ogni 10 metri e William cerca di contrabbandare acqua.</p>
+                    </div>
+                    
+                    <div class="exploration-actions">
+                        <button class="explore-button anime-button" data-action="explore-desert">
+                            🏜️ Esplora il deserto
+                        </button>
+                        <button class="explore-button anime-button" data-action="investigate-camper">
+                            🔬 Esamina il camper
+                        </button>
+                        <button class="explore-button anime-button" data-action="find-ally">
+                            🕵️ Cerca alleati
+                        </button>
+                    </div>
+                    
+                    <div class="special-events">
+                        <h3>Eventi Speciali</h3>
+                        <div class="event-list">
+                            <div class="event-item" data-event="cesare-faint">
+                                😵 Cesare sviene per il caldo
+                            </div>
+                            <div class="event-item" data-event="william-smuggle">
+                                🎒 William contrabbanda provviste
+                            </div>
+                            <div class="event-item" data-event="valentina-foodtruck">
+                                🌮 Valentina trasforma il camper in food truck
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-section hidden">
+                    <div class="quiz-container">
+                        <h2>🧠 Quiz Breaking Bad</h2>
+                        <p>Metti alla prova le tue conoscenze sulla serie!</p>
+                        
+                        <div class="quiz-question">
+                            <h3 id="quiz-question">Domanda caricamento...</h3>
+                            <div class="quiz-options" id="quiz-options">
+                                <!-- Opzioni dinamiche -->
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-result hidden" id="quiz-result">
+                            <h3 id="result-title">Risultato</h3>
+                            <p id="result-message"></p>
+                            <button class="continue-button anime-button" id="quiz-continue">Continua</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="level-footer">
+            <button class="level-restart anime-button">🔄 Ricomincia Livello</button>
+            <a href="level1.html" class="level-back anime-button">← Livello Precedente</a>
+        </footer>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/level2.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleziona Personaggio - Electric Bus0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/anime-style.css">
+</head>
+<body class="anime-background character-selection-bg">
+    <div class="container">
+        <header class="anime-header">
+            <h1>Scegli il tuo Eroe!</h1>
+            <p>Seleziona uno dei 6 personaggi per iniziare l'avventura</p>
+            <a href="index.html" class="back-button anime-button">← Torna alla Home</a>
+        </header>
+        
+        <main class="characters-selection">
+            <div class="character-detail-container">
+                <!-- Valentina -->
+                <div class="character-detail active" data-character="valentina">
+                    <div class="character-visual">
+                        <div class="character-sprite valentina-large"></div>
+                        <div class="equipment-display">
+                            <h3>🎒 Equipaggiamento</h3>
+                            <div class="equipment-item">
+                                <span class="item-icon">🎒</span>
+                                <span class="item-name">Mantello del Multigioco</span>
+                                <span class="item-desc">- Cambia colore in base al gioco che sta pensando</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">⚔️</span>
+                                <span class="item-name">Bacchetta del Caos Ordinato</span>
+                                <span class="item-desc">- 50% probabilità incantesimo funziona ma sbagliato</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🧰</span>
+                                <span class="item-name">Joystick Arcano</span>
+                                <span class="item-desc">- Permette di ripetere un lancio di dado a partita</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🪄</span>
+                                <span class="item-name">Tomo del Tutto-Tranne</span>
+                                <span class="item-desc">- Contiene TUTTI gli incantesimi... tranne quello giusto</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-info">
+                        <h2>Valentina - Maga del Tutto Tranne</h2>
+                        <p class="quote">"Gioco a tutto, tranne a quello."</p>
+                        
+                        <div class="stats">
+                            <h3>📊 Statistiche Base</h3>
+                            <div class="stat-grid">
+                                <div class="stat-bar">
+                                    <label>Vitalità: <span class="stat-value">70</span></label>
+                                    <div class="bar"><div class="fill vitality" style="width:70%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Mana: <span class="stat-value">100</span></label>
+                                    <div class="bar"><div class="fill mana" style="width:100%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Carisma: <span class="stat-value">85</span></label>
+                                    <div class="bar"><div class="fill charisma" style="width:85%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Fortuna: <span class="stat-value">60</span></label>
+                                    <div class="bar"><div class="fill luck" style="width:60%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Intelligenza: <span class="stat-value">90</span></label>
+                                    <div class="bar"><div class="fill intelligence" style="width:90%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Destrezza: <span class="stat-value">65</span></label>
+                                    <div class="bar"><div class="fill dexterity" style="width:65%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Forza: <span class="stat-value">50</span></label>
+                                    <div class="bar"><div class="fill strength" style="width:50%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="abilities">
+                            <h3>🎯 Abilità Iniziali</h3>
+                            <div class="ability-list">
+                                <div class="ability">
+                                    <h4>Multicast</h4>
+                                    <p>Lancia due incantesimi, ma a caso. Uno funziona, l'altro al 50% di potenza.</p>
+                                    <span class="ability-cost">Costo: 40 MP</span>
+                                </div>
+                                <div class="ability">
+                                    <h4>Palla di Fuoco</h4>
+                                    <p>Lancia una palla di fuoco che può infliggere lo status "Scotta?".</p>
+                                    <span class="ability-cost">Costo: 25 MP</span>
+                                </div>
+                                <div class="ability">
+                                    <h4>Firewall di Guacamole</h4>
+                                    <p>Crea una barriera che riduce del 50% i danni magici per 2 turni.</p>
+                                    <span class="ability-cost">Costo: 30 MP</span>
+                                </div>
+                            </div>
+                            
+                            <h3>🔮 Abilità da Sbloccare</h3>
+                            <div class="ability-list unlockable">
+                                <div class="ability">
+                                    <h4>Grande Invocazione</h4>
+                                    <p>Evoca miniature di altri universi videoludici che attaccano tutti i nemici.</p>
+                                    <span class="ability-info">Tempo di lancio: 1 turno e mezzo</span>
+                                </div>
+                                <div class="ability">
+                                    <h4>Liberazione del Tutto-Tranne</h4>
+                                    <p>Cura tutti gli alleati da condizioni negative, ma applica nuovi malus casuali.</p>
+                                    <span class="ability-info">Tempo di lancio: 1 turno e un sospiro profondo</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="select-character anime-button giant-button" data-character="valentina">
+                            🧙‍♀️ Seleziona Valentina
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vincenzo -->
+                <div class="character-detail" data-character="vincenzo">
+                    <div class="character-visual">
+                        <div class="character-sprite vincenzo-large"></div>
+                        <div class="equipment-display">
+                            <h3>🎒 Equipaggiamento</h3>
+                            <div class="equipment-item">
+                                <span class="item-icon">🎒</span>
+                                <span class="item-name">Guanti del Debug</span>
+                                <span class="item-desc">- Mostra errori quando fallisce un tiro</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">⚔️</span>
+                                <span class="item-name">Chiave inglese quantistica</span>
+                                <span class="item-desc">- Può essere sia arma che interfaccia USB</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🧰</span>
+                                <span class="item-name">Zaino con mini-server</span>
+                                <span class="item-desc">- Permette di "patchare" un alleato curandolo di 10 HP</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🪄</span>
+                                <span class="item-name">Visore a Realtà Mista</span>
+                                <span class="item-desc">- Rivela punti deboli digitali nei nemici</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-info">
+                        <h2>Vincenzo - Artificiere Digitale</h2>
+                        <p class="quote">"Se non funziona, lo ricompilo."</p>
+                        
+                        <div class="stats">
+                            <h3>📊 Statistiche Base</h3>
+                            <div class="stat-grid">
+                                <div class="stat-bar">
+                                    <label>Vitalità: <span class="stat-value">75</span></label>
+                                    <div class="bar"><div class="fill vitality" style="width:75%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Mana: <span class="stat-value">80</span></label>
+                                    <div class="bar"><div class="fill mana" style="width:80%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Carisma: <span class="stat-value">70</span></label>
+                                    <div class="bar"><div class="fill charisma" style="width:70%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Fortuna: <span class="stat-value">65</span></label>
+                                    <div class="bar"><div class="fill luck" style="width:65%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Intelligenza: <span class="stat-value">95</span></label>
+                                    <div class="bar"><div class="fill intelligence" style="width:95%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Destrezza: <span class="stat-value">75</span></label>
+                                    <div class="bar"><div class="fill dexterity" style="width:75%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <label>Forza: <span class="stat-value">60</span></label>
+                                    <div class="bar"><div class="fill strength" style="width:60%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="abilities">
+                            <h3>🎯 Abilità Iniziali</h3>
+                            <div class="ability-list">
+                                <div class="ability">
+                                    <h4>Scarica Neurale</h4>
+                                    <p>Infligge danni a tutti i nemici in base all'Intelligenza.</p>
+                                    <span class="ability-cost">Costo: 35 MP</span>
+                                </div>
+                                <div class="ability">
+                                    <h4>Hack del Sistema</h4>
+                                    <p>Riduce del 25% la difesa di tutti i nemici per 2 turni.</p>
+                                    <span class="ability-cost">Costo: 40 MP</span>
+                                </div>
+                                <div class="ability">
+                                    <h4>Compilazione d'Emergenza</h4>
+                                    <p>Cura un alleato di 20 HP e rimuove un malus.</p>
+                                    <span class="ability-cost">Costo: 30 MP</span>
+                                </div>
+                            </div>
+                            
+                            <h3>🔮 Abilità da Sbloccare</h3>
+                            <div class="ability-list unlockable">
+                                <div class="ability">
+                                    <h4>Overclock Finale</h4>
+                                    <p>Potenzia tutto il team (+50% Forza e Magia per 3 turni).</p>
+                                </div>
+                                <div class="ability">
+                                    <h4>Virus Empatico</h4>
+                                    <p>Duplica il danno subito e lo restituisce a chi l'ha inflitto.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="select-character anime-button giant-button" data-character="vincenzo">
+                            ⚡ Seleziona Vincenzo
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Altri personaggi con struttura simile -->
+                <!-- Federica -->
+                <div class="character-detail" data-character="federica">
+                    <!-- Contenuto simile per Federica -->
+                </div>
+                
+                <!-- Bardo -->
+                <div class="character-detail" data-character="bardo">
+                    <!-- Contenuto simile per Il Tardo Bardo -->
+                </div>
+                
+                <!-- Paladina -->
+                <div class="character-detail" data-character="paladina">
+                    <!-- Contenuto simile per Paladina del Buffet -->
+                </div>
+                
+                <!-- William -->
+                <div class="character-detail" data-character="william">
+                    <!-- Contenuto simile per William -->
+                </div>
+            </div>
+            
+            <div class="character-navigation">
+                <button class="nav-button prev-button anime-button">← Precedente</button>
+                <div class="character-dots">
+                    <span class="dot active" data-character="valentina"></span>
+                    <span class="dot" data-character="vincenzo"></span>
+                    <span class="dot" data-character="federica"></span>
+                    <span class="dot" data-character="bardo"></span>
+                    <span class="dot" data-character="paladina"></span>
+                    <span class="dot" data-character="william"></span>
+                </div>
+                <button class="nav-button next-button anime-button">Successivo →</button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/characters.js"></script>
+</body>
+</html>

@@ -3,51 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avventura di Laurea - electric_bus0</title>
+    <title>Electric Bus0 - Avventura di Laurea</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/characters.css">
+    <link rel="stylesheet" href="css/anime-style.css">
 </head>
-<body>
-    <div id="game-container">
-        <div id="start-screen" class="screen active">
-            <h1>Avventura di Laurea di Vincenzo</h1>
-            <p>Seleziona il tuo personaggio:</p>
-            <div id="character-selection"></div>
-            <button id="start-game">Inizia l'Avventura!</button>
-        </div>
-        
-        <div id="game-screen" class="screen">
-            <div id="game-header">
-                <div id="player-info"></div>
-                <div id="level-info"></div>
+<body class="anime-background">
+    <div class="container">
+        <header class="anime-header">
+            <div class="celebration-effects">
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
             </div>
-            <div id="game-content">
-                <div id="story-text"></div>
-                <div id="combat-interface" class="hidden">
-                    <div id="enemy-info"></div>
-                    <div id="combat-log"></div>
-                    <div id="player-actions"></div>
+            <h1>🎓 Electric Bus0's Graduation Adventure 🎮</h1>
+            <p>Un regalo epico per il festeggiato Vincenzo!</p>
+            <div class="graduation-cap">🎓</div>
+        </header>
+        
+        <main class="intro-section">
+            <div class="story-intro">
+                <h2>La Storia</h2>
+                <p>Il giorno della laurea di Vincenzo è arrivato, ma un misterioso maleficio ha disperso i suoi ricordi di gaming attraverso diverse dimensioni! Aiuta i 6 eroi a recuperare i ricordi e celebrare degnamente questo traguardo.</p>
+            </div>
+            
+            <div class="character-showcase">
+                <h2>Scegli il tuo Eroe</h2>
+                <div class="character-grid">
+                    <div class="character-card" data-character="valentina">
+                        <div class="character-avatar valentina"></div>
+                        <h3>Valentina</h3>
+                        <p>Maga del Tutto-Tranne</p>
+                        <div class="character-hint">"Gioco a tutto, tranne a quello"</div>
+                    </div>
+                    
+                    <div class="character-card" data-character="vincenzo">
+                        <div class="character-avatar vincenzo"></div>
+                        <h3>Vincenzo</h3>
+                        <p>Artificiere Digitale</p>
+                        <div class="character-hint">"Se non funziona, lo ricompilo"</div>
+                    </div>
+                    
+                    <div class="character-card" data-character="federica">
+                        <div class="character-avatar federica"></div>
+                        <h3>Federica</h3>
+                        <p>Araldo dell'Assenza Strategica</p>
+                        <div class="character-hint">"Io non faccio tardi, non mi presento"</div>
+                    </div>
+                    
+                    <div class="character-card" data-character="bardo">
+                        <div class="character-avatar bardo"></div>
+                        <h3>Il Tardo Bardo</h3>
+                        <p>Maestro del Ritardo Armonico</p>
+                        <div class="character-hint">"Non stono, invento nuove note"</div>
+                    </div>
+                    
+                    <div class="character-card" data-character="paladina">
+                        <div class="character-avatar paladina"></div>
+                        <h3>Paladina del Buffet</h3>
+                        <p>Eroina del Carboidrato</p>
+                        <div class="character-hint">"In nome del carboidrato, io ti assolvo!"</div>
+                    </div>
+                    
+                    <div class="character-card" data-character="william">
+                        <div class="character-avatar william"></div>
+                        <h3>William</h3>
+                        <p>Ladro Immigrato</p>
+                        <div class="character-hint">"Io non rubo, redistribuisco... geograficamente"</div>
+                    </div>
                 </div>
-                <div id="choices-container"></div>
             </div>
-        </div>
+            
+            <div class="start-game">
+                <button id="start-btn" class="anime-button giant-button">Inizia l'Avventura!</button>
+                <div class="game-stats-preview">
+                    <div class="stat-preview">
+                        <span class="stat-icon">⚔️</span>
+                        <span>3 Livelli Epici</span>
+                    </div>
+                    <div class="stat-preview">
+                        <span class="stat-icon">🎯</span>
+                        <span>6 Personaggi Unici</span>
+                    </div>
+                    <div class="stat-preview">
+                        <span class="stat-icon">🏆</span>
+                        <span>Boss Leggendari</span>
+                    </div>
+                </div>
+            </div>
+        </main>
         
-        <div id="level-complete-screen" class="screen">
-            <h2>Livello Completato!</h2>
-            <div id="quiz-container"></div>
-            <button id="next-level">Prosegui</button>
-        </div>
-        
-        <div id="game-complete-screen" class="screen">
-            <h2>Congratulazioni!</h2>
-            <p>Hai completato l'avventura di laurea!</p>
-            <div id="final-message"></div>
-        </div>
+        <footer class="anime-footer">
+            <p>Creato con ❤️ per la laurea di Vincenzo (electric_bus0) | Buon divertimento! 🎉</p>
+        </footer>
     </div>
     
-    <script src="js/characters.js"></script>
-    <script src="js/levels.js"></script>
-    <script src="js/combat.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
 </body>
 </html>
