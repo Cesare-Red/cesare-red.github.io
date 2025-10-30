@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scegli il Campione - Electric Bus0</title>
+    <title>Dettagli Personaggi - Electric Bus0</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dark-souls-style.css">
 </head>
 <body class="dark-souls-theme character-selection-bg">
     <div class="container">
         <header class="ds-header">
-            <h1 class="ds-title">Scegli il tuo Campione Non Morto</h1>
-            <p class="ds-subtitle">Ogni eroe ha forze e debolezze uniche. Scegli saggiamente.</p>
-            <a href="index.html" class="ds-button back-button">← Torna al Falò</a>
+            <h1 class="ds-title">Dettagli del Campione Non Morto</h1>
+            <p class="ds-subtitle">Personalizza le statistiche del tuo eroe. Ogni punto conta!</p>
+            <div class="header-buttons">
+                <a href="index.html" class="ds-button back-button">← Torna al Falò</a>
+                <a href="bestiary.html" class="ds-button">📖 Manuale dei Mostri</a>
+            </div>
         </header>
         
         <main class="characters-selection">
@@ -51,33 +54,79 @@
                         
                         <div class="stats">
                             <h3>📊 Anima del Campione</h3>
+                            <div class="stat-points-display">
+                                <span>Punti disponibili: </span>
+                                <span id="stat-points" class="stat-points">50</span>
+                            </div>
                             <div class="stat-grid">
                                 <div class="stat-bar">
-                                    <label>Vitalità: <span class="stat-value">70</span></label>
+                                    <div class="stat-controls">
+                                        <label>Vitalità: <span class="stat-value">70</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="vitality">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="vitality">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill vitality" style="width:70%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Mana: <span class="stat-value">100</span></label>
+                                    <div class="stat-controls">
+                                        <label>Mana: <span class="stat-value">100</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="mana">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="mana">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill mana" style="width:100%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Carisma: <span class="stat-value">85</span></label>
+                                    <div class="stat-controls">
+                                        <label>Carisma: <span class="stat-value">85</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="charisma">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="charisma">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill charisma" style="width:85%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Fortuna: <span class="stat-value">60</span></label>
+                                    <div class="stat-controls">
+                                        <label>Fortuna: <span class="stat-value">60</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="luck">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="luck">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill luck" style="width:60%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Intelligenza: <span class="stat-value">90</span></label>
+                                    <div class="stat-controls">
+                                        <label>Intelligenza: <span class="stat-value">90</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="intelligence">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="intelligence">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill intelligence" style="width:90%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Destrezza: <span class="stat-value">65</span></label>
+                                    <div class="stat-controls">
+                                        <label>Destrezza: <span class="stat-value">65</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="dexterity">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="dexterity">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill dexterity" style="width:65%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Forza: <span class="stat-value">50</span></label>
+                                    <div class="stat-controls">
+                                        <label>Forza: <span class="stat-value">50</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="strength">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="strength">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill strength" style="width:50%"></div></div>
                                 </div>
                             </div>
@@ -118,18 +167,176 @@
                             </div>
                         </div>
                         
-                        <button class="select-character ds-button giant-button" data-character="valentina">
-                            🧙‍♀️ Scegli Valentina
-                        </button>
+                        <div class="character-actions">
+                            <button class="select-character ds-button giant-button" data-character="valentina">
+                                🧙‍♀️ Scegli Valentina
+                            </button>
+                            <button class="reset-stats ds-button" data-character="valentina">
+                                🔄 Reset Statistiche
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Vincenzo -->
                 <div class="character-detail" data-character="vincenzo">
-                    <!-- Struttura simile per Vincenzo -->
+                    <div class="character-visual">
+                        <div class="character-sprite vincenzo-large pixel-art"></div>
+                        <div class="equipment-display ds-text-box">
+                            <h3>🎒 Equipaggiamento del Non Morto</h3>
+                            <div class="equipment-item">
+                                <span class="item-icon">🎒</span>
+                                <span class="item-name">Guanti del Debug</span>
+                                <span class="item-desc">- Mostra errori quando fallisce un tiro</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">⚔️</span>
+                                <span class="item-name">Chiave inglese quantistica</span>
+                                <span class="item-desc">- Può essere sia arma che interfaccia USB</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🧰</span>
+                                <span class="item-name">Zaino con mini-server</span>
+                                <span class="item-desc">- Permette di "patchare" un alleato curandolo di 10 HP</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🪄</span>
+                                <span class="item-name">Visore a Realtà Mista</span>
+                                <span class="item-desc">- Rivela punti deboli digitali nei nemici</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-info">
+                        <h2>Vincenzo - Artificiere Digitale</h2>
+                        <p class="quote ds-quote">"Se non funziona, lo ricompilo."</p>
+                        
+                        <div class="stats">
+                            <h3>📊 Anima del Campione</h3>
+                            <div class="stat-points-display">
+                                <span>Punti disponibili: </span>
+                                <span id="stat-points-vincenzo" class="stat-points">50</span>
+                            </div>
+                            <div class="stat-grid">
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Vitalità: <span class="stat-value">75</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="vitality">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="vitality">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill vitality" style="width:75%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Mana: <span class="stat-value">80</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="mana">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="mana">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill mana" style="width:80%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Carisma: <span class="stat-value">70</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="charisma">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="charisma">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill charisma" style="width:70%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Fortuna: <span class="stat-value">65</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="luck">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="luck">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill luck" style="width:65%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Intelligenza: <span class="stat-value">95</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="intelligence">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="intelligence">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill intelligence" style="width:95%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Destrezza: <span class="stat-value">75</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="dexterity">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="dexterity">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill dexterity" style="width:75%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Forza: <span class="stat-value">60</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="strength">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="strength">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill strength" style="width:60%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="abilities">
+                            <h3>🎯 Miracoli dell'Anima</h3>
+                            <div class="ability-list">
+                                <div class="ability ds-text-box">
+                                    <h4>Scarica Neurale</h4>
+                                    <p>Infligge danni a tutti i nemici in base all'Intelligenza.</p>
+                                    <span class="ability-cost">Costo: 35 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Hack del Sistema</h4>
+                                    <p>Riduce del 25% la difesa di tutti i nemici per 2 turni.</p>
+                                    <span class="ability-cost">Costo: 40 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Compilazione d'Emergenza</h4>
+                                    <p>Cura un alleato di 20 HP e rimuove un malus.</p>
+                                    <span class="ability-cost">Costo: 30 MP</span>
+                                </div>
+                            </div>
+                            
+                            <h3>🔮 Miracoli Proibiti</h3>
+                            <div class="ability-list unlockable">
+                                <div class="ability ds-text-box locked">
+                                    <h4>Overclock Finale</h4>
+                                    <p>Potenzia tutto il team (+50% Forza e Magia per 3 turni).</p>
+                                    <span class="ability-info">Sbloccato dopo il secondo boss</span>
+                                </div>
+                                <div class="ability ds-text-box locked">
+                                    <h4>Virus Empatico</h4>
+                                    <p>Duplica il danno subito e lo restituisce a chi l'ha inflitto.</p>
+                                    <span class="ability-info">Sbloccato al livello 15</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-actions">
+                            <button class="select-character ds-button giant-button" data-character="vincenzo">
+                                ⚡ Scegli Vincenzo
+                            </button>
+                            <button class="reset-stats ds-button" data-character="vincenzo">
+                                🔄 Reset Statistiche
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Cesare (corretto da Federica) -->
+                <!-- Cesare -->
                 <div class="character-detail" data-character="cesare">
                     <div class="character-visual">
                         <div class="character-sprite cesare-large pixel-art"></div>
@@ -163,33 +370,79 @@
                         
                         <div class="stats">
                             <h3>📊 Anima del Campione</h3>
+                            <div class="stat-points-display">
+                                <span>Punti disponibili: </span>
+                                <span id="stat-points-cesare" class="stat-points">50</span>
+                            </div>
                             <div class="stat-grid">
                                 <div class="stat-bar">
-                                    <label>Vitalità: <span class="stat-value">65</span></label>
+                                    <div class="stat-controls">
+                                        <label>Vitalità: <span class="stat-value">65</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="vitality">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="vitality">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill vitality" style="width:65%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Mana: <span class="stat-value">70</span></label>
+                                    <div class="stat-controls">
+                                        <label>Mana: <span class="stat-value">70</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="mana">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="mana">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill mana" style="width:70%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Carisma: <span class="stat-value">75</span></label>
+                                    <div class="stat-controls">
+                                        <label>Carisma: <span class="stat-value">75</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="charisma">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="charisma">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill charisma" style="width:75%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Fortuna: <span class="stat-value">80</span></label>
+                                    <div class="stat-controls">
+                                        <label>Fortuna: <span class="stat-value">80</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="luck">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="luck">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill luck" style="width:80%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Intelligenza: <span class="stat-value">60</span></label>
+                                    <div class="stat-controls">
+                                        <label>Intelligenza: <span class="stat-value">60</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="intelligence">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="intelligence">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill intelligence" style="width:60%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Destrezza: <span class="stat-value">55</span></label>
+                                    <div class="stat-controls">
+                                        <label>Destrezza: <span class="stat-value">55</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="dexterity">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="dexterity">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill dexterity" style="width:55%"></div></div>
                                 </div>
                                 <div class="stat-bar">
-                                    <label>Forza: <span class="stat-value">45</span></label>
+                                    <div class="stat-controls">
+                                        <label>Forza: <span class="stat-value">45</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="strength">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="strength">+10</button>
+                                        </div>
+                                    </div>
                                     <div class="bar"><div class="fill strength" style="width:45%"></div></div>
                                 </div>
                             </div>
@@ -230,13 +483,490 @@
                             </div>
                         </div>
                         
-                        <button class="select-character ds-button giant-button" data-character="cesare">
-                            🕰️ Scegli Cesare
-                        </button>
+                        <div class="character-actions">
+                            <button class="select-character ds-button giant-button" data-character="cesare">
+                                🕰️ Scegli Cesare
+                            </button>
+                            <button class="reset-stats ds-button" data-character="cesare">
+                                🔄 Reset Statistiche
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Bardo, Paladina, William con strutture simili -->
+                <!-- Bardo -->
+                <div class="character-detail" data-character="bardo">
+                    <div class="character-visual">
+                        <div class="character-sprite bardo-large pixel-art"></div>
+                        <div class="equipment-display ds-text-box">
+                            <h3>🎒 Equipaggiamento del Non Morto</h3>
+                            <div class="equipment-item">
+                                <span class="item-icon">🎒</span>
+                                <span class="item-name">Liuto del Ritardo Armonico</span>
+                                <span class="item-desc">- La melodia parte due turni dopo, ma è devastante</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">⚔️</span>
+                                <span class="item-name">Pugnale d'Ottava Bassa</span>
+                                <span class="item-desc">- Attacca e fa un suono orribile</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🧰</span>
+                                <span class="item-name">Cappa del Pubblico Vuoto</span>
+                                <span class="item-desc">- Immune alla vergogna e ai fischi</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🪄</span>
+                                <span class="item-name">Tamburello dell'Imprevisto</span>
+                                <span class="item-desc">- Ogni colpo produce un effetto casuale</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-info">
+                        <h2>Il Tardo Bardo - Maestro del Ritardo Armonico</h2>
+                        <p class="quote ds-quote">"Non stono, invento nuove note."</p>
+                        
+                        <div class="stats">
+                            <h3>📊 Anima del Campione</h3>
+                            <div class="stat-points-display">
+                                <span>Punti disponibili: </span>
+                                <span id="stat-points-bardo" class="stat-points">50</span>
+                            </div>
+                            <div class="stat-grid">
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Vitalità: <span class="stat-value">60</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="vitality">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="vitality">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill vitality" style="width:60%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Mana: <span class="stat-value">90</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="mana">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="mana">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill mana" style="width:90%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Carisma: <span class="stat-value">95</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="charisma">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="charisma">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill charisma" style="width:95%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Fortuna: <span class="stat-value">70</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="luck">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="luck">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill luck" style="width:70%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Intelligenza: <span class="stat-value">65</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="intelligence">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="intelligence">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill intelligence" style="width:65%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Destrezza: <span class="stat-value">75</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="dexterity">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="dexterity">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill dexterity" style="width:75%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Forza: <span class="stat-value">40</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="strength">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="strength">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill strength" style="width:40%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="abilities">
+                            <h3>🎯 Miracoli dell'Anima</h3>
+                            <div class="ability-list">
+                                <div class="ability ds-text-box">
+                                    <h4>Canzone Stonata</h4>
+                                    <p>Riduce del 15% la precisione e infligge confusione ad un nemico.</p>
+                                    <span class="ability-cost">Costo: 20 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Assolo Improvvisato</h4>
+                                    <p>Cura 20 HP a un alleato con una melodia casuale.</p>
+                                    <span class="ability-cost">Costo: 25 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Ritmo Ritardato</h4>
+                                    <p>Attacco che si attiva dopo 1 turno, ma infligge 30 danni puri.</p>
+                                    <span class="ability-cost">Costo: 30 MP</span>
+                                </div>
+                            </div>
+                            
+                            <h3>🔮 Miracoli Proibiti</h3>
+                            <div class="ability-list unlockable">
+                                <div class="ability ds-text-box locked">
+                                    <h4>Sinfonia del Caos</h4>
+                                    <p>Ogni alleato ottiene +5 a tutte le statistiche per 2 turni.</p>
+                                    <span class="ability-info">Sbloccato dopo il primo boss</span>
+                                </div>
+                                <div class="ability ds-text-box locked">
+                                    <h4>Bis del Fallimento</h4>
+                                    <p>Se un alleato muore, il Tardo Bardo "replica" la sua ultima azione.</p>
+                                    <span class="ability-info">Sbloccato al livello 12</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-actions">
+                            <button class="select-character ds-button giant-button" data-character="bardo">
+                                🎶 Scegli il Bardo
+                            </button>
+                            <button class="reset-stats ds-button" data-character="bardo">
+                                🔄 Reset Statistiche
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paladina -->
+                <div class="character-detail" data-character="paladina">
+                    <div class="character-visual">
+                        <div class="character-sprite paladina-large pixel-art"></div>
+                        <div class="equipment-display ds-text-box">
+                            <h3>🎒 Equipaggiamento del Non Morto</h3>
+                            <div class="equipment-item">
+                                <span class="item-icon">🎒</span>
+                                <span class="item-name">Armatura in Alluminio Dorato</span>
+                                <span class="item-desc">- Riflette la luce e tiene calde le lasagne</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">⚔️</span>
+                                <span class="item-name">Forchetta +5 della Giustizia</span>
+                                <span class="item-desc">- Ogni colpo infligge "danni calorici" bonus</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🧰</span>
+                                <span class="item-name">Scudo-vassoio sacro</span>
+                                <span class="item-desc">- Può parare o servire, a seconda della fame</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🪄</span>
+                                <span class="item-name">Coppa della Maionese Eterna</span>
+                                <span class="item-desc">- Pozione infinita che cura 20 HP ma riduce l'Agilità</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-info">
+                        <h2>Paladina del Buffet - Eroina del Carboidrato</h2>
+                        <p class="quote ds-quote">"In nome del carboidrato, io ti assolvo!"</p>
+                        
+                        <div class="stats">
+                            <h3>📊 Anima del Campione</h3>
+                            <div class="stat-points-display">
+                                <span>Punti disponibili: </span>
+                                <span id="stat-points-paladina" class="stat-points">50</span>
+                            </div>
+                            <div class="stat-grid">
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Vitalità: <span class="stat-value">90</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="vitality">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="vitality">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill vitality" style="width:90%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Mana: <span class="stat-value">50</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="mana">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="mana">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill mana" style="width:50%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Carisma: <span class="stat-value">80</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="charisma">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="charisma">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill charisma" style="width:80%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Fortuna: <span class="stat-value">65</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="luck">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="luck">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill luck" style="width:65%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Intelligenza: <span class="stat-value">55</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="intelligence">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="intelligence">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill intelligence" style="width:55%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Destrezza: <span class="stat-value">45</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="dexterity">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="dexterity">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill dexterity" style="width:45%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Forza: <span class="stat-value">85</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="strength">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="strength">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill strength" style="width:85%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="abilities">
+                            <h3>🎯 Miracoli dell'Anima</h3>
+                            <div class="ability-list">
+                                <div class="ability ds-text-box">
+                                    <h4>Pugno Proteico</h4>
+                                    <p>Attacco fisico +10 Forza, infligge danni "calorici" extra.</p>
+                                    <span class="ability-cost">Costo: 25 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Preghiera al Forno</h4>
+                                    <p>Cura tutti gli alleati di 15 HP.</p>
+                                    <span class="ability-cost">Costo: 30 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Difesa Panata</h4>
+                                    <p>Riduce i danni subiti del 30% (la panatura assorbe tutto).</p>
+                                    <span class="ability-cost">Costo: 35 MP</span>
+                                </div>
+                            </div>
+                            
+                            <h3>🔮 Miracoli Proibiti</h3>
+                            <div class="ability-list unlockable">
+                                <div class="ability ds-text-box locked">
+                                    <h4>Banchetto Benedetto</h4>
+                                    <p>Tutti gli alleati recuperano HP e un bonus temporaneo a Forza.</p>
+                                    <span class="ability-info">Sbloccato dopo il secondo boss</span>
+                                </div>
+                                <div class="ability ds-text-box locked">
+                                    <h4>Dieta dell'Apocalisse</h4>
+                                    <p>Attacco finale che infligge 50 danni a tutti i nemici.</p>
+                                    <span class="ability-info">Sbloccato al livello 15</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-actions">
+                            <button class="select-character ds-button giant-button" data-character="paladina">
+                                🍗 Scegli la Paladina
+                            </button>
+                            <button class="reset-stats ds-button" data-character="paladina">
+                                🔄 Reset Statistiche
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- William -->
+                <div class="character-detail" data-character="william">
+                    <div class="character-visual">
+                        <div class="character-sprite william-large pixel-art"></div>
+                        <div class="equipment-display ds-text-box">
+                            <h3>🎒 Equipaggiamento del Non Morto</h3>
+                            <div class="equipment-item">
+                                <span class="item-icon">🎒</span>
+                                <span class="item-name">Zaino da Frontiera</span>
+                                <span class="item-desc">- Contiene tutto ciò che "ha trovato" in giro</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">⚔️</span>
+                                <span class="item-name">Coltello del Contrabbando</span>
+                                <span class="item-desc">- Infligge danni extra se il nemico ha più oro di lui</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🧰</span>
+                                <span class="item-name">Mantello dell'Invisibilità Burocratica</span>
+                                <span class="item-desc">- Scompare quando c'è da pagare dazi o dogane</span>
+                            </div>
+                            <div class="equipment-item">
+                                <span class="item-icon">🪄</span>
+                                <span class="item-name">Documento di Viaggio Falso +3</span>
+                                <span class="item-desc">- Consente di entrare in qualunque zona senza combattere</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-info">
+                        <h2>William - Ladro Immigrato</h2>
+                        <p class="quote ds-quote">"Io non rubo, redistribuisco... geograficamente."</p>
+                        
+                        <div class="stats">
+                            <h3>📊 Anima del Campione</h3>
+                            <div class="stat-points-display">
+                                <span>Punti disponibili: </span>
+                                <span id="stat-points-william" class="stat-points">50</span>
+                            </div>
+                            <div class="stat-grid">
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Vitalità: <span class="stat-value">65</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="vitality">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="vitality">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill vitality" style="width:65%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Mana: <span class="stat-value">60</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="mana">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="mana">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill mana" style="width:60%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Carisma: <span class="stat-value">70</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="charisma">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="charisma">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill charisma" style="width:70%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Fortuna: <span class="stat-value">90</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="luck">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="luck">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill luck" style="width:90%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Intelligenza: <span class="stat-value">75</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="intelligence">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="intelligence">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill intelligence" style="width:75%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Destrezza: <span class="stat-value">95</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="dexterity">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="dexterity">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill dexterity" style="width:95%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-controls">
+                                        <label>Forza: <span class="stat-value">55</span></label>
+                                        <div class="stat-buttons">
+                                            <button class="stat-btn minus-btn" data-stat="strength">-10</button>
+                                            <button class="stat-btn plus-btn" data-stat="strength">+10</button>
+                                        </div>
+                                    </div>
+                                    <div class="bar"><div class="fill strength" style="width:55%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="abilities">
+                            <h3>🎯 Miracoli dell'Anima</h3>
+                            <div class="ability-list">
+                                <div class="ability ds-text-box">
+                                    <h4>Colpo Transfrontaliero</h4>
+                                    <p>Attacco rapido che ignora le difese (danno diretto +10).</p>
+                                    <span class="ability-cost">Costo: 20 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Passaporto Falso</h4>
+                                    <p>Evita ogni effetto di blocco o trappola nel dungeon.</p>
+                                    <span class="ability-cost">Costo: 25 MP</span>
+                                </div>
+                                <div class="ability ds-text-box">
+                                    <h4>Furto Solidale</h4>
+                                    <p>Rubo 10 HP o 5 mana al nemico e li trasferisce a un alleato.</p>
+                                    <span class="ability-cost">Costo: 30 MP</span>
+                                </div>
+                            </div>
+                            
+                            <h3>🔮 Miracoli Proibiti</h3>
+                            <div class="ability-list unlockable">
+                                <div class="ability ds-text-box locked">
+                                    <h4>Espatrio Istantaneo</h4>
+                                    <p>Si teletrasporta dietro il nemico, infliggendo doppio danno critico.</p>
+                                    <span class="ability-info">Sbloccato dopo il primo boss</span>
+                                </div>
+                                <div class="ability ds-text-box locked">
+                                    <h4>Rete di Contatti Oscuri</h4>
+                                    <p>Evoca mercanti o alleati ombra che donano oggetti casuali.</p>
+                                    <span class="ability-info">Sbloccato al livello 12</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-actions">
+                            <button class="select-character ds-button giant-button" data-character="william">
+                                🗡️ Scegli William
+                            </button>
+                            <button class="reset-stats ds-button" data-character="william">
+                                🔄 Reset Statistiche
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="character-navigation">
@@ -255,6 +985,7 @@
     </div>
     
     <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
     <script src="js/characters.js"></script>
 </body>
 </html>
