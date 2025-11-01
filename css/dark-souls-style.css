@@ -1,4 +1,6 @@
-/* Stile Dark Souls migliorato con animazioni avanzate */
+/* Stile Dark Souls con Pixel Art - VERSIONE MIGLIORATA */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
 :root {
     --ds-dark: #1a1a1a;
     --ds-darker: #0a0a0a;
@@ -8,91 +10,527 @@
     --ds-blood: #660000;
     --ds-parchment: #f5e6c8;
     --ds-stone: #696969;
+    --ds-shadow: rgba(0, 0, 0, 0.8);
 }
 
-/* Animazioni per le statistiche */
-@keyframes statBarFill {
-    0% { 
-        transform: scaleX(0);
-        opacity: 0.5;
-    }
-    100% { 
-        transform: scaleX(1);
-        opacity: 1;
-    }
+* {
+    box-sizing: border-box;
 }
 
-@keyframes numberPulse {
+body {
+    font-family: 'MedievalSharp', cursive;
+    background: var(--ds-darker);
+    color: var(--ds-parchment);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    min-height: 100vh;
+}
+
+/* Sfondi tematici Dark Souls */
+.dark-souls-theme {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, var(--ds-darker) 0%, var(--ds-dark) 100%);
+    position: relative;
+    min-height: 100vh;
+}
+
+.dark-souls-theme::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url('../images/backgrounds/bonfire-pixel.png');
+    background-size: 200px;
+    background-position: center;
+    opacity: 0.03;
+    z-index: -1;
+    image-rendering: pixelated;
+}
+
+.character-selection-bg::before {
+    background-image: 
+        url('../images/backgrounds/bonfire-pixel.png'),
+        radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+    background-size: 150px, cover;
+}
+
+/* Container principale */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Stile Dark Souls */
+.ds-header {
+    text-align: center;
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    margin: 1rem auto;
+    border: 3px solid var(--ds-gold);
+    border-image: 
+        linear-gradient(45deg, var(--ds-gold), var(--ds-bronze)) 1;
+    position: relative;
+    box-shadow: 
+        0 0 30px rgba(212, 175, 55, 0.4),
+        inset 0 0 30px rgba(0, 0, 0, 0.7);
+    max-width: 1000px;
+}
+
+.ds-title {
+    color: var(--ds-gold);
+    text-shadow: 
+        2px 2px 0 var(--ds-blood),
+        4px 4px 0 var(--ds-shadow),
+        6px 6px 0 rgba(0, 0, 0, 0.9);
+    font-size: 2.8rem;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.ds-subtitle {
+    color: var(--ds-parchment);
+    font-size: 1.3rem;
+    margin: 0.5rem 0;
+    text-shadow: 1px 1px 2px var(--ds-shadow);
+    font-style: italic;
+}
+
+/* Animazione Falò */
+.bonfire-animation {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 100px;
+    z-index: 2;
+}
+
+.flame {
+    position: absolute;
+    width: 25px;
+    height: 50px;
+    background: 
+        radial-gradient(circle, #ff4500 0%, #ff8c00 50%, transparent 70%);
+    border-radius: 50% 50% 20% 20%;
+    animation: bonfire-flicker 2s ease-in-out infinite;
+    filter: blur(3px) brightness(1.2);
+}
+
+.flame:nth-child(1) {
+    left: 15px;
+    animation-delay: 0s;
+    transform: scale(0.9);
+}
+
+.flame:nth-child(2) {
+    left: 27px;
+    animation-delay: 0.3s;
+    transform: scale(1.1);
+}
+
+.flame:nth-child(3) {
+    left: 40px;
+    animation-delay: 0.6s;
+    transform: scale(0.8);
+}
+
+@keyframes bonfire-flicker {
     0%, 100% { 
-        transform: scale(1);
-        color: var(--ds-parchment);
+        transform: translateY(0) scale(var(--scale, 1));
+        opacity: 0.7;
+    }
+    25% { 
+        transform: translateY(-5px) scale(calc(var(--scale, 1) * 1.1));
+        opacity: 0.9;
     }
     50% { 
-        transform: scale(1.2);
-        color: var(--ds-gold);
+        transform: translateY(-12px) scale(calc(var(--scale, 1) * 1.2));
+        opacity: 1;
+    }
+    75% { 
+        transform: translateY(-7px) scale(calc(var(--scale, 1) * 1.05));
+        opacity: 0.8;
     }
 }
 
-/* Stili per i mostri con immagini */
-.monster-sprite {
-    width: 120px;
-    height: 120px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: 3px solid var(--ds-bronze);
-    border-radius: 10px;
-    margin: 0 auto;
-    image-rendering: pixelated;
-    background-color: rgba(0, 0, 0, 0.3);
+/* Bottoni Dark Souls */
+.ds-button {
+    background: 
+        linear-gradient(45deg, var(--ds-bronze), var(--ds-gold));
+    border: 2px solid var(--ds-gold);
+    padding: 14px 32px;
+    color: var(--ds-dark);
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'MedievalSharp', cursive;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 
+        0 4px 15px rgba(212, 175, 55, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 2px 4px var(--ds-shadow);
+    border-radius: 2px;
 }
 
-/* Animazioni per i personaggi */
-.character-sprite.pixel-art {
-    width: 200px;
-    height: 200px;
-    border: 4px solid var(--ds-gold);
+.ds-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.ds-button:hover::before {
+    left: 100%;
+}
+
+.ds-button:hover {
+    transform: translateY(-3px);
     box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.7),
-        inset 0 0 20px rgba(212, 175, 55, 0.2);
+        0 8px 25px rgba(212, 175, 55, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 4px 8px var(--ds-shadow);
+    background: linear-gradient(45deg, var(--ds-gold), var(--ds-bronze));
+}
+
+.ds-button:active {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 2px 10px rgba(212, 175, 55, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.ds-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.giant-button {
+    padding: 20px 60px;
+    font-size: 1.6rem;
+    border-width: 3px;
+    letter-spacing: 3px;
+}
+
+.back-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* Card Dark Souls */
+.ds-card {
+    background: rgba(20, 20, 20, 0.95);
+    border: 2px solid var(--ds-bronze);
+    border-image: 
+        linear-gradient(45deg, var(--ds-bronze), var(--ds-gold)) 1;
+    padding: 1.8rem;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.7),
+        inset 0 0 25px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.ds-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.ds-card:hover::before {
+    left: 100%;
+}
+
+.ds-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: var(--ds-gold);
+    box-shadow: 
+        0 12px 35px rgba(212, 175, 55, 0.5),
+        inset 0 0 35px rgba(212, 175, 55, 0.1);
+}
+
+/* Grid Personaggi */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 2.5rem 0;
+}
+
+.character-card {
+    text-align: center;
+    position: relative;
+}
+
+.character-card h3 {
+    color: var(--ds-gold);
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.4rem;
+    text-shadow: 1px 1px 2px var(--ds-shadow);
+}
+
+.character-card p {
+    color: var(--ds-parchment);
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.character-hint {
+    font-style: italic;
+    color: var(--ds-bronze);
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Avatar Personaggi Pixel Art */
+.character-avatar {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 1.2rem;
+    border: 4px solid var(--ds-gold);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(212, 175, 55, 0.3);
     image-rendering: pixelated;
     background-size: cover;
     background-position: center;
     transition: all 0.3s ease;
 }
 
-.character-sprite.pixel-art:hover {
-    transform: scale(1.05);
-    box-shadow: 
-        0 12px 35px rgba(212, 175, 55, 0.4),
-        inset 0 0 30px rgba(212, 175, 55, 0.3);
+.character-avatar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(212,175,55,0.1) 0%, transparent 50%);
+    pointer-events: none;
 }
 
-/* Stili per le barre delle statistiche con animazioni */
-.stat-bar {
-    margin: 12px 0;
+.character-card:hover .character-avatar {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 
+        0 8px 25px rgba(212, 175, 55, 0.5),
+        inset 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Placeholder per immagini pixel */
+.valentina-pixel { 
+    background: 
+        linear-gradient(135deg, #8b0000 0%, #ff6b6b 100%);
+    border: 4px solid #ff6b6b;
+}
+
+.vincenzo-pixel { 
+    background: 
+        linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%);
+    border: 4px solid #60a5fa;
+}
+
+.cesare-pixel { 
+    background: 
+        linear-gradient(135deg, #854d0e 0%, #eab308 100%);
+    border: 4px solid #eab308;
+}
+
+.bardo-pixel { 
+    background: 
+        linear-gradient(135deg, #7e22ce 0%, #c084fc 100%);
+    border: 4px solid #c084fc;
+}
+
+.paladina-pixel { 
+    background: 
+        linear-gradient(135deg, #dc2626 0%, #fca5a5 100%);
+    border: 4px solid #fca5a5;
+}
+
+.william-pixel { 
+    background: 
+        linear-gradient(135deg, #15803d 0%, #4ade80 100%);
+    border: 4px solid #4ade80;
+}
+
+/* Sprite grandi per dettagli */
+.character-sprite.pixel-art {
+    width: 250px;
+    height: 250px;
+    border: 5px solid var(--ds-gold);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.8),
+        inset 0 0 25px rgba(212, 175, 55, 0.2);
+    image-rendering: pixelated;
+    background-size: cover;
+    margin: 0 auto 2rem;
+}
+
+/* Container dettagli personaggio */
+.character-detail-container {
     position: relative;
+    min-height: 600px;
+}
+
+.character-detail {
+    display: none;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.character-detail.active {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.character-visual {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.character-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Text Box Dark Souls */
+.ds-text-box {
+    background: rgba(15, 15, 15, 0.95);
+    border: 2px solid var(--ds-bronze);
+    border-image: 
+        linear-gradient(45deg, var(--ds-bronze), var(--ds-stone)) 1;
+    padding: 1.8rem;
+    margin: 1.2rem 0;
+    box-shadow: 
+        inset 0 0 25px rgba(0, 0, 0, 0.6),
+        0 6px 20px rgba(0, 0, 0, 0.4);
+    position: relative;
+    backdrop-filter: blur(3px);
+}
+
+.ds-text-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ds-gold), transparent);
+}
+
+.ds-text-box h3 {
+    color: var(--ds-gold);
+    margin-top: 0;
+    border-bottom: 1px solid var(--ds-bronze);
+    padding-bottom: 0.5rem;
+}
+
+.ds-quote {
+    font-style: italic;
+    color: var(--ds-gold);
+    text-align: center;
+    border-left: 4px solid var(--ds-gold);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    text-shadow: 1px 1px 2px var(--ds-shadow);
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 0 8px 8px 0;
+}
+
+/* Barre statistiche Dark Souls */
+.stat-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.stat-bar {
+    margin: 0.8rem 0;
+}
+
+.stat-bar label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: var(--ds-parchment);
+    font-weight: bold;
+    text-shadow: 1px 1px 1px var(--ds-shadow);
+}
+
+.stat-value {
+    color: var(--ds-gold);
+    font-weight: bold;
 }
 
 .bar {
-    background: rgba(50, 50, 50, 0.8);
-    border: 2px solid var(--ds-bronze);
-    border-radius: 4px;
-    height: 24px;
+    background: rgba(50, 50, 50, 0.9);
+    border: 1px solid var(--ds-bronze);
+    border-radius: 3px;
+    height: 22px;
     overflow: hidden;
     position: relative;
     box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.5),
-        0 2px 4px rgba(0, 0, 0, 0.3);
+        inset 0 2px 4px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .fill {
     height: 100%;
+    transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     box-shadow: 
-        inset 0 -3px 0 rgba(255, 255, 255, 0.2),
-        0 3px 6px rgba(0, 0, 0, 0.4);
-    transform-origin: left;
+        inset 0 -2px 0 rgba(255, 255, 255, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .fill::after {
@@ -102,50 +540,403 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.1), 
-        transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
     animation: ds-shimmer 3s infinite;
 }
 
-/* Pulsanti statistiche migliorati */
-.stat-buttons {
-    display: flex;
-    gap: 8px;
+@keyframes ds-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
-.stat-btn {
-    background: rgba(212, 175, 55, 0.15);
-    border: 2px solid var(--ds-bronze);
-    color: var(--ds-parchment);
-    width: 44px;
-    height: 28px;
+/* Colori statistiche */
+.vitality { 
+    background: linear-gradient(135deg, #8b0000 0%, #dc2626 50%, #8b0000 100%);
+}
+.mana { 
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
+}
+.charisma { 
+    background: linear-gradient(135deg, #854d0e 0%, #eab308 50%, #854d0e 100%);
+}
+.luck { 
+    background: linear-gradient(135deg, #7e22ce 0%, #a855f7 50%, #7e22ce 100%);
+}
+.intelligence { 
+    background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 50%, #0369a1 100%);
+}
+.dexterity { 
+    background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #15803d 100%);
+}
+.strength { 
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #ea580c 100%);
+}
+
+/* Navigazione personaggi */
+.character-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.character-dots {
+    display: flex;
+    gap: 0.8rem;
+    margin: 0 1rem;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--ds-bronze);
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dot.active {
+    background: var(--ds-gold);
+    transform: scale(1.3);
+    box-shadow: 0 0 12px var(--ds-gold);
+}
+
+.dot:hover {
+    transform: scale(1.2);
+    background: var(--ds-gold);
+}
+
+/* Equipment Display */
+.equipment-display {
+    flex: 1;
+    min-width: 300px;
+}
+
+.equipment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background: rgba(30, 30, 30, 0.6);
+    border-left: 3px solid var(--ds-bronze);
+    transition: all 0.3s ease;
+}
+
+.equipment-item:hover {
+    background: rgba(40, 40, 40, 0.8);
+    border-left-color: var(--ds-gold);
+    transform: translateX(5px);
+}
+
+.item-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.item-name {
+    color: var(--ds-gold);
+    font-weight: bold;
+    flex-shrink: 0;
+    min-width: 120px;
+}
+
+.item-desc {
+    color: var(--ds-parchment);
+    opacity: 0.9;
+    flex: 1;
+}
+
+/* Abilità */
+.abilities {
+    margin: 2rem 0;
+}
+
+.ability-list {
+    display: grid;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+}
+
+.ability {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.ability:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        inset 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.ability h4 {
+    color: var(--ds-gold);
+    margin: 0 0 0.8rem 0;
+    border-bottom: 1px solid var(--ds-bronze);
+    padding-bottom: 0.5rem;
+}
+
+.ability p {
+    margin: 0.8rem 0;
+    line-height: 1.5;
+}
+
+.ability-cost {
+    color: var(--ds-bronze);
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ability-info {
+    color: #ff6b6b;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.ability.locked {
+    opacity: 0.7;
+    position: relative;
+}
+
+.ability.locked::after {
+    content: '🔒';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.4rem;
+    opacity: 0.8;
+}
+
+/* Footer Dark Souls */
+.ds-footer {
+    text-align: center;
+    padding: 2.5rem;
+    color: var(--ds-bronze);
+    margin-top: 3rem;
+    border-top: 2px solid var(--ds-bronze);
+    font-size: 0.95rem;
+    background: rgba(10, 10, 10, 0.9);
+}
+
+/* Sezioni titoli */
+.ds-section-title {
+    color: var(--ds-gold);
+    text-align: center;
+    margin: 2.5rem 0;
+    text-shadow: 
+        2px 2px 0 var(--ds-blood),
+        4px 4px 0 var(--ds-shadow);
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+}
+
+.ds-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--ds-gold), transparent);
+}
+
+/* Story Intro */
+.story-intro {
+    max-width: 800px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.story-intro h2 {
+    color: var(--ds-gold);
+    margin-bottom: 1.5rem;
+}
+
+.story-intro p {
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+.warning {
+    color: #ff6b6b;
     font-weight: bold;
     font-size: 1.1rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.stat-btn:hover {
-    background: rgba(212, 175, 55, 0.25);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+/* Game Stats Preview */
+.game-stats-preview {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    flex-wrap: wrap;
 }
 
-.stat-btn:active {
-    transform: translateY(0);
+.stat-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.1rem;
 }
 
-.plus-btn:hover {
-    border-color: #4ecdc4;
-    box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);
+.stat-icon {
+    font-size: 1.4rem;
 }
 
-.minus-btn:hover {
-    border-color: #ff6b6b;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+/* Start Game Section */
+.start-game {
+    text-align: center;
+    margin: 3rem 0;
+}
+
+/* Effetti particellari */
+@keyframes soul-glitter {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0;
+    }
+    50% { 
+        transform: translateY(-25px) rotate(180deg) scale(1.2);
+        opacity: 1;
+    }
+}
+
+.soul-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--ds-gold);
+    border-radius: 50%;
+    animation: soul-glitter 4s ease-in-out infinite;
+    pointer-events: none;
+    filter: blur(1px);
+    box-shadow: 0 0 8px currentColor;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .ds-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+    
+    .ds-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .character-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .giant-button {
+        padding: 16px 40px;
+        font-size: 1.3rem;
+    }
+    
+    .character-visual {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .character-sprite.pixel-art {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .game-stats-preview {
+        gap: 2rem;
+        flex-direction: column;
+    }
+    
+    .equipment-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .item-name {
+        min-width: auto;
+    }
+    
+    .character-navigation {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .bonfire-animation {
+        top: -30px;
+        width: 60px;
+        height: 80px;
+    }
+    
+    .flame {
+        width: 18px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ds-header {
+        padding: 1.5rem;
+        margin: 0.5rem;
+    }
+    
+    .ds-title {
+        font-size: 1.6rem;
+    }
+    
+    .character-avatar {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .ds-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+/* Scrollbar Personalization */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--ds-dark);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--ds-bronze), var(--ds-gold));
+    border-radius: 6px;
+    border: 2px solid var(--ds-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--ds-gold), var(--ds-bronze));
 }
