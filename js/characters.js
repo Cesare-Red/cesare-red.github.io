@@ -117,7 +117,7 @@ class CharacterManager {
         if (barElement) {
             barElement.style.width = `${value}%`;
             
-            // Animazione
+            // Animazione fluida
             barElement.style.transition = 'width 0.5s ease-in-out';
             setTimeout(() => {
                 barElement.style.transition = '';
@@ -223,7 +223,232 @@ class CharacterManager {
         }, 1000);
     }
 
-    // ... resto dei metodi per navigazione personaggi
+    setupCharacterNavigation() {
+        const prevBtn = document.querySelector('.prev-button');
+        const nextBtn = document.querySelector('.next-button');
+        const dots = document.querySelectorAll('.dot');
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => this.showPreviousCharacter());
+            nextBtn.addEventListener('click', () => this.showNextCharacter());
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                const character = e.target.dataset.character;
+                this.showCharacter(character);
+            });
+        });
+
+        // Navigazione da tastiera
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                this.showPreviousCharacter();
+            } else if (e.key === 'ArrowRight') {
+                this.showNextCharacter();
+            } else if (e.key === 'Enter') {
+                this.selectCurrentCharacter();
+            }
+        });
+    }
+
+    setupCharacterSelection() {
+        const selectButtons = document.querySelectorAll('.select-character');
+        selectButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const character = e.target.dataset.character;
+                this.selectCharacter(character);
+            });
+        });
+    }
+
+    selectCurrentCharacter() {
+        this.selectCharacter(this.currentCharacter);
+    }
+
+    loadCharacterData() {
+        this.updateCharacterDisplay();
+    }
+
+    showCharacter(character) {
+        this.currentCharacter = character;
+        this.updateCharacterDisplay();
+        
+        // Animazione di transizione
+        const details = document.querySelectorAll('.character-detail');
+        details.forEach(detail => {
+            if (detail.dataset.character === character) {
+                detail.style.opacity = '0';
+                setTimeout(() => {
+                    detail.classList.add('active');
+                    detail.style.opacity = '1';
+                }, 150);
+            } else {
+                detail.classList.remove('active');
+            }
+        });
+
+        // Aggiorna i dots di navigazione
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach(dot => {
+            dot.classList.toggle('active', dot.dataset.character === character);
+        });
+
+        // Effetto particellare
+        this.createTransitionParticles();
+
+        console.log(`✅ Personaggio ${character} visualizzato`);
+    }
+
+    showPreviousCharacter() {
+        const characters = ['valentina', 'vincenzo', 'cesare', 'bardo', 'paladina', 'william'];
+        const currentIndex = characters.indexOf(this.currentCharacter);
+        const prevIndex = (currentIndex - 1 + characters.length) % characters.length;
+        const prevCharacter = characters[prevIndex];
+        
+        console.log(`⬅️ Navigazione da ${this.currentCharacter} a ${prevCharacter}`);
+        this.showCharacter(prevCharacter);
+    }
+
+    showNextCharacter() {
+        const characters = ['valentina', 'vincenzo', 'cesare', 'bardo', 'paladina', 'william'];
+        const currentIndex = characters.indexOf(this.currentCharacter);
+        const nextIndex = (currentIndex + 1) % characters.length;
+        const nextCharacter = characters[nextIndex];
+        
+        console.log(`➡️ Navigazione da ${this.currentCharacter} a ${nextCharacter}`);
+        this.showCharacter(nextCharacter);
+    }
+
+    updateCharacterDisplay() {
+        const character = this.currentCharacter;
+        const stats = this.characterStats[character].stats;
+        
+        console.log(`🔄 Aggiornamento display per: ${character}`);
+        
+        // Aggiorna tutte le statistiche
+        Object.keys(stats).forEach(stat => {
+            this.updateStatDisplay(character, stat, stats[stat]);
+        });
+        
+        // Aggiorna i punti
+        this.updatePointsDisplay(character);
+        
+        // Aggiorna le abilità
+        this.updateAbilities(character);
+    }
+
+    updateAbilities(character) {
+        const abilities = game.characters[character]?.abilities;
+        if (!abilities) return;
+
+        const basicAbilitiesContainer = document.querySelector('.ability-list:not(.unlockable)');
+        const unlockableAbilitiesContainer = document.querySelector('.ability-list.unlockable');
+
+        if (basicAbilitiesContainer) {
+            basicAbilitiesContainer.innerHTML = '';
+            abilities.basic.forEach(ability => {
+                const abilityElement = this.createAbilityElement(ability);
+                basicAbilitiesContainer.appendChild(abilityElement);
+            });
+        }
+
+        if (unlockableAbilitiesContainer) {
+            unlockableAbilitiesContainer.innerHTML = '';
+            abilities.unlockable.forEach(ability => {
+                const abilityElement = this.createAbilityElement(ability, true);
+                unlockableAbilitiesContainer.appendChild(abilityElement);
+            });
+        }
+    }
+
+    createAbilityElement(ability, isUnlockable = false) {
+        const abilityDiv = document.createElement('div');
+        abilityDiv.className = `ability ds-text-box ${isUnlockable ? 'unlockable locked' : ''}`;
+        
+        abilityDiv.innerHTML = `
+            <h4>${ability.name}</h4>
+            <p>${ability.description}</p>
+            ${ability.cost ? `<span class="ability-cost">Costo Anima: ${ability.cost}</span>` : ''}
+            ${isUnlockable ? `<span class="ability-info">${ability.unlocked ? 'Sbloccato' : 'Miracolo Proibito'}</span>` : ''}
+        `;
+
+        return abilityDiv;
+    }
+
+    selectCharacter(character) {
+        console.log(`🎮 Tentativo di selezione personaggio: ${character}`);
+        
+        if (!game.characters[character]) {
+            console.error(`❌ Personaggio ${character} non valido!`);
+            alert('Personaggio non valido!');
+            return;
+        }
+
+        // Mostra feedback visivo
+        const button = document.querySelector(`[data-character="${character}"]`);
+        if (button) {
+            const originalText = button.textContent;
+            button.textContent = '🎮 Selezione in corso...';
+            button.disabled = true;
+            
+            // Animazione di caricamento
+            button.style.animation = 'pulse 1s infinite';
+            
+            // Usa il sistema di gioco principale per selezionare
+            setTimeout(() => {
+                game.selectCharacter(character);
+                
+                // Ripristina il pulsante (solo se ancora nella pagina)
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.animation = '';
+                }, 2000);
+            }, 1000);
+        } else {
+            game.selectCharacter(character);
+        }
+    }
+
+    createSoulParticles() {
+        const container = document.querySelector('.character-detail-container');
+        if (!container) return;
+
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => {
+                this.createSoulParticle(container);
+            }, i * 400);
+        }
+    }
+
+    createSoulParticle(container) {
+        const particle = document.createElement('div');
+        particle.className = 'soul-particle';
+        particle.style.left = `${Math.random() * 80 + 10}%`;
+        particle.style.top = `${Math.random() * 80 + 10}%`;
+        particle.style.animationDelay = `${Math.random() * 2}s`;
+        particle.style.background = `hsl(${Math.random() * 60 + 30}, 100%, 50%)`;
+        
+        container.appendChild(particle);
+
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 3000);
+    }
+
+    createTransitionParticles() {
+        const activeDetail = document.querySelector('.character-detail.active');
+        if (!activeDetail) return;
+
+        for (let i = 0; i < 6; i++) {
+            setTimeout(() => {
+                this.createSoulParticle(activeDetail);
+            }, i * 120);
+        }
+    }
 }
 
 // Aggiungi gli stili CSS per le animazioni
