@@ -8,6 +8,83 @@ class Level2 {
         this.init();
     }
 
+    init() {
+        this.setupEventListeners();
+        this.startPhase(1);
+        this.updateUI();
+    }
+
+    generateEnemies() {
+        return {
+            phase1: [
+                {
+                    name: "Tuco Salamanca",
+                    type: "human",
+                    level: 6,
+                    stats: {
+                        health: 120,
+                        maxHealth: 120,
+                        attack: 25,
+                        defense: 8,
+                        speed: 7
+                    },
+                    abilities: [
+                        {
+                            name: "Soffio di Metanfetamina",
+                            damage: 20,
+                            effect: "confusion",
+                            description: "Danno fisico + effetto confusione"
+                        },
+                        {
+                            name: "Rage Mode",
+                            damage: 40,
+                            effect: "self_damage",
+                            description: "Danno ×2, poi si autodanneggia di 10 HP"
+                        }
+                    ],
+                    drops: [
+                        { name: "Denti d'Oro", type: "accessory", effect: "+10 Carisma", chance: 1.0 }
+                    ],
+                    sprite: "tuco"
+                }
+                // Altri nemici...
+            ],
+            bosses: [
+                {
+                    name: "Skyler White",
+                    type: "final_boss",
+                    level: 12,
+                    stats: {
+                        health: 350,
+                        maxHealth: 350,
+                        attack: 40,
+                        defense: 20,
+                        speed: 6
+                    },
+                    abilities: [
+                        {
+                            name: "Modulo 730 Magico",
+                            damage: 0,
+                            effect: "stun",
+                            description: "Obliga tutti i personaggi a 'ricompilare' le loro abilità → skip di turno"
+                        },
+                        {
+                            name: "Divorzio Epico",
+                            damage: 50,
+                            effect: "single_target",
+                            description: "Infligge danni enormi al personaggio maschile con più HP"
+                        }
+                    ],
+                    drops: [
+                        { name: "Manuale della Coerenza Domestica", type: "legendary", effect: "Riduce del 50% il caos magico", chance: 1.0 }
+                    ],
+                    sprite: "skyler",
+                    phases: 2
+                }
+            ]
+        };
+    }
+
     generateSpecialEvents() {
         return [
             {
@@ -35,20 +112,11 @@ class Level2 {
                 condition: () => game.selectedCharacter === "valentina" && Math.random() < 0.25,
                 effect: () => {
                     this.addToBattleLog("🌮 Valentina sbaglia un incantesimo e trasforma il camper in un food truck di tacos magici!");
+                    // Cura tutto il party
                     game.party.forEach(member => {
                         member.stats.currentHealth = member.stats.maxHealth;
                     });
                     this.addToBattleLog("Il party è completamente curato dai tacos magici!");
-                }
-            },
-            {
-                name: "Paladina Assume Gus",
-                trigger: "boss_encounter",
-                condition: () => game.party.some(p => p.name === "Paladina del Buffet"),
-                effect: () => {
-                    this.addToBattleLog("🍗 La Paladina del Buffet: 'Gus, il tuo pollo è magnifico! Ti assumo come chef!'");
-                    this.addToBattleLog("Gus Fring è confuso e salta un turno!");
-                    return { boss_stun: 1 };
                 }
             },
             {
@@ -59,38 +127,12 @@ class Level2 {
                 effect: () => {
                     this.addToBattleLog("💥 SINERGIA: Valentina + Vincenzo - 'Crash Chimico'!");
                     this.addToBattleLog("Tutti i nemici di tipo tecnologico o chimico vanno in tilt!");
+                    // Applica confusione a tutti i nemici
                     return { enemy_confusion: 2 };
-                }
-            },
-            {
-                name: "Ritardo Corale",
-                trigger: "combat",
-                condition: () => game.party.some(p => p.name === "Cesare") && 
-                             game.party.some(p => p.name === "Il Tardo Bardo"),
-                effect: () => {
-                    this.addToBattleLog("🎭 SINERGIA: Cesare + Bardo - 'Ritardo Corale'!");
-                    this.addToBattleLog("Entrambi saltano il turno, ma i nemici ridono troppo per attaccare!");
-                    return { enemy_stun: 1 };
-                }
-            },
-            {
-                name: "Buffet del Contrabbando",
-                trigger: "combat",
-                condition: () => game.party.some(p => p.name === "Paladina del Buffet") && 
-                             game.party.some(p => p.name === "William"),
-                effect: () => {
-                    this.addToBattleLog("🕵️ SINERGIA: Paladina + William - 'Buffet del Contrabbando'!");
-                    this.addToBattleLog("Recuperano 20 HP rubando razioni dal laboratorio!");
-                    game.party.forEach(member => {
-                        member.stats.currentHealth = Math.min(
-                            member.stats.maxHealth, 
-                            member.stats.currentHealth + 20
-                        );
-                    });
                 }
             }
         ];
     }
 
-    // ... altri metodi per gestire il livello
+    // ... resto dei metodi per gestire il livello
 }
