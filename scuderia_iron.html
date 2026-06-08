@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scuderia Iron | Angelo Calandrino — Natural Bodybuilding Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue:       #1A5FB8;
+      --blue-l:     #3A82D8;
+      --blue-sat:   #1B6CDE;
+      --blue-dim:   rgba(26, 95, 184, 0.2);
+      --blue-glow:  rgba(26, 95, 184, 0.07);
+      --bull:       #1A4B8A;
+      --bg:         #05080F;
+      --bg2:        #090D18;
+      --bg3:        #0F1525;
+      --bg4:        #162030;
+      --txt:        #DDE6F5;
+      --txt2:       #7A8BAE;
+      --txt3:       #40506E;
+      --border:     rgba(26, 95, 184, 0.22);
+      --border2:    rgba(26, 95, 184, 0.10);
+      --ring-a:     #E91E63;
+      --ring-b:     #FF5722;
+      --ring-c:     #FFC107;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--txt);
+      overflow-x: hidden;
+    }
+
+    /* ── UTIL ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+    .eyebrow {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.78rem;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--blue-l); margin-bottom: 0.9rem;
+    }
+    .stitle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      text-transform: uppercase; line-height: 0.93;
+      margin-bottom: 1.6rem;
+    }
+    .acc { color: var(--blue-l); }
+    .divider { width: 52px; height: 3px; background: var(--blue); margin-bottom: 2rem; }
+
+    .btn-p {
+      display: inline-block; padding: 0.88rem 2.5rem;
+      background: var(--blue-sat); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 0.95rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+      transition: background .2s, transform .15s;
+    }
+    .btn-p:hover { background: var(--blue-l); transform: translateY(-2px); }
+    .btn-g {
+      display: inline-block; padding: 0.88rem 2.5rem;
+      background: transparent; color: var(--txt);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 0.95rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(100,140,220,0.35);
+      cursor: pointer;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+      transition: border-color .2s, color .2s, transform .15s;
+    }
+    .btn-g:hover { border-color: var(--blue-l); color: var(--blue-l); transform: translateY(-2px); }
+
+    /* ── FADE IN ── */
+    .fi { opacity:0; transform:translateY(26px); transition: opacity .7s, transform .7s; }
+    .fi.vis { opacity:1; transform:translateY(0); }
+    .fi.d1 { transition-delay:.1s; }
+    .fi.d2 { transition-delay:.2s; }
+    .fi.d3 { transition-delay:.3s; }
+
+    /* ═══════════ NAV ═══════════ */
+    #nav {
+      position: fixed; top:0; left:0; right:0; z-index:999;
+      padding: 1.25rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .4s, padding .4s, border-color .4s;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.scrolled {
+      background: rgba(5,8,15,0.96);
+      backdrop-filter: blur(14px);
+      padding: .72rem 2rem;
+      border-color: var(--border);
+    }
+    .nbrand { display:flex; align-items:center; gap:.8rem; text-decoration:none; }
+    .nbrand-txt {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:1.35rem;
+      letter-spacing:.07em; text-transform:uppercase; color:var(--txt);
+    }
+    .nbrand-txt em { color:var(--blue-l); font-style:normal; }
+    .nlinks { display:flex; gap:2.5rem; list-style:none; }
+    .nlinks a {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700; font-size:.85rem;
+      letter-spacing:.14em; text-transform:uppercase;
+      color:var(--txt2); text-decoration:none;
+      position:relative; transition:color .2s;
+    }
+    .nlinks a::after {
+      content:''; position:absolute; bottom:-3px; left:0; right:0;
+      height:1px; background:var(--blue-l);
+      transform:scaleX(0); transition:transform .2s;
+    }
+    .nlinks a:hover { color:var(--blue-l); }
+    .nlinks a:hover::after { transform:scaleX(1); }
+    @media(max-width:900px){ .nlinks,.ncta { display:none !important; } }
+
+    /* ═══════════ HERO ═══════════ */
+    #hero {
+      min-height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden;
+      padding:6rem 2rem 4rem;
+    }
+    .h-bg {
+      position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 72% 55% at 50% 65%, rgba(26,95,184,.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 82% 15%, rgba(26,95,184,.07) 0%, transparent 50%),
+        radial-gradient(ellipse 30% 22% at 10% 80%, rgba(26,95,184,.05) 0%, transparent 50%);
+    }
+    .h-grid {
+      position:absolute; inset:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(26,95,184,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,95,184,.04) 1px, transparent 1px);
+      background-size:55px 55px;
+      mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 75%);
+    }
+    .hcontent { text-align:center; position:relative; max-width:860px; }
+    .h-logo-w { width:158px; height:158px; margin:0 auto 2.8rem; }
+    .h-ey {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700; font-size:.82rem;
+      letter-spacing:.28em; text-transform:uppercase;
+      color:var(--blue-l); margin-bottom:1.1rem;
+    }
+    .h-h1 {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900;
+      font-size:clamp(4rem,10vw,8.5rem);
+      line-height:.89; letter-spacing:-.01em;
+      text-transform:uppercase;
+      margin-bottom:1.6rem;
+    }
+    .h-sub {
+      font-size:1.05rem; font-weight:300;
+      color:var(--txt2); max-width:480px;
+      margin:0 auto 2.8rem; line-height:1.75;
+    }
+    .h-stats {
+      display:inline-flex;
+      border:1px solid var(--border);
+      margin-bottom:3rem;
+    }
+    .h-stat {
+      padding:1.2rem 2.8rem; text-align:center;
+      border-right:1px solid var(--border);
+    }
+    .h-stat:last-child { border-right:none; }
+    .h-sn {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:2.8rem;
+      color:var(--blue-l); line-height:1;
+    }
+    .h-sl {
+      font-size:.7rem; font-weight:700;
+      letter-spacing:.16em; text-transform:uppercase;
+      color:var(--txt3); margin-top:.2rem;
+    }
+    .h-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .h-scroll {
+      position:absolute; bottom:2rem; left:50%;
+      transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      opacity:.32; animation:sb 2.2s ease-in-out infinite;
+    }
+    .h-scroll span { font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; font-weight:700; }
+    @keyframes sb {
+      0%,100% { transform:translateX(-50%) translateY(0); }
+      50%      { transform:translateX(-50%) translateY(7px); }
+    }
+
+    /* ═══════════ ABOUT ═══════════ */
+    #about {
+      padding:6rem 2rem;
+      background:var(--bg2);
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    }
+    .ab-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:center; }
+    .ab-frame { position:relative; }
+    .ab-box {
+      aspect-ratio:3/4; background:var(--bg3);
+      border:1px solid var(--border2);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden; position:relative;
+    }
+    .ab-corner {
+      position:absolute; width:68px; height:68px;
+    }
+    .ab-corner.tl { top:-10px; left:-10px; border-top:2px solid var(--blue); border-left:2px solid var(--blue); }
+    .ab-corner.br { bottom:-10px; right:-10px; border-bottom:2px solid var(--blue); border-right:2px solid var(--blue); }
+    .ab-badge {
+      position:absolute; bottom:1.5rem; left:-1.2rem;
+      background:var(--blue-sat); color:#fff;
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:.82rem;
+      letter-spacing:.1em; text-transform:uppercase;
+      padding:.5rem 1.2rem;
+      clip-path:polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+    }
+    .ab-body p { font-size:1rem; line-height:1.82; color:var(--txt2); margin-bottom:1.3rem; }
+    .ab-body strong { color:var(--txt); font-weight:600; }
+    .tag-row { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.5rem; }
+    .tag {
+      padding:.35rem .9rem;
+      border:1px solid var(--border);
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700; font-size:.75rem;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--blue-l);
+    }
+
+    /* ═══════════ SERVICES ═══════════ */
+    #services { padding:6rem 2rem; }
+    .sv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3rem; }
+    .sv-card {
+      background:var(--bg2); border:1px solid var(--border2);
+      padding:2.5rem 1.8rem; position:relative; overflow:hidden;
+      transition:border-color .3s, transform .3s;
+    }
+    .sv-card:hover { border-color:var(--blue); transform:translateY(-5px); }
+    .sv-card::after {
+      content:''; position:absolute; top:0; left:0; right:0;
+      height:2px; background:var(--blue-sat);
+      transform:scaleX(0); transform-origin:left; transition:transform .35s;
+    }
+    .sv-card:hover::after { transform:scaleX(1); }
+    .sv-num {
+      position:absolute; top:1.5rem; right:1.5rem;
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:4.5rem;
+      color:rgba(26,95,184,0.07); line-height:1;
+    }
+    .sv-icon { font-size:2.2rem; margin-bottom:1.4rem; display:block; }
+    .sv-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:1.45rem;
+      text-transform:uppercase; letter-spacing:.03em;
+      margin-bottom:.9rem;
+    }
+    .sv-text { font-size:.92rem; line-height:1.72; color:var(--txt2); margin-bottom:1.4rem; }
+    .sv-list { list-style:none; }
+    .sv-list li {
+      font-size:.88rem; color:var(--txt2);
+      padding:.45rem 0;
+      border-bottom:1px solid var(--border2);
+      display:flex; align-items:center; gap:.55rem;
+    }
+    .sv-list li:last-child { border-bottom:none; }
+    .sv-list li::before { content:'▸'; color:var(--blue-l); font-size:.65rem; flex-shrink:0; }
+
+    /* ═══════════ PALMARES ═══════════ */
+    #palmares {
+      padding:6rem 2rem;
+      background:var(--bg2);
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    }
+    .sb-row { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); margin-bottom:4rem; }
+    .sb-item {
+      padding:2.2rem 1.5rem; text-align:center;
+      border-right:1px solid var(--border); position:relative;
+    }
+    .sb-item:last-child { border-right:none; }
+    .sb-item::before {
+      content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+      width:0; height:2px; background:var(--blue-sat);
+      transition:width 1.1s ease;
+    }
+    .sb-item.vis::before { width:80%; }
+    .sb-n {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:3.8rem;
+      color:var(--blue-l); line-height:1; display:block;
+    }
+    .sb-l {
+      font-size:.72rem; font-weight:700;
+      letter-spacing:.17em; text-transform:uppercase;
+      color:var(--txt3); margin-top:.4rem;
+    }
+    .ac-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .ac-item {
+      background:var(--bg3);
+      border-left:3px solid var(--blue);
+      padding:1.5rem 1.5rem 1.5rem 1.2rem;
+      display:flex; gap:1rem; align-items:flex-start;
+      transition:background .2s;
+    }
+    .ac-item:hover { background:var(--bg4); }
+    .ac-medal { font-size:1.9rem; flex-shrink:0; margin-top:.1rem; }
+    .ac-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700; font-size:1.05rem;
+      text-transform:uppercase; letter-spacing:.03em;
+      margin-bottom:.2rem;
+    }
+    .ac-org { font-size:.8rem; color:var(--blue-l); font-weight:600; letter-spacing:.05em; }
+    .ac-detail { font-size:.83rem; color:var(--txt2); margin-top:.25rem; line-height:1.55; }
+
+    /* ═══════════ CONTACT ═══════════ */
+    #contact { padding:6rem 2rem; }
+    .ct-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:start; }
+    .ct-body { font-size:1rem; color:var(--txt2); line-height:1.82; margin-bottom:2.5rem; }
+    .ct-row { display:flex; align-items:center; gap:1.1rem; margin-bottom:1.2rem; }
+    .ct-icon {
+      width:46px; height:46px; flex-shrink:0;
+      background:var(--bg3); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.15rem;
+    }
+    .ct-lbl {
+      font-size:.72rem; font-weight:700;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:var(--txt3); margin-bottom:.1rem;
+    }
+    .ct-val { font-size:.95rem; color:var(--txt); }
+    .ct-val a { color:var(--blue-l); text-decoration:none; }
+    .ct-val a:hover { text-decoration:underline; }
+    .cform {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:2.4rem;
+    }
+    .cform-h {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:1.4rem;
+      text-transform:uppercase; letter-spacing:.05em;
+      margin-bottom:1.8rem;
+    }
+    .fr2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .fg { margin-bottom:1.25rem; }
+    .fl {
+      display:block;
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700; font-size:.72rem;
+      letter-spacing:.18em; text-transform:uppercase;
+      color:var(--txt2); margin-bottom:.4rem;
+    }
+    .fc {
+      width:100%; padding:.8rem 1rem;
+      background:var(--bg3); border:1px solid var(--border2);
+      color:var(--txt);
+      font-family:'Barlow',sans-serif; font-size:.93rem;
+      outline:none; appearance:none;
+      transition:border-color .2s;
+    }
+    .fc:focus { border-color:var(--blue); }
+    .fc::placeholder { color:var(--txt3); }
+    textarea.fc { resize:vertical; min-height:115px; }
+    .fsub {
+      width:100%; padding:.95rem;
+      background:var(--blue-sat); color:#fff;
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:1rem;
+      letter-spacing:.18em; text-transform:uppercase;
+      border:none; cursor:pointer;
+      clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+      transition:background .2s, transform .15s;
+    }
+    .fsub:hover { background:var(--blue-l); transform:translateY(-1px); }
+    #smsg { display:none; text-align:center; padding:2rem 0; }
+    #smsg .si { font-size:3rem; margin-bottom:1rem; }
+    #smsg .st {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900;font-size:1.6rem;text-transform:uppercase;
+      color:var(--blue-l);margin-bottom:.5rem;
+    }
+    #smsg .ss { font-size:.9rem; color:var(--txt2); }
+
+    /* ═══════════ FOOTER ═══════════ */
+    footer {
+      background:var(--bg); border-top:1px solid var(--border);
+      padding:3rem 2rem 2rem; text-align:center;
+    }
+    .f-brand {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:1.8rem;
+      letter-spacing:.1em; text-transform:uppercase;
+      margin-bottom:.3rem;
+    }
+    .f-brand em { color:var(--blue-l); font-style:normal; }
+    .f-tag {
+      font-size:.72rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--txt3); margin-bottom:1.8rem;
+    }
+    .f-nav { display:flex; gap:2rem; justify-content:center; list-style:none; margin-bottom:2rem; flex-wrap:wrap; }
+    .f-nav a {
+      font-size:.78rem; font-weight:700;
+      letter-spacing:.12em; text-transform:uppercase;
+      color:var(--txt2); text-decoration:none; transition:color .2s;
+    }
+    .f-nav a:hover { color:var(--blue-l); }
+    .f-copy { font-size:.72rem; color:var(--txt3); }
+
+    /* ═══════════ RESPONSIVE ═══════════ */
+    @media(max-width:900px){
+      .ab-grid { grid-template-columns:1fr; gap:3rem; }
+      .sv-grid  { grid-template-columns:1fr; }
+      .sb-row   { grid-template-columns:1fr 1fr; }
+      .sb-item:nth-child(2){ border-right:none; }
+      .sb-item:nth-child(3){ border-top:1px solid var(--border); }
+      .sb-item:nth-child(4){ border-right:none; border-top:1px solid var(--border); }
+      .ac-grid  { grid-template-columns:1fr; }
+      .ct-grid  { grid-template-columns:1fr; gap:3rem; }
+      .h-stats  { flex-wrap:wrap; }
+      .h-stat   { padding:1rem 2rem; }
+    }
+    @media(max-width:560px){
+      .fr2 { grid-template-columns:1fr; }
+      .h-h1 { font-size:clamp(3rem,12vw,5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav id="nav">
+  <a href="#hero" class="nbrand">
+    <svg width="38" height="38" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="nr" x1="0" y1="0" x2="150" y2="150" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#E91E63"/>
+          <stop offset="35%"  stop-color="#FF5722"/>
+          <stop offset="70%"  stop-color="#FFC107"/>
+          <stop offset="100%" stop-color="#E91E63"/>
+        </linearGradient>
+      </defs>
+      <circle cx="75" cy="75" r="73" fill="url(#nr)"/>
+      <circle cx="75" cy="75" r="67" fill="#fff"/>
+      <!-- Bull – blue -->
+      <ellipse cx="82" cy="84" rx="28" ry="20" fill="#1A4B8A"/>
+      <polygon points="60,62 69,90 81,90 74,57" fill="#1A4B8A"/>
+      <circle cx="54" cy="65" r="15.5" fill="#1A4B8A"/>
+      <path d="M44,52 C36,35 27,37 33,47 C36,53 44,52 44,52 Z" fill="#1A4B8A"/>
+      <path d="M64,50 C70,31 62,27 58,37 C56,43 64,50 64,50 Z" fill="#1A4B8A"/>
+      <ellipse cx="41" cy="73" rx="9" ry="6.5" fill="#2E6BB0"/>
+      <circle cx="38.5" cy="73" r="1.6" fill="#1A4B8A"/>
+      <circle cx="44"   cy="73" r="1.6" fill="#1A4B8A"/>
+      <circle cx="48"   cy="60" r="2.8" fill="#fff"/>
+      <circle cx="48"   cy="60" r="1.2" fill="#1A4B8A"/>
+      <rect x="65" y="101" width="9"  height="16" rx="3" fill="#1A4B8A"/>
+      <rect x="78" y="101" width="9"  height="16" rx="3" fill="#1A4B8A"/>
+      <rect x="90" y="101" width="8"  height="13" rx="3" fill="#1A4B8A"/>
+      <rect x="100" y="101" width="8" height="13" rx="3" fill="#1A4B8A"/>
+      <path d="M110,76 Q122,64 118,80 Q115,90 122,96" stroke="#1A4B8A" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="nbrand-txt">SCUDERIA <em>IRON</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="#about">Chi sono</a></li>
+    <li><a href="#services">Servizi</a></li>
+    <li><a href="#palmares">Palmares</a></li>
+    <li><a href="#contact">Contatti</a></li>
+  </ul>
+  <a href="#contact" class="btn-p ncta" style="font-size:.78rem;padding:.6rem 1.6rem;">Candidati ora</a>
+</nav>
+
+
+<!-- ═══════ HERO ═══════ -->
+<section id="hero">
+  <div class="h-bg"></div>
+  <div class="h-grid"></div>
+
+  <div class="hcontent">
+
+    <!-- LOGO SVG fedele all'originale -->
+    <div class="h-logo-w fi">
+      <svg viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hr" x1="0" y1="0" x2="150" y2="150" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#E91E63"/>
+            <stop offset="28%"  stop-color="#FF5722"/>
+            <stop offset="58%"  stop-color="#FFC107"/>
+            <stop offset="80%"  stop-color="#FF9800"/>
+            <stop offset="100%" stop-color="#E91E63"/>
+          </linearGradient>
+        </defs>
+        <!-- Ring degradé -->
+        <circle cx="75" cy="75" r="73" fill="url(#hr)"/>
+        <!-- Sfondo interno bianco -->
+        <circle cx="75" cy="75" r="67" fill="#fff"/>
+
+        <!-- ── TORO BLU ── -->
+        <ellipse cx="82" cy="83" rx="28" ry="20" fill="#1A4B8A"/>
+        <polygon points="60,61 69,89 81,89 74,56" fill="#1A4B8A"/>
+        <circle cx="54" cy="64" r="15.5" fill="#1A4B8A"/>
+        <!-- corno sinistro -->
+        <path d="M44,51 C36,33 27,36 33,46 C36,52 44,51 44,51 Z" fill="#1A4B8A"/>
+        <!-- corno destro -->
+        <path d="M64,49 C70,30 62,26 58,36 C56,42 64,49 64,49 Z" fill="#1A4B8A"/>
+        <!-- muso -->
+        <ellipse cx="41" cy="72" rx="9" ry="6.5" fill="#2A63A8"/>
+        <circle cx="38.5" cy="72" r="1.6" fill="#1A4B8A"/>
+        <circle cx="44"   cy="72" r="1.6" fill="#1A4B8A"/>
+        <!-- occhio -->
+        <circle cx="48"   cy="59" r="2.8" fill="#fff"/>
+        <circle cx="48"   cy="59" r="1.2" fill="#1A4B8A"/>
+        <!-- zampe anteriori -->
+        <rect x="65" y="100" width="9"  height="16" rx="3" fill="#1A4B8A"/>
+        <rect x="78" y="100" width="9"  height="16" rx="3" fill="#1A4B8A"/>
+        <!-- zampe posteriori -->
+        <rect x="90" y="100" width="8"  height="13" rx="3" fill="#1A4B8A"/>
+        <rect x="100" y="100" width="8" height="13" rx="3" fill="#1A4B8A"/>
+        <!-- coda -->
+        <path d="M110,75 Q122,63 118,79 Q115,89 122,95" stroke="#1A4B8A" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+        <!-- Testo logo -->
+        <text x="75" y="121" text-anchor="middle"
+          font-family="'Barlow Condensed',Arial Black,sans-serif"
+          font-weight="900" font-size="10" fill="#1A4B8A" letter-spacing="3">SCUDERIA</text>
+        <text x="75" y="133" text-anchor="middle"
+          font-family="'Barlow Condensed',Arial Black,sans-serif"
+          font-weight="900" font-size="14.5" fill="#1A4B8A" letter-spacing="4">IRON</text>
+        <text x="75" y="144" text-anchor="middle"
+          font-family="Arial,sans-serif"
+          font-size="5.2" fill="#7A8BAE" letter-spacing="2">CALANDRINO TRAINER</text>
+      </svg>
+    </div>
+
+    <p class="h-ey fi d1">Natural Bodybuilding &amp; Strength Coach</p>
+
+    <h1 class="h-h1 fi d1">
+      Angelo<br><span class="acc">Calandrino</span>
+    </h1>
+
+    <p class="h-sub fi d2">
+      Bodybuilding coach con 2 Pro Card, 3 Titoli Assoluti e 23 Podi
+      nelle federazioni natural. Fondatore di <strong>Scuderia Iron</strong>.
+    </p>
+
+    <div class="h-stats fi d2">
+      <div class="h-stat">
+        <div class="h-sn">2</div>
+        <div class="h-sl">Pro Cards</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-sn">3</div>
+        <div class="h-sl">Titoli Assoluti</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-sn">23</div>
+        <div class="h-sl">Podi</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-sn">20+</div>
+        <div class="h-sl">Anni Carriera</div>
+      </div>
+    </div>
+
+    <div class="h-btns fi d3">
+      <a href="#contact" class="btn-p">Candidati per il coaching</a>
+      <a href="#palmares" class="btn-g">Vedi il palmares</a>
+    </div>
+  </div>
+
+  <div class="h-scroll">
+    <span>Scroll</span>
+    <svg width="14" height="18" viewBox="0 0 14 18" fill="none">
+      <line x1="7" y1="0" x2="7" y2="14" stroke="white" stroke-width="1.5"/>
+      <polyline points="1,9 7,15 13,9" stroke="white" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ═══════ ABOUT ═══════ -->
+<section id="about">
+  <div class="container">
+    <div class="ab-grid">
+
+      <!-- Colonna immagine -->
+      <div class="ab-frame fi">
+        <div class="ab-box">
+          <svg width="180" height="220" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="aura" cx="50%" cy="40%" r="60%">
+                <stop offset="0%"   stop-color="rgba(26,95,184,0.18)"/>
+                <stop offset="100%" stop-color="rgba(26,95,184,0)"/>
+              </radialGradient>
+            </defs>
+            <ellipse cx="90" cy="90" rx="90" ry="90" fill="url(#aura)"/>
+            <circle cx="90" cy="72" r="38" fill="rgba(26,95,184,0.10)" stroke="rgba(26,95,184,0.25)" stroke-width="1.5"/>
+            <circle cx="90" cy="70" r="26" fill="rgba(26,95,184,0.07)"/>
+            <text x="90" y="79" text-anchor="middle"
+              font-family="'Barlow Condensed',sans-serif"
+              font-weight="900" font-size="24" fill="rgba(30,111,216,0.4)">AC</text>
+            <ellipse cx="90" cy="162" rx="55" ry="36" fill="rgba(26,95,184,0.05)"/>
+            <line x1="55" y1="112" x2="125" y2="112" stroke="rgba(26,95,184,0.12)" stroke-width="1"/>
+            <text x="90" y="200" text-anchor="middle"
+              font-family="'Barlow Condensed',sans-serif"
+              font-weight="700" font-size="9.5" fill="rgba(58,130,216,0.3)"
+              letter-spacing="2">SCUDERIA IRON</text>
+          </svg>
+          <div class="ab-badge">Natural Coach</div>
+        </div>
+        <div class="ab-corner tl"></div>
+        <div class="ab-corner br"></div>
+      </div>
+
+      <!-- Colonna testo -->
+      <div class="fi d1">
+        <span class="eyebrow">Chi sono</span>
+        <h2 class="stitle">
+          Risultati veri,<br>metodo<br><span class="acc">scientifico</span>
+        </h2>
+        <div class="divider"></div>
+        <div class="ab-body">
+          <p>
+            Sono <strong>Angelo Calandrino</strong>, bodybuilding coach e fondatore di <strong>Scuderia Iron</strong>.
+            Con <strong>2 Pro Card</strong>, <strong>3 Titoli Assoluti</strong> e <strong>23 Podi</strong>
+            nelle federazioni natural, ho costruito un'esperienza agonistica d'élite che oggi metto
+            al servizio dei miei atleti.
+          </p>
+          <p>
+            Il mio approccio unisce <strong>preparazione scientifica</strong>, periodizzazione dell'allenamento
+            e gestione nutrizionale personalizzata. Lavoro con atleti agonisti — dai principianti alla
+            categoria Pro — e con chi vuole semplicemente raggiungere la propria miglior forma.
+          </p>
+          <p>
+            Con il coaching online di Scuderia Iron puoi prepararti per la gara o migliorare
+            la tua forza e composizione corporea ovunque tu sia, con il supporto diretto di un
+            coach che conosce il palco dall'interno.
+          </p>
+        </div>
+        <div class="tag-row">
+          <span class="tag">WNBF Pro</span>
+          <span class="tag">Natural BB</span>
+          <span class="tag">Strength Coach</span>
+          <span class="tag">Powerlifting</span>
+          <span class="tag">Online Coaching</span>
+          <span class="tag">Prep Gara</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ SERVICES ═══════ -->
+<section id="services">
+  <div class="container">
+    <div class="fi">
+      <span class="eyebrow">Cosa posso fare per te</span>
+      <h2 class="stitle">I miei<br><span class="acc">servizi</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="sv-grid">
+
+      <div class="sv-card fi">
+        <span class="sv-num">01</span>
+        <span class="sv-icon">🏆</span>
+        <h3 class="sv-title">Prep Gara Natural BB</h3>
+        <p class="sv-text">
+          Preparazione completa per competizioni WNBF, INBF e federazioni natural.
+          Dalla massa alla definizione, con peak week su misura.
+        </p>
+        <ul class="sv-list">
+          <li>Periodizzazione allenamento completa</li>
+          <li>Pianificazione nutrizionale dettagliata</li>
+          <li>Posing coaching professionale</li>
+          <li>Peak week personalizzata</li>
+          <li>Supporto pre e post gara</li>
+        </ul>
+      </div>
+
+      <div class="sv-card fi d1">
+        <span class="sv-num">02</span>
+        <span class="sv-icon">🏋️</span>
+        <h3 class="sv-title">Strength &amp; Powerlifting</h3>
+        <p class="sv-text">
+          Programmi di forza scientifici per massimizzare squat, panca e stacco.
+          Per agonisti e appassionati di forza di ogni livello.
+        </p>
+        <ul class="sv-list">
+          <li>Analisi tecnica esecutiva</li>
+          <li>Programmazione lineare e ondulata</li>
+          <li>Gestione dei massimali</li>
+          <li>Prep competitiva powerlifting</li>
+          <li>Prevenzione infortuni e recupero</li>
+        </ul>
+      </div>
+
+      <div class="sv-card fi d2">
+        <span class="sv-num">03</span>
+        <span class="sv-icon">💻</span>
+        <h3 class="sv-title">Coaching Online</h3>
+        <p class="sv-text">
+          Coaching 100% da remoto con feedback costante e piani adattati alla
+          tua risposta individuale. Candidati per lavorare con me.
+        </p>
+        <ul class="sv-list">
+          <li>Schede personalizzate mensili</li>
+          <li>Check-in settimanali con analisi</li>
+          <li>Video analisi degli esercizi</li>
+          <li>Supporto diretto via chat</li>
+          <li>Adattamento continuo del piano</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ PALMARES ═══════ -->
+<section id="palmares">
+  <div class="container">
+    <div class="fi">
+      <span class="eyebrow">Risultati sul campo</span>
+      <h2 class="stitle">Palmares &amp;<br><span class="acc">premiazioni</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="sb-row fi">
+      <div class="sb-item"><span class="sb-n">2</span><p class="sb-l">WNBF Pro Cards</p></div>
+      <div class="sb-item"><span class="sb-n">3</span><p class="sb-l">Titoli Assoluti</p></div>
+      <div class="sb-item"><span class="sb-n">23</span><p class="sb-l">Podi Federazioni Natural</p></div>
+      <div class="sb-item"><span class="sb-n">20+</span><p class="sb-l">Anni di Carriera</p></div>
+    </div>
+
+    <div class="ac-grid fi">
+
+      <div class="ac-item">
+        <span class="ac-medal">💳</span>
+        <div>
+          <p class="ac-title">2 Pro Card WNBF</p>
+          <p class="ac-org">World Natural Bodybuilding Federation</p>
+          <p class="ac-detail">
+            Due qualifiche Pro ottenute nelle competizioni WNBF — tra le più alte
+            onorificenze nel bodybuilding natural internazionale.
+          </p>
+        </div>
+      </div>
+
+      <div class="ac-item">
+        <span class="ac-medal">🥇</span>
+        <div>
+          <p class="ac-title">3 Titoli Assoluti</p>
+          <p class="ac-org">Campionati Nazionali Natural Bodybuilding</p>
+          <p class="ac-detail">
+            Tre titoli assoluti conquistati in gara — il massimo riconoscimento
+            nelle competizioni di natural bodybuilding.
+          </p>
+        </div>
+      </div>
+
+      <div class="ac-item">
+        <span class="ac-medal">🏆</span>
+        <div>
+          <p class="ac-title">1° Posto Overall — WNBF Poland</p>
+          <p class="ac-org">WNBF Poland International Championship</p>
+          <p class="ac-detail">
+            Vittoria assoluta nell'edizione internazionale WNBF in Polonia,
+            con atleti di livello europeo e mondiale.
+          </p>
+        </div>
+      </div>
+
+      <div class="ac-item">
+        <span class="ac-medal">🥈</span>
+        <div>
+          <p class="ac-title">23 Podi Federazioni Natural</p>
+          <p class="ac-org">WNBF / INBF / NBFI &amp; Federazioni Natural</p>
+          <p class="ac-detail">
+            23 podi totali tra campionati italiani, gare europee e competizioni
+            internazionali nel corso di 20+ anni di carriera agonistica.
+          </p>
+        </div>
+      </div>
+
+      <div class="ac-item">
+        <span class="ac-medal">💪</span>
+        <div>
+          <p class="ac-title">Strength Coach — Forza &amp; Powerlifting</p>
+          <p class="ac-org">Gare Nazionali di Forza</p>
+          <p class="ac-detail">
+            Esperienza agonistica nel settore della forza massimale con preparazione
+            atletica completa che integra bodybuilding e powerlifting.
+          </p>
+        </div>
+      </div>
+
+      <div class="ac-item">
+        <span class="ac-medal">⭐</span>
+        <div>
+          <p class="ac-title">Team Agonistico Scuderia Iron</p>
+          <p class="ac-org">Atleti preparati al vertice</p>
+          <p class="ac-detail">
+            Negli anni Scuderia Iron ha portato numerosi atleti sul podio in competizioni
+            di natural bodybuilding nazionali e internazionali.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ CONTACT ═══════ -->
+<section id="contact">
+  <div class="container">
+    <div class="ct-grid">
+
+      <div class="fi">
+        <span class="eyebrow">Lavora con me</span>
+        <h2 class="stitle">Candidati<br>per il tuo<br><span class="acc">percorso</span></h2>
+        <div class="divider"></div>
+        <p class="ct-body">
+          Che tu voglia salire su un palco, battere il tuo massimale o trasformare
+          la tua composizione corporea — puoi candidarti per lavorare con me.
+          Compila il form, parliamo del tuo obiettivo e vediamo se possiamo collaborare.
+        </p>
+
+        <div class="ct-row">
+          <div class="ct-icon">📧</div>
+          <div>
+            <p class="ct-lbl">Email</p>
+            <p class="ct-val"><a href="mailto:info@scuderiairon.it">info@scuderiairon.it</a></p>
+          </div>
+        </div>
+
+        <div class="ct-row">
+          <div class="ct-icon">📸</div>
+          <div>
+            <p class="ct-lbl">Instagram</p>
+            <p class="ct-val"><a href="https://www.instagram.com/scuderia_iron/" target="_blank">@scuderia_iron</a></p>
+          </div>
+        </div>
+
+        <div class="ct-row">
+          <div class="ct-icon">💻</div>
+          <div>
+            <p class="ct-lbl">Coaching</p>
+            <p class="ct-val">Online — disponibile ovunque in Italia e all'estero</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cform fi d1">
+        <h3 class="cform-h">Candidati<br><span class="acc">ora</span></h3>
+
+        <form id="cform" onsubmit="sendMsg(event)">
+          <div class="fr2">
+            <div class="fg">
+              <label class="fl" for="fn">Nome</label>
+              <input type="text" id="fn" name="fn" class="fc" placeholder="Il tuo nome" required>
+            </div>
+            <div class="fg">
+              <label class="fl" for="ln">Cognome</label>
+              <input type="text" id="ln" name="ln" class="fc" placeholder="Il tuo cognome" required>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl" for="em">Email</label>
+            <input type="email" id="em" name="em" class="fc" placeholder="La tua email" required>
+          </div>
+          <div class="fg">
+            <label class="fl" for="ob">Obiettivo</label>
+            <select id="ob" name="ob" class="fc" style="cursor:pointer;background:var(--bg3);color:var(--txt);">
+              <option value="" disabled selected>Seleziona il tuo obiettivo</option>
+              <option value="Preparazione gara Natural BB">Preparazione gara Natural BB</option>
+              <option value="Coaching Powerlifting / Forza">Coaching Powerlifting / Forza</option>
+              <option value="Coaching Online Generale">Coaching Online Generale</option>
+              <option value="Composizione corporea">Composizione corporea</option>
+              <option value="Altro">Altro</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl" for="exp">Esperienza</label>
+            <select id="exp" name="exp" class="fc" style="cursor:pointer;background:var(--bg3);color:var(--txt);">
+              <option value="" disabled selected>Anni di allenamento</option>
+              <option value="Meno di 1 anno">Meno di 1 anno</option>
+              <option value="1–3 anni">1–3 anni</option>
+              <option value="3–6 anni">3–6 anni</option>
+              <option value="6+ anni">6+ anni (atleta esperto)</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl" for="msg">Presentati</label>
+            <textarea id="msg" name="msg" class="fc"
+              placeholder="Raccontami il tuo obiettivo, la tua esperienza e perché vuoi lavorare con Scuderia Iron…"></textarea>
+          </div>
+          <button type="submit" class="fsub">Invia candidatura &rsaquo;</button>
+        </form>
+
+        <div id="smsg">
+          <div class="si">✅</div>
+          <p class="st">Candidatura inviata!</p>
+          <p class="ss">Ti risponderò il prima possibile.<br>Controlla anche la tua casella email.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <p class="f-brand">SCUDERIA <em>IRON</em></p>
+  <p class="f-tag">Calandrino Trainer — Natural Bodybuilding &amp; Strength</p>
+  <ul class="f-nav">
+    <li><a href="#about">Chi sono</a></li>
+    <li><a href="#services">Servizi</a></li>
+    <li><a href="#palmares">Palmares</a></li>
+    <li><a href="#contact">Candidati</a></li>
+    <li><a href="https://www.instagram.com/scuderia_iron/" target="_blank">Instagram ↗</a></li>
+  </ul>
+  <p class="f-copy">© 2025 Scuderia Iron — Angelo Calandrino Trainer. Tutti i diritti riservati.</p>
+</footer>
+
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+      }
+    });
+  }, { threshold: 0.10 });
+
+  document.querySelectorAll('.fi, .sb-item').forEach(el => io.observe(el));
+
+  function sendMsg(e) {
+    e.preventDefault();
+    const f  = e.target;
+    const fn = f.fn.value.trim();
+    const ln = f.ln.value.trim();
+    const em = f.em.value.trim();
+    const ob = f.ob.value || 'Non specificato';
+    const ex = f.exp.value || 'Non specificato';
+    const ms = f.msg.value.trim();
+
+    const sub  = encodeURIComponent(`[Scuderia Iron] Candidatura Coaching — ${fn} ${ln}`);
+    const body = encodeURIComponent(
+      `Nome: ${fn} ${ln}\nEmail: ${em}\nObiettivo: ${ob}\nEsperienza: ${ex}\n\n${ms}`
+    );
+    window.location.href = `mailto:info@scuderiairon.it?subject=${sub}&body=${body}`;
+
+    document.getElementById('cform').style.display = 'none';
+    document.getElementById('smsg').style.display  = 'block';
+  }
+</script>
+</body>
+</html>
