@@ -1,2 +1,2 @@
 const EMAIL_TO = 'havook000@gmail.com';
-document.addEventListener('DOMContentLoaded',()=>{const form=document.getElementById('contact-form');if(form){form.action='https://formspree.io/f/CHANGE_ME';const hidden=document.createElement('input');hidden.type='hidden';hidden.name='_replyto';hidden.value=EMAIL_TO;form.appendChild(hidden);}});
+document.addEventListener('DOMContentLoaded',()=>{const form=document.getElementById('contact-form');if(form){form.action='https://formspree.io/f/CHANGE_ME';const hidden=document.createElement('input');hidden.type='hidden';hidden.name='_replyto';hidden.value=EMAIL_TO;form.appendChild(hidden);}}); 
