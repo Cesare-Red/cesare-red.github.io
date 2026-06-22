@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+  <script>document.documentElement.classList.add('js');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scuderia Iron | Angelo Calandrino — Natural Bodybuilding Coach</title>
@@ -69,9 +70,9 @@
       letter-spacing: 0.14em; text-transform: uppercase;
       text-decoration: none; border: none; cursor: pointer;
       clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
-      transition: background .2s, transform .15s;
+      transition: background .2s;
     }
-    .btn-p:hover { background: var(--blue-l); transform: translateY(-2px); }
+    .btn-p:hover { background: var(--blue-l); }
     .btn-g {
       display: inline-block; padding: 0.88rem 2.5rem;
       background: transparent; color: var(--txt);
@@ -82,18 +83,27 @@
       border: 1px solid rgba(100,140,220,0.35);
       cursor: pointer;
       clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
-      transition: border-color .2s, color .2s, transform .15s;
+      transition: border-color .2s, color .2s;
     }
-    .btn-g:hover { border-color: var(--blue-l); color: var(--blue-l); transform: translateY(-2px); }
+    .btn-g:hover { border-color: var(--blue-l); color: var(--blue-l); }
 
-    /* ── FADE IN ── */
-    .fi { opacity:0; transform:translateY(26px); transition: opacity .7s, transform .7s; }
-    .fi.vis { opacity:1; transform:translateY(0); }
+    /* ── FADE IN (fallback baseline: visible by default, animated only if JS runs) ── */
+    .fi { opacity:1; transform:none; }
+    html.js .fi { opacity:0; transform:translateY(26px); transition: opacity .7s, transform .7s; }
+    html.js .fi.vis { opacity:1; transform:translateY(0); }
     .fi.d1 { transition-delay:.1s; }
     .fi.d2 { transition-delay:.2s; }
     .fi.d3 { transition-delay:.3s; }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, .ba-card:focus-visible {
+      outline: 2px solid var(--blue-l); outline-offset: 3px;
+    }
+
     /* ═══════════ NAV ═══════════ */
+    .nav-progress { position:fixed; top:0; left:0; height:3px; width:100%; background:var(--blue-l); transform-origin:left; transform:scaleX(0); z-index:1001; }
     #nav {
       position: fixed; top:0; left:0; right:0; z-index:999;
       padding: 1.25rem 2rem;
@@ -114,7 +124,7 @@
       letter-spacing:.07em; text-transform:uppercase; color:var(--txt);
     }
     .nbrand-txt em { color:var(--blue-l); font-style:normal; }
-    .nlinks { display:flex; gap:2.5rem; list-style:none; }
+    .nlinks { display:flex; gap:2.2rem; list-style:none; }
     .nlinks a {
       font-family:'Barlow Condensed',sans-serif;
       font-weight:700; font-size:.85rem;
@@ -169,6 +179,8 @@
       text-transform:uppercase;
       margin-bottom:1.6rem;
     }
+    .h-line-mask { display:block; overflow:hidden; }
+    .h-line { display:block; }
     .h-sub {
       font-size:1.05rem; font-weight:300;
       color:var(--txt2); max-width:480px;
@@ -253,9 +265,9 @@
     .sv-card {
       background:var(--bg2); border:1px solid var(--border2);
       padding:2.5rem 1.8rem; position:relative; overflow:hidden;
-      transition:border-color .3s, transform .3s;
+      transition:border-color .3s;
     }
-    .sv-card:hover { border-color:var(--blue); transform:translateY(-5px); }
+    .sv-card:hover { border-color:var(--blue); }
     .sv-card::after {
       content:''; position:absolute; top:0; left:0; right:0;
       height:2px; background:var(--blue-sat);
@@ -333,7 +345,6 @@
     .ac-org { font-size:.8rem; color:var(--blue-l); font-weight:600; letter-spacing:.05em; }
     .ac-detail { font-size:.83rem; color:var(--txt2); margin-top:.25rem; line-height:1.55; }
 
-
     /* ═══════════ PRIMA / DOPO ═══════════ */
     #results { padding:6rem 2rem; }
     .ba-intro { font-size:.98rem; color:var(--txt2); line-height:1.7; max-width:620px; margin-bottom:.6rem; }
@@ -359,11 +370,13 @@
       flex:1; position:relative; display:flex; align-items:center; justify-content:center;
       background:linear-gradient(160deg, var(--bg4), var(--bg3));
       border-right:1px solid var(--border2);
+      overflow:hidden;
     }
     .ba-photo-half:last-child { border-right:none; }
     .ba-photo-half .ba-ph-icon { font-size:2.1rem; opacity:.35; }
+    .ba-photo-half img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; }
     .ba-tag {
-      position:absolute; bottom:8px; left:8px;
+      position:absolute; bottom:8px; left:8px; z-index:2;
       font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:.62rem;
       letter-spacing:.14em; color:#fff; background:rgba(0,0,0,.55); padding:.2rem .55rem;
     }
@@ -378,7 +391,6 @@
     .ba-quote { font-size:.84rem; font-style:italic; color:var(--txt2); border-left:2px solid var(--border); padding-left:.9rem; margin:.8rem 0 1.1rem; line-height:1.55; }
     .ba-cta { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; color:var(--blue-l); text-decoration:none; }
     .ba-cta:hover { text-decoration:underline; }
-
 
     /* ═══════════ CONTACT ═══════════ */
     #contact { padding:6rem 2rem; }
@@ -484,6 +496,7 @@
       .sb-item:nth-child(3){ border-top:1px solid var(--border); }
       .sb-item:nth-child(4){ border-right:none; border-top:1px solid var(--border); }
       .ac-grid  { grid-template-columns:1fr; }
+      .ba-grid  { grid-template-columns:1fr; }
       .ct-grid  { grid-template-columns:1fr; gap:3rem; }
       .h-stats  { flex-wrap:wrap; }
       .h-stat   { padding:1rem 2rem; }
@@ -491,10 +504,13 @@
     @media(max-width:560px){
       .fr2 { grid-template-columns:1fr; }
       .h-h1 { font-size:clamp(3rem,12vw,5rem); }
+      .ba-card { height:470px; }
     }
   </style>
 </head>
 <body>
+
+<div class="nav-progress" id="navProgress" aria-hidden="true"></div>
 
 <!-- ═══════ NAV ═══════ -->
 <nav id="nav">
@@ -533,6 +549,7 @@
     <li><a href="#about">Chi sono</a></li>
     <li><a href="#services">Servizi</a></li>
     <li><a href="#palmares">Palmares</a></li>
+    <li><a href="#results">Risultati</a></li>
     <li><a href="#contact">Contatti</a></li>
   </ul>
   <a href="#contact" class="btn-p ncta" style="font-size:.78rem;padding:.6rem 1.6rem;">Candidati ora</a>
@@ -547,7 +564,7 @@
   <div class="hcontent">
 
     <!-- LOGO SVG fedele all'originale -->
-    <div class="h-logo-w fi">
+    <div class="h-logo-w" id="heroLogo">
       <svg viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="hr" x1="0" y1="0" x2="150" y2="150" gradientUnits="userSpaceOnUse">
@@ -600,37 +617,38 @@
       </svg>
     </div>
 
-    <p class="h-ey fi d1">Natural Bodybuilding &amp; Strength Coach</p>
+    <p class="h-ey">Natural Bodybuilding &amp; Strength Coach</p>
 
-    <h1 class="h-h1 fi d1">
-      Angelo<br><span class="acc">Calandrino</span>
+    <h1 class="h-h1">
+      <span class="h-line-mask"><span class="h-line">Angelo</span></span>
+      <span class="h-line-mask"><span class="h-line acc">Calandrino</span></span>
     </h1>
 
-    <p class="h-sub fi d2">
+    <p class="h-sub">
       Bodybuilding coach con 2 Pro Card, 3 Titoli Assoluti e 23 Podi
       nelle federazioni natural. Fondatore di <strong>Scuderia Iron</strong>.
     </p>
 
-    <div class="h-stats fi d2">
+    <div class="h-stats">
       <div class="h-stat">
-        <div class="h-sn">2</div>
+        <div class="h-sn" data-count="2">0</div>
         <div class="h-sl">Pro Cards</div>
       </div>
       <div class="h-stat">
-        <div class="h-sn">3</div>
+        <div class="h-sn" data-count="3">0</div>
         <div class="h-sl">Titoli Assoluti</div>
       </div>
       <div class="h-stat">
-        <div class="h-sn">23</div>
+        <div class="h-sn" data-count="23">0</div>
         <div class="h-sl">Podi</div>
       </div>
       <div class="h-stat">
-        <div class="h-sn">20+</div>
+        <div class="h-sn" data-count="20" data-suffix="+">0</div>
         <div class="h-sl">Anni Carriera</div>
       </div>
     </div>
 
-    <div class="h-btns fi d3">
+    <div class="h-btns">
       <a href="#contact" class="btn-p">Candidati per il coaching</a>
       <a href="#palmares" class="btn-g">Vedi il palmares</a>
     </div>
@@ -652,7 +670,7 @@
     <div class="ab-grid">
 
       <!-- Colonna immagine -->
-      <div class="ab-frame fi">
+      <div class="ab-frame">
         <div class="ab-box">
           <svg width="180" height="220" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -730,7 +748,7 @@
 
     <div class="sv-grid">
 
-      <div class="sv-card fi">
+      <div class="sv-card">
         <span class="sv-num">01</span>
         <span class="sv-icon">🏆</span>
         <h3 class="sv-title">Prep Gara Natural BB</h3>
@@ -747,7 +765,7 @@
         </ul>
       </div>
 
-      <div class="sv-card fi d1">
+      <div class="sv-card">
         <span class="sv-num">02</span>
         <span class="sv-icon">🏋️</span>
         <h3 class="sv-title">Strength &amp; Powerlifting</h3>
@@ -764,7 +782,7 @@
         </ul>
       </div>
 
-      <div class="sv-card fi d2">
+      <div class="sv-card">
         <span class="sv-num">03</span>
         <span class="sv-icon">💻</span>
         <h3 class="sv-title">Coaching Online</h3>
@@ -796,13 +814,13 @@
     </div>
 
     <div class="sb-row fi">
-      <div class="sb-item"><span class="sb-n">2</span><p class="sb-l">WNBF Pro Cards</p></div>
-      <div class="sb-item"><span class="sb-n">3</span><p class="sb-l">Titoli Assoluti</p></div>
-      <div class="sb-item"><span class="sb-n">23</span><p class="sb-l">Podi Federazioni Natural</p></div>
-      <div class="sb-item"><span class="sb-n">20+</span><p class="sb-l">Anni di Carriera</p></div>
+      <div class="sb-item"><span class="sb-n" data-count="2">0</span><p class="sb-l">WNBF Pro Cards</p></div>
+      <div class="sb-item"><span class="sb-n" data-count="3">0</span><p class="sb-l">Titoli Assoluti</p></div>
+      <div class="sb-item"><span class="sb-n" data-count="23">0</span><p class="sb-l">Podi Federazioni Natural</p></div>
+      <div class="sb-item"><span class="sb-n" data-count="20" data-suffix="+">0</span><p class="sb-l">Anni di Carriera</p></div>
     </div>
 
-    <div class="ac-grid fi">
+    <div class="ac-grid">
 
       <div class="ac-item">
         <span class="ac-medal">💳</span>
@@ -880,6 +898,7 @@
   </div>
 </section>
 
+
 <!-- ═══════ PRIMA / DOPO ═══════ -->
 <section id="results">
   <div class="container">
@@ -891,21 +910,20 @@
       <p class="ba-disclaimer">* Dati di esempio inseriti in fase di costruzione del sito — verranno sostituiti con le trasformazioni reali degli atleti, pubblicate solo con il loro consenso esplicito.</p>
     </div>
 
-    <div class="ba-grid fi">
+    <div class="ba-grid">
 
-      <!-- Card 1 -->
       <div class="ba-card" tabindex="0" role="button" aria-pressed="false" onclick="toggleFlip(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFlip(this);}">
         <div class="ba-inner">
           <div class="ba-face ba-front">
             <span class="ba-sample-tag">ESEMPIO</span>
             <div class="ba-photos">
               <div class="ba-photo-half">
-                <img src="after/manu_pre.PNG" alt="Marco, prima">
+                <img src="after/manu_pre.PNG" alt="Marco, prima" onerror="this.remove();">
                 <span class="ba-ph-icon">📷</span>
                 <span class="ba-tag">PRIMA</span>
               </div>
               <div class="ba-photo-half">
-                <img src="after/manu_post.PNG" alt="Marco, dopo">
+                <img src="after/manu_post.PNG" alt="Marco, dopo" onerror="this.remove();">
                 <span class="ba-ph-icon">🏆</span>
                 <span class="ba-tag">DOPO</span>
               </div>
@@ -926,19 +944,18 @@
         </div>
       </div>
 
-      <!-- Card 2 -->
       <div class="ba-card" tabindex="0" role="button" aria-pressed="false" onclick="toggleFlip(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFlip(this);}">
         <div class="ba-inner">
           <div class="ba-face ba-front">
             <span class="ba-sample-tag">ESEMPIO</span>
             <div class="ba-photos">
               <div class="ba-photo-half">
-                <img src="after/roberta_pre.PNG" alt="Giulia, prima">
+                <img src="after/roberta_pre.PNG" alt="Giulia, prima" onerror="this.remove();">
                 <span class="ba-ph-icon">📷</span>
                 <span class="ba-tag">PRIMA</span>
               </div>
               <div class="ba-photo-half">
-                <img src="after/roberta_post.PNG" alt="Giulia, dopo">
+                <img src="after/roberta_post.PNG" alt="Giulia, dopo" onerror="this.remove();">
                 <span class="ba-ph-icon">🏆</span>
                 <span class="ba-tag">DOPO</span>
               </div>
@@ -962,6 +979,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ═══════ CONTACT ═══════ -->
 <section id="contact">
@@ -1070,6 +1088,7 @@
     <li><a href="#about">Chi sono</a></li>
     <li><a href="#services">Servizi</a></li>
     <li><a href="#palmares">Palmares</a></li>
+    <li><a href="#results">Risultati</a></li>
     <li><a href="#contact">Candidati</a></li>
     <li><a href="https://www.instagram.com/scuderia_iron/" target="_blank">Instagram ↗</a></li>
   </ul>
@@ -1077,7 +1096,7 @@
 </footer>
 
 
-<!-- ═══════ SCRIPTS ═══════ -->
+<!-- ═══════ SCRIPTS BASE ═══════ -->
 <script>
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
@@ -1093,6 +1112,11 @@
   }, { threshold: 0.10 });
 
   document.querySelectorAll('.fi, .sb-item').forEach(el => io.observe(el));
+
+  function toggleFlip(card) {
+    const flipped = card.classList.toggle('flipped');
+    card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+  }
 
   function sendMsg(e) {
     e.preventDefault();
@@ -1113,6 +1137,126 @@
     document.getElementById('cform').style.display = 'none';
     document.getElementById('smsg').style.display  = 'block';
   }
+</script>
+
+<!-- ═══════ ANIMAZIONI PROFESSIONALI (GSAP + ScrollTrigger) ═══════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGSAP = window.gsap && window.ScrollTrigger;
+
+  document.querySelectorAll('[data-count]').forEach(el => {
+    el.textContent = el.dataset.count + (el.dataset.suffix || '');
+  });
+
+  if (!hasGSAP || reduceMotion) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const obj = { val: 0 };
+    el.textContent = '0' + suffix;
+    gsap.to(obj, {
+      val: target, duration: 1.4, ease: 'power2.out',
+      onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
+    });
+  }
+
+  /* ---------- ENTRATA HERO ---------- */
+  gsap.set('.h-logo-w', { opacity: 0, scale: 0.82 });
+  gsap.set('.h-ey, .h-sub, .h-stats, .h-btns', { opacity: 0, y: 16 });
+  gsap.set('.h-line', { yPercent: 115 });
+
+  const heroTl = gsap.timeline({ delay: 0.15 });
+  heroTl
+    .to('.h-logo-w', { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' })
+    .to('.h-ey', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.35')
+    .to('.h-line', { yPercent: 0, duration: 0.9, ease: 'power4.out', stagger: 0.12 }, '-=0.25')
+    .to('.h-sub', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.45')
+    .to('.h-stats', {
+      opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+      onStart: () => document.querySelectorAll('.h-sn[data-count]').forEach(animateCounter)
+    }, '-=0.4')
+    .to('.h-btns', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.35');
+
+  /* ---------- BARRA PROGRESSO SCROLL ---------- */
+  gsap.to('#navProgress', {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: true }
+  });
+
+  /* ---------- PARALLAX SFONDO HERO ---------- */
+  gsap.to('.h-grid', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('.h-bg', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+  /* ---------- REVEAL FOTO "CHI SONO" ---------- */
+  gsap.fromTo('.ab-box',
+    { clipPath: 'inset(0% 0% 0% 100%)' },
+    { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'power3.inOut',
+      scrollTrigger: { trigger: '.ab-frame', start: 'top 80%', once: true } }
+  );
+  gsap.from('.ab-corner.tl', { opacity: 0, x: -12, y: -12, duration: 0.6, delay: 0.5,
+    scrollTrigger: { trigger: '.ab-frame', start: 'top 80%', once: true } });
+  gsap.from('.ab-corner.br', { opacity: 0, x: 12, y: 12, duration: 0.6, delay: 0.5,
+    scrollTrigger: { trigger: '.ab-frame', start: 'top 80%', once: true } });
+  gsap.from('.ab-badge', { opacity: 0, x: -20, duration: 0.6, delay: 0.6,
+    scrollTrigger: { trigger: '.ab-frame', start: 'top 80%', once: true } });
+
+  /* ---------- RIVELAZIONI A CASCATA ---------- */
+  gsap.from('.sv-grid .sv-card', {
+    opacity: 0, y: 36, duration: 0.7, ease: 'power2.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.sv-grid', start: 'top 82%', once: true }
+  });
+  gsap.from('.ac-grid .ac-item', {
+    opacity: 0, x: -24, duration: 0.6, ease: 'power2.out', stagger: 0.08,
+    scrollTrigger: { trigger: '.ac-grid', start: 'top 85%', once: true }
+  });
+  gsap.from('.ba-grid .ba-card', {
+    opacity: 0, y: 50, rotateX: -8, transformPerspective: 1200, duration: 0.8, ease: 'power3.out', stagger: 0.15,
+    scrollTrigger: { trigger: '.ba-grid', start: 'top 85%', once: true }
+  });
+
+  /* ---------- CONTATORI PALMARES ---------- */
+  ScrollTrigger.create({
+    trigger: '.sb-row', start: 'top 85%', once: true,
+    onEnter: () => document.querySelectorAll('.sb-n[data-count]').forEach(animateCounter)
+  });
+
+  /* ---------- INTERAZIONI DESKTOP (mouse fine) ---------- */
+  if (window.matchMedia('(pointer: fine)').matches) {
+
+    document.querySelectorAll('.btn-p, .btn-g').forEach(btn => {
+      const mx = gsap.quickTo(btn, 'x', { duration: 0.3, ease: 'power3.out' });
+      const my = gsap.quickTo(btn, 'y', { duration: 0.3, ease: 'power3.out' });
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        mx((e.clientX - r.left - r.width / 2) * 0.35);
+        my((e.clientY - r.top - r.height / 2) * 0.35);
+      });
+      btn.addEventListener('mouseleave', () => { mx(0); my(0); });
+    });
+
+    document.querySelectorAll('.sv-card').forEach(card => {
+      gsap.set(card, { transformPerspective: 700 });
+      const rotX = gsap.quickTo(card, 'rotationX', { duration: 0.4, ease: 'power2.out' });
+      const rotY = gsap.quickTo(card, 'rotationY', { duration: 0.4, ease: 'power2.out' });
+      const liftY = gsap.quickTo(card, 'y', { duration: 0.4, ease: 'power2.out' });
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        rotY(px * 10);
+        rotX(py * -10);
+      });
+      card.addEventListener('mouseenter', () => liftY(-6));
+      card.addEventListener('mouseleave', () => { rotX(0); rotY(0); liftY(0); });
+    });
+  }
+})();
 </script>
 </body>
 </html>
